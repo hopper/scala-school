@@ -107,6 +107,11 @@ two: Int = 2
 
 You cannot change the binding to a val.
 
+```scala
+scala> two = 2
+<console>:8: error: reassignment to val
+       two = 2
+```
 ---
 
 # Variables
@@ -119,6 +124,26 @@ name: java.lang.String = steve
 
 scala> name = "marius"
 name: java.lang.String = marius
+```
+
+---
+
+# Equality
+
+Scala  has both reference and value equality.
+
+```scala
+scala> val foo = new String("foobar")
+foo: java.lang.String = foobar
+
+scala> val bar = new String("foobar")
+bar: java.lang.String = foobar
+
+scala> foo == bar
+res9: Boolean = true
+
+scala> foo.eq(bar)
+res10: Boolean = false
 ```
 
 ---
