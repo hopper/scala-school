@@ -1498,6 +1498,17 @@ Scala's powerful type system allows for very rich expression. Some of its chief 
 
 ---
 
+# Scala Type System
+
+* Everything extends from ```Any``` either through ```AnyRef``` or ```AnyVal```
+* ```Nothing``` extends from everything (and is the only class that may extend from both ```AnyRef``` and ```AnyVal```)
+
+.center[![Scala Type System](http://joelabrahamsson.com/PageFiles/148/1310_1644.jpg)]
+
+http://joelabrahamsson.com/learning-scala-part-eight-scalas-type-hierarchy-and-object-equality/
+
+---
+
 # Parametric polymorphism
 
 Polymorphism is used in order to write generic code (for values of different types) without compromising static typing richness.
@@ -1568,13 +1579,6 @@ In Scala, for example, you cannot do the following:
 scala> { x => x }
 <console>:7: error: missing parameter type
        { x => x }
-```
-
-Whereas in OCaml, you can:
-
-```scala
-# fun x -> x;;
-- : 'a -> 'a = <fun>
 ```
 
 In scala all type inference is _local_. Scala considers one expression at a time. For example:
