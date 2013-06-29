@@ -381,7 +381,7 @@ res2: () => Unit = <function0>
 
 When you can call one "function" without parentheses but not another, you might think <em>Whoops, I thought I knew how Scala functions worked, but I guess not. Maybe they sometimes need parentheses?</em> You might understand functions, but be using a method.
 
-In practice, you can do great things in Scala while remaining hazy on the difference between methods and functions. If you're new to Scala and read <a href="https://www.google.com/search?q=difference+scala+function+method">explanations of the differences</a>, you might have trouble following them. That doesn't mean you're going to have trouble using Scala. It just means that the difference between functions and methods is subtle enough such that explanations tend to dig into deep parts of the language.
+In practice, you can do great things in Scala while remaining hazy on the difference between methods and functions. If you're new to Scala and read [explanations of the differences](https://www.google.com/search?q=difference+scala+function+method), you might have trouble following them. That doesn't mean you're going to have trouble using Scala. It just means that the difference between functions and methods is subtle enough such that explanations tend to dig into deep parts of the language.
 
 ---
 
@@ -393,7 +393,7 @@ class ScientificCalculator(brand: String) extends Calculator(brand) {
 }
 ```
 
-*See Also* Effective Scala points out that a <a href="http://twitter.github.com/effectivescala/#Types%20and%20Generics-Type%20aliases">Type alias</a> is better than <code>extends</code> if the subclass isn't actually different from the superclass. A Tour of Scala describes <a href="http://www.scala-lang.org/node/125">Subclassing</a>.
+*See Also* Effective Scala points out that a [Type alias](http://twitter.github.com/effectivescala/#Types%20and%20Generics-Type%20aliases) is better than <code>extends</code> if the subclass isn't actually different from the superclass. A Tour of Scala describes [Subclassing](http://www.scala-lang.org/node/125).
 
 ---
 
@@ -462,7 +462,7 @@ class BMW extends Car with Shiny {
 }
 ```
 
-*See Also* Effective Scala has opinions about <a href="http://twitter.github.com/effectivescala/#Object oriented programming-Traits">trait</a>.
+*See Also* Effective Scala has opinions about [trait](http://twitter.github.com/effectivescala/#Object oriented programming-Traits).
 
 *When do you want a Trait instead of an Abstract Class?* If you want to define an interface-like type, you might find it difficult to choose between a trait or an abstract class. Either one lets you define a type with some behavior, asking extenders to define some other behavior. Some rules of thumb:
 
@@ -701,7 +701,7 @@ ensures that we can handle any statement. Otherwise you will suffer a
 runtime error if you pass in a number that doesn't match. We discuss
 this more later.
 
-*See Also* Effective Scala has opinions about <a href="http://twitter.github.com/effectivescala/#Functional programming-Pattern matching">when to use pattern matching</a> and <a href="http://twitter.github.com/effectivescala/#Formatting-Pattern matching">pattern matching formatting</a>. A Tour of Scala describes <a href="http://www.scala-lang.org/node/120">Pattern Matching</a>
+*See Also* Effective Scala has opinions about [when to use pattern matching](http://twitter.github.com/effectivescala/#Functional programming-Pattern matching) and [pattern matching formatting](http://twitter.github.com/effectivescala/#Formatting-Pattern matching). A Tour of Scala describes [Pattern Matching](http://www.scala-lang.org/node/120)
 
 ---
 
@@ -868,7 +868,7 @@ h1. Basic Data Structures
 
 Scala provides some nice collections.
 
-*See Also* Effective Scala has opinions about how to use <a href="http://twitter.github.com/effectivescala/#Collections">collections</a>.
+*See Also* Effective Scala has opinions about how to use [collections](http://twitter.github.com/effectivescala/#Collections).
 
 ---
 
@@ -927,7 +927,7 @@ scala> 1 -> 2
 res0: (Int, Int) = (1,2)
 ```
 
-*See Also* Effective Scala has opinions about <a href="http://twitter.github.com/effectivescala/#Functional programming-Destructuring bindings">destructuring bindings</a> ("unpacking" a tuple).
+*See Also* Effective Scala has opinions about [destructuring bindings](http://twitter.github.com/effectivescala/#Functional programming-Destructuring bindings) ("unpacking" a tuple).
 
 ---
 
@@ -1017,11 +1017,11 @@ val result = res1 match {
 }
 </code>
 
-*See Also* Effective Scala has opinions about <a href="http://twitter.github.com/effectivescala/#Functional programming-Options">Options</a>.
+*See Also* Effective Scala has opinions about [Options](http://twitter.github.com/effectivescala/#Functional programming-Options).
 
 h1(#combinators). Functional Combinators
 
-<code>List(1, 2, 3) map squared</code> applies the function <code>squared</code> to the elements of the the list, returning a new list, perhaps <code>List(1, 4, 9)</code>. We call operations like <code>map</code> <em>combinators</em>. (If you'd like a better definition, you might like <a href="http://stackoverflow.com/questions/7533837/explanation-of-combinators-for-the-working-man">Explanation of combinators</a> on Stackoverflow.) Their most common use is on the standard data structures.
+<code>List(1, 2, 3) map squared</code> applies the function <code>squared</code> to the elements of the the list, returning a new list, perhaps <code>List(1, 4, 9)</code>. We call operations like <code>map</code> <em>combinators</em>. (If you'd like a better definition, you might like [Explanation of combinators](http://stackoverflow.com/questions/7533837/explanation-of-combinators-for-the-working-man) on Stackoverflow.) Their most common use is on the standard data structures.
 
 ---
 
@@ -1219,7 +1219,7 @@ res1: List[Int] = List(2, 4, 6, 8)
 
 that example calling map and then flatten is an example of the "combinator"-like nature of these functions.
 
-*See Also* Effective Scala has opinions about <a href="http://twitter.github.com/effectivescala/#Functional programming-`flatMap`">flatMap</a>.
+*See Also* Effective Scala has opinions about [flatMap](http://twitter.github.com/effectivescala/#Functional programming-`flatMap`).
 
 ---
 
@@ -1361,7 +1361,7 @@ A Partial Function is only defined for certain values of the defined type.  A Pa
 
 __Note__ <code>PartialFunction</code> is unrelated to a partially applied function that we talked about earlier.
 
-*See Also* Effective Scala has opinions about <a href="http://twitter.github.com/effectivescala/#Functional programming-Partial functions">PartialFunction</a>.
+*See Also* Effective Scala has opinions about [PartialFunction](http://twitter.github.com/effectivescala/#Functional programming-Partial functions).
 
 ```scala
 scala> val one: PartialFunction[Int, String] = { case 1 => "one" }
@@ -1769,7 +1769,7 @@ scala> hashcodes(Seq("one", "two", "three"))
 res1: Seq[Int] = List(110182, 115276, 110339486)
 ```
 
-*See Also* <a href="http://www.drmaciver.com/2008/03/existential-types-in-scala/">Existential types in Scala by D. R. MacIver</a>
+*See Also* [Existential types in Scala by D. R. MacIver](http://www.drmaciver.com/2008/03/existential-types-in-scala/)
 
 ---
 
