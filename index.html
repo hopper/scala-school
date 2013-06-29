@@ -191,6 +191,10 @@ scala> addOne(1)
 res4: Int = 2
 ```
 
+---
+
+# Functions (ctd.)
+
 If your function is made up of many expressions, you can use {} to give yourself some breathing room.
 
 ```scala
@@ -318,7 +322,7 @@ Constructors aren't special methods, they are the code outside of method definit
 
 ```scala
 class Calculator(brand: String) {
-  /    *
+  /*
    * A constructor.
    */
   val color: String = if (brand == "TI") {
