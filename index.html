@@ -52,7 +52,7 @@ Scala is not just a nicer Java.  You should learn it with a fresh mind- you will
 
 # Start the Interpreter
 
-Start the included <code>sbt console</code>.
+Start the included `sbt console`.
 
 ```scala
 $ sbt console
@@ -102,7 +102,7 @@ scala> two = 2
 
 # Variables
 
-If you need to change the binding, you can use a <code>var</code> instead.
+If you need to change the binding, you can use a `var` instead.
 
 ```scala
 scala> var name = "steve"
@@ -220,7 +220,7 @@ You will see this syntax often used when passing an anonymous function as an arg
 
 # Partial application
 
-You can partially apply a function with an underscore, which gives you another function. Scala uses the underscore to mean different things in different contexts, but you can usually think of it as an unnamed magical wildcard. In the context of <code>{ _ + 2 }</code> it means an unnamed parameter. You can use it like so:
+You can partially apply a function with an underscore, which gives you another function. Scala uses the underscore to mean different things in different contexts, but you can usually think of it as an unnamed magical wildcard. In the context of `{ _ + 2 }` it means an unnamed parameter. You can use it like so:
 
 ```scala
 scala> def adder(m: Int, n: Int) = m + n
@@ -267,7 +267,7 @@ scala> timesTwo(3)
 res1: Int = 6
 ```
 
-You can take any function of multiple arguments and curry it. Let's try with our earlier <code>adder</code>
+You can take any function of multiple arguments and curry it. Let's try with our earlier `adder`
 
 ```scala
 scala> (adder _).curried
@@ -278,7 +278,7 @@ res1: (Int) => (Int) => Int = <function1>
 
 # Variable length arguments
 
-There is a special syntax for methods that can take parameters of a repeated type. To apply String's <code>capitalize</code> function to several strings, you might write:
+There is a special syntax for methods that can take parameters of a repeated type. To apply String's `capitalize` function to several strings, you might write:
 
 ```scala
 def capitalizeAll(args: String*) = {
@@ -393,7 +393,7 @@ class ScientificCalculator(brand: String) extends Calculator(brand) {
 }
 ```
 
-*See Also* Effective Scala points out that a [Type alias](http://twitter.github.com/effectivescala/#Types%20and%20Generics-Type%20aliases) is better than <code>extends</code> if the subclass isn't actually different from the superclass. A Tour of Scala describes [Subclassing](http://www.scala-lang.org/node/125).
+*See Also* Effective Scala points out that a [Type alias](http://twitter.github.com/effectivescala/#Types%20and%20Generics-Type%20aliases) is better than `extends` if the subclass isn't actually different from the superclass. A Tour of Scala describes [Subclassing](http://www.scala-lang.org/node/125).
 
 ---
 
@@ -435,7 +435,7 @@ c: Circle = Circle@65c0035b
 
 # Traits
 
-<code>traits</code> are collections of fields and behaviors that you can extend or mixin to your classes.
+`trait`s are collections of fields and behaviors that you can extend or mixin to your classes.
 
 ```scala
 trait Car {
@@ -453,7 +453,7 @@ class BMW extends Car {
 }
 ```
 
-One class can extend several traits using the <code>with</code> keyword:
+One class can extend several traits using the `with` keyword:
 
 ```scala
 class BMW extends Car with Shiny {
@@ -464,20 +464,24 @@ class BMW extends Car with Shiny {
 
 *See Also* Effective Scala has opinions about [trait](http://twitter.github.com/effectivescala/#Object oriented programming-Traits).
 
-*When do you want a Trait instead of an Abstract Class?* If you want to define an interface-like type, you might find it difficult to choose between a trait or an abstract class. Either one lets you define a type with some behavior, asking extenders to define some other behavior. Some rules of thumb:
+---
+
+# Traits vs. Abstract Classes 
+
+If you want to define an interface-like type, you might find it difficult to choose between a trait or an abstract class. Either one lets you define a type with some behavior, asking extenders to define some other behavior. Some rules of thumb:
 
 <ul>
 <li>Favor using traits. It's handy that a class can extend several traits; a class can extend only one class.
-<li>If you need a constructor parameter, use an abstract class. Abstract class constructors can take parameters; trait constructors can't. For example, you can't say <code>trait t(i: Int) {}</code>; the <code>i</code> parameter is illegal.
+<li>If you need a constructor parameter, use an abstract class. Abstract class constructors can take parameters; trait constructors can't. For example, you can't say `trait t(i: Int) {}`; the `i` parameter is illegal.
 </ul>
 
-You are not the first person to ask this question. See fuller answers at "stackoverflow:Scala traits vs abstract classes":http://stackoverflow.com/questions/1991042/scala-traits-vs-abstract-classes, "Difference between Abstract Class and Trait":http://stackoverflow.com/questions/2005681/difference-between-abstract-class-and-trait, and "Programming in Scala: To trait, or not to trait?":http://www.artima.com/pins1ed/traits.html#12.7
+You are not the first person to ask this question. See fuller answers at stackoverflow: [Scala traits vs abstract classes](http://stackoverflow.com/questions/1991042/scala-traits-vs-abstract-classes), [Difference between Abstract Class and Trait](http://stackoverflow.com/questions/2005681/difference-between-abstract-class-and-trait), and [Programming in Scala: To trait, or not to trait?](http://www.artima.com/pins1ed/traits.html#12.7)
 
 ---
 
 # Types
 
-Earlier, you saw that we defined a function that took an <code>Int</code> which is a type of Number. Functions can also be generic and work on any type. When that occurs, you'll see a type parameter introduced with the square bracket syntax. Here's an example of a Cache of generic Keys and Values.
+Earlier, you saw that we defined a function that took an `Int` which is a type of Number. Functions can also be generic and work on any type. When that occurs, you'll see a type parameter introduced with the square bracket syntax. Here's an example of a Cache of generic Keys and Values.
 
 ```scala
 trait Cache[K, V] {
@@ -497,13 +501,13 @@ def remove[K](key: K)
 # Basics continued
 
 This lesson covers:
-* "apply":#apply
-* "objects":#object
-* "Functions are Objects":#fnobj
-* "packages":#package
-* "pattern matching":#match
-* "case classes":#caseclass
-* "try-catch-finally":#exception
+* "apply"
+* "objects"
+* "Functions are Objects"
+* "packages"
+* "pattern matching"
+* "case classes"
+* "try-catch-finally"
 
 ---
 
@@ -584,7 +588,7 @@ object Bar {
 
 In Scala, we talk about object-functional programming often.  What does that mean? What is a Function, really?
 
-A Function is a set of traits. Specifically, a function that takes one argument is an instance of a Function1 trait. This trait defines the <code>apply()</code> syntactic sugar we learned earlier, allowing you to call an object like you would a function.
+A Function is a set of traits. Specifically, a function that takes one argument is an instance of a Function1 trait. This trait defines the `apply()` syntactic sugar we learned earlier, allowing you to call an object like you would a function.
 
 ```scala
 scala> object addOne extends Function1[Int, Int] {
@@ -617,7 +621,7 @@ scala> plusOne(1)
 res0: Int = 2
 ```
 
-A nice short-hand for <code>extends Function1[Int, Int]</code> is <code>extends (Int => Int)</code>
+A nice short-hand for `extends Function1[Int, Int]` is `extends (Int => Int)`
 
 ```scala
 class AddOne extends (Int => Int) {
@@ -696,7 +700,7 @@ times match {
 
 Notice how we captured the value in the variable 'i'.
 
-The <code>_</code> in the last case statement is a wildcard; it
+The `_` in the last case statement is a wildcard; it
 ensures that we can handle any statement. Otherwise you will suffer a
 runtime error if you pass in a number that doesn't match. We discuss
 this more later.
@@ -707,7 +711,7 @@ this more later.
 
 # Matching on type
 
-You can use <code>match</code> to handle values of different types differently.
+You can use `match` to handle values of different types differently.
 
 ```scala
 def bigger(o: Any): Any = {
@@ -772,7 +776,9 @@ res6: Boolean = true
 
 case classes can have methods just like normal classes.
 
-h6. Case Classes with pattern matching
+---
+
+# Case Classes with pattern matching
 
 case classes are designed to be used with pattern matching.  Let's simplify our calculator classifier example from earlier.
 
@@ -822,7 +828,7 @@ try {
 }
 ```
 
-<code>try</code>s are also expression-oriented
+`try`s are also expression-oriented
 
 ```scala
 val result: Int = try {
@@ -841,30 +847,34 @@ This is not an example of excellent programming style, just an example of try-ca
 
 Finally will be called after an exception has been handled and is not part of the expression.
 
+---
+
 # Collections
 
 This lesson covers:
 
 * Basic Data Structures
-    * "Lists":#Lists
-    * "Sets":#Sets
-    * "Tuple":#Tuple
-    * "Maps":#Maps
+    * "Lists"
+    * "Sets"
+    * "Tuple"
+    * "Maps"
 * Functional Combinators
-    * "map":#map
-    * "foreach":#foreach
-    * "filter":#filter
-    * "zip":#zip
-    * "partition":#partition
-    * "find":#find
-    * "drop and dropWhile":#drop
-    * "foldRight and foldLeft":#fold
-    * "flatten":#flatten
-    * "flatMap":#flatMap
-    * "Generalized functional combinators":#generalized
-    * "Map?":#vsMap
+    * "map"
+    * "foreach"
+    * "filter"
+    * "zip"
+    * "partition"
+    * "find"
+    * "drop and dropWhile"
+    * "foldRight and foldLeft"
+    * "flatten"
+    * "flatMap"
+    * "Generalized functional combinators"
+    * "Map?"
 
-h1. Basic Data Structures
+---
+   
+# Basic Data Structures
 
 Scala provides some nice collections.
 
@@ -920,7 +930,7 @@ hostPort match {
 }
 ```
 
-Tuple has some special sauce for simply making Tuples of 2 values: <code>-></code>
+Tuple has some special sauce for simply making Tuples of 2 values: `->`
 
 ```scala
 scala> 1 -> 2
@@ -940,9 +950,9 @@ Map(1 -> 2)
 Map("foo" -> "bar")
 ```
 
-This looks like special syntax but remember back to our discussion of Tuple that <code>-></code> can be use to create Tuples.
+This looks like special syntax but remember back to our discussion of Tuple that `->` can be use to create Tuples.
 
-Map() also uses that variable argument syntax we learned back in Lesson #1: <code>Map(1 -> "one", 2 -> "two")</code> which expands into <code>Map((1, "one"), (2, "two"))</code> with the first element being the key and the second being the value of the Map.
+Map() also uses that variable argument syntax we learned back in Lesson #1: `Map(1 -> "one", 2 -> "two")` which expands into `Map((1, "one"), (2, "two"))` with the first element being the key and the second being the value of the Map.
 
 Maps can themselves contain Maps or even functions as values.
 
@@ -958,23 +968,23 @@ Map("timesTwo" -> { timesTwo(_) })
 
 # Option
 
-<code>Option</code> is a container that may or may not hold something.
+`Option` is a container that may or may not hold something.
 
 The basic interface for Option looks like:
 
-<code>
+```scala
 trait Option[T] {
   def isDefined: Boolean
   def get: T
   def getOrElse(t: T): T
 }
-</code>
+```
 
-Option itself is generic and has two subclasses: <code>Some[T]</code> or <code>None</code>
+Option itself is generic and has two subclasses: `Some[T]` or `None`
 
 Let's look at an example of how Option is used:
 
-<code>Map.get</code> uses <code>Option</code> for its return type. Option tells you that the method might not return what you're asking for.
+`Map.get` uses `Option` for its return type. Option tells you that the method might not return what you're asking for.
 
 ```scala
 scala> val numbers = Map(1 -> "one", 2 -> "two")
@@ -987,41 +997,41 @@ scala> numbers.get(3)
 res1: Option[java.lang.String] = None
 ```
 
-Now our data appears trapped in this <code>Option</code>. How do we work with it?
+Now our data appears trapped in this `Option`. How do we work with it?
 
-A first instinct might be to do something conditionally based on the <code>isDefined</code> method.
+A first instinct might be to do something conditionally based on the `isDefined` method.
 
-<code>
+```scala
 // We want to multiply the number by two, otherwise return 0.
 val result = if (res1.isDefined) {
   res1.get * 2
 } else {
   0
 }
-</code>
+```
 
-We would suggest that you use either <code>getOrElse</code> or pattern matching to work with this result.
+We would suggest that you use either `getOrElse` or pattern matching to work with this result.
 
-<code>getOrElse</code> lets you easily define a default value.
+`getOrElse` lets you easily define a default value.
 
-<code>
+```scala
 val result = res1.getOrElse(0) * 2
-</code>
+```
 
-Pattern matching fits naturally with <code>Option</code>.
+Pattern matching fits naturally with `Option`.
 
-<code>
+```scala
 val result = res1 match {
   case Some(n) => n * 2
   case None => 0
 }
-</code>
+```
 
 *See Also* Effective Scala has opinions about [Options](http://twitter.github.com/effectivescala/#Functional programming-Options).
 
 h1(#combinators). Functional Combinators
 
-<code>List(1, 2, 3) map squared</code> applies the function <code>squared</code> to the elements of the the list, returning a new list, perhaps <code>List(1, 4, 9)</code>. We call operations like <code>map</code> <em>combinators</em>. (If you'd like a better definition, you might like [Explanation of combinators](http://stackoverflow.com/questions/7533837/explanation-of-combinators-for-the-working-man) on Stackoverflow.) Their most common use is on the standard data structures.
+`List(1, 2, 3) map squared` applies the function `squared` to the elements of the the list, returning a new list, perhaps `List(1, 4, 9)`. We call operations like `map` <em>combinators</em>. (If you'd like a better definition, you might like [Explanation of combinators](http://stackoverflow.com/questions/7533837/explanation-of-combinators-for-the-working-man) on Stackoverflow.) Their most common use is on the standard data structures.
 
 ---
 
@@ -1098,7 +1108,7 @@ res0: List[(Int, String)] = List((1,a), (2,b), (3,c))
 
 # partition
 
-<code>partition</code> splits a list based on where it falls with respect to a predicate function.
+`partition` splits a list based on where it falls with respect to a predicate function.
 
 ```scala
 scala> val numbers = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
@@ -1121,14 +1131,14 @@ res0: Option[Int] = Some(6)
 
 # drop & dropWhile
 
-<code>drop</code> drops the first i elements
+`drop` drops the first i elements
 
 ```scala
 scala> numbers.drop(5)
 res0: List[Int] = List(6, 7, 8, 9, 10)
 ```
 
-<code>dropWhile</code> removes the first elements that match a predicate function. For example, if we <code>dropWhile</code> odd numbers from our list of numbers, <code>1</code> gets dropped (but not <code>3</code> which is "shielded" by <code>2</code>).
+`dropWhile` removes the first elements that match a predicate function. For example, if we `dropWhile` odd numbers from our list of numbers, `1` gets dropped (but not `3` which is "shielded" by `2`).
 
 ```scala
 scala> numbers.dropWhile(_ % 2 != 0)
@@ -1242,7 +1252,7 @@ scala> ourMap(numbers, timesTwo(_))
 res0: List[Int] = List(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
 ```
 
-Why <tt>List[Int]()</tt>? Scala wasn't smart enough to realize that you wanted an empty list of Ints to accumulate into.
+Why `List[Int]()`? Scala wasn't smart enough to realize that you wanted an empty list of Ints to accumulate into.
 
 ---
 
@@ -1282,14 +1292,14 @@ Stay tuned for next week!
 
 This lesson covers:
 
-* "Function Composition":#composition
+* "Function Composition"
     * compose
     * andThen
-* "Currying vs Partial Application":#curryvspartial
-* "PartialFunctions":#PartialFunction
+* "Currying vs Partial Application"
+* "PartialFunctions"
     * range and domain
     * composition with orElse
-* "What is a case statement?":#case
+* "What is a case statement?"
 
 ---
 
@@ -1309,7 +1319,7 @@ g: (String)java.lang.String
 
 # compose
 
-<code>compose</code> makes a new function that composes other functions <code>f(g(x))</code>
+`compose` makes a new function that composes other functions `f(g(x))`
 
 ```scala
 scala> val fComposeG = f _ compose g _
@@ -1323,7 +1333,7 @@ res0: java.lang.String = f(g(yay))
 
 # andThen
 
-<code>andThen</code> is like <code>compose</code>, but calls the first function and then the second, <code>g(f(x))</code>
+`andThen` is like `compose`, but calls the first function and then the second, `g(f(x))`
 
 ```scala
 scala> val fAndThenG = f _ andThen g _
@@ -1357,9 +1367,9 @@ A function works for every argument of the defined type. In other words, a funct
 
 A Partial Function is only defined for certain values of the defined type.  A Partial Function (Int) => String might not accept every Int.
 
-<code>isDefinedAt</code> is a method on PartialFunction that can be used to determine if the PartialFunction will accept a given argument.
+`isDefinedAt` is a method on PartialFunction that can be used to determine if the PartialFunction will accept a given argument.
 
-__Note__ <code>PartialFunction</code> is unrelated to a partially applied function that we talked about earlier.
+__Note__ `PartialFunction` is unrelated to a partially applied function that we talked about earlier.
 
 *See Also* Effective Scala has opinions about [PartialFunction](http://twitter.github.com/effectivescala/#Functional programming-Partial functions).
 
@@ -1380,6 +1390,10 @@ You can apply a partial function.
 scala> one(1)
 res2: String = one
 ```
+
+---
+
+# Partial Functions (ctd.)
 
 PartialFunctions can be composed with something new, called orElse, that reflects whether the PartialFunction is defined over the supplied argument.
 
@@ -1412,7 +1426,9 @@ scala> partial(0)
 res28: String = something else
 ```
 
-h3(#case). The mystery of case.
+---
+
+# The mystery of `case`
 
 Last week we saw something curious. We saw a case statement used where a function is normally used.
 
@@ -1429,27 +1445,21 @@ res0: List[PhoneExt] = List(PhoneExt(steve,100))
 
 Why does this work?
 
-filter takes a function. In this case a predicate function of (PhoneExt) => Boolean.
+`filter` takes a function. In this case a predicate function of `(PhoneExt) => Boolean.`
 
 A PartialFunction is a subtype of Function so filter can also take a PartialFunction!
 
 ---
 
-prev: pattern-matching-and-functional-composition.textile
-next: advanced-types.textile
-title: Type & polymorphism basics
-layout: post
----
-
 This lesson covers:
 
-* "What are static types?":#background
-* "Types in Scala":#scala
-* "Parametric Polymorphism":#parametricpoly
-* "Type inference: Hindley-Milner vs. local type inference":#inference
-* "Variance":#variance
-* "Bounds":#bounds
-* "Quantification":#quantification
+* "What are static types?"
+* "Types in Scala"
+* "Parametric Polymorphism"
+* "Type inference: Hindley-Milner vs. local type inference"
+* "Variance"
+* "Bounds"
+* "Quantification"
 
 ---
 
@@ -1482,7 +1492,7 @@ Note that all type information is removed at compile time. It is no longer neede
 Scala's powerful type system allows for very rich expression. Some of its chief features are:
 
 * *parametric polymorphism* roughly, generic programming
-* *(local) type inference* roughly, why you needn't say <code>val i: Int = 12: Int</code>
+* *(local) type inference* roughly, why you needn't say `val i: Int = 12: Int`
 * *existential quantification* roughly, defining something _for some_ unnamed type
 * *views* we'll learn these next week; roughly, "castability" of values of one type to another
 
@@ -1545,7 +1555,7 @@ which you wished to use generically:
 def foo[A, B](f: A => List[A], b: B) = f(b)
 ```
 
-This does not compile, because all type variables have to be fixed at the invocation site. Even if you "nail down" type <code>B</code>,
+This does not compile, because all type variables have to be fixed at the invocation site. Even if you "nail down" type `B`,
 
 ```scala
 def foo[A](f: A => List[A], i: Int) = f(i)
@@ -1651,20 +1661,20 @@ scala> class Chicken extends Bird { override val sound = "cluck" }
 defined class Chicken
 ```
 
-Suppose you need a function that takes a <code>Bird</code> param:
+Suppose you need a function that takes a `Bird` param:
 
 ```scala
 scala> val getTweet: (Bird => String) = // TODO
 ```
 
-The standard animal library has a function that does what you want, but it takes an <code>Animal</code> parameter instead.  In most situations, if you say "I need a ___, I have a subclass of ___", you're OK. But function parameters are contravariant. If you need a function that takes a <code>Bird</code> and you have a function that takes an <code>Chicken</code>, that function would choke on a <code>Duck</code>. But a function that takes an <code>Animal</code> is OK:
+The standard animal library has a function that does what you want, but it takes an `Animal` parameter instead.  In most situations, if you say "I need a ___, I have a subclass of ___", you're OK. But function parameters are contravariant. If you need a function that takes a `Bird` and you have a function that takes an `Chicken`, that function would choke on a `Duck`. But a function that takes an `Animal` is OK:
 
 ```scala
 scala> val getTweet: (Bird => String) = ((a: Animal) => a.sound )
 getTweet: Bird => String = <function1>
 ```
 
-A function's return value type is covariant. If you need a function that returns a <code>Bird</code> but have a function that returns a <code>Chicken</code>, that's great.
+A function's return value type is covariant. If you need a function that returns a `Bird` but have a function that returns a `Chicken`, that's great.
 
 ```scala
 scala> val hatch: (() => Bird) = (() => new Chicken )
@@ -1690,7 +1700,7 @@ scala> biophony(Seq(new Chicken, new Bird))
 res5: Seq[java.lang.String] = List(cluck, call)
 ```
 
-Lower type bounds are also supported; they come in handy with contravariance and clever covariance. <code>List[+T]</code> is covariant; a list of Birds is a list of Animals. <code>List</code> defines an operator <code>::(elem T)</code> that returns a new <code>List</code> with <code>elem</code> prepended. The new <code>List</code> has the same type as the original:
+Lower type bounds are also supported; they come in handy with contravariance and clever covariance. `List[+T]` is covariant; a list of Birds is a list of Animals. `List` defines an operator `::(elem T)` that returns a new `List` with `elem` prepended. The new `List` has the same type as the original:
 
 ```scala
 scala> val flock = List(new Bird, new Bird)
@@ -1700,14 +1710,14 @@ scala> new Chicken :: flock
 res53: List[Bird] = List(Chicken@56fbda05, Bird@7e1ec70e, Bird@169ea8d2)
 ```
 
-<code>List</code> _also_ defines <code>::[B >: T](x: B)</code> which returns a <code>List[B]</code>. Notice the <code>B >: T</code>. That specifies type <code>B</code> as a superclass of <code>T</code>. That lets us do the right thing when prepending an <code>Animal</code> to a <code>List[Bird]</code>:
+`List` _also_ defines `::[B >: T](x: B)` which returns a `List[B]`. Notice the `B >: T`. That specifies type `B` as a superclass of `T`. That lets us do the right thing when prepending an `Animal` to a `List[Bird]`:
 
 ```scala
 scala> new Animal :: flock
 res59: List[Animal] = List(Animal@11f8d3a8, Bird@7e1ec70e, Bird@169ea8d2)
 ```
 
-Note that the return type is <code>Animal</code>.
+Note that the return type is `Animal`.
 
 ---
 
@@ -1793,7 +1803,7 @@ scala> math.max("123", 111)
 res1: Int = 123
 ```
 
-view bounds, like type bounds demand such a function exists for the given type.  You specify a type bound with <code><%</code> e.g.,
+view bounds, like type bounds demand such a function exists for the given type.  You specify a type bound with `<%` e.g.,
 
 ```scala
 scala> class Container[A <% Int] { def addIt(x: A) = 123 + x }
@@ -1819,15 +1829,15 @@ scala> (new Container[Float]).addIt(123.2F)
 
 # Other type bounds
 
-Methods can enforce more complex type bounds via implicit parameters. For example, <code>List</code> supports <code>sum</code> on numeric contents but not on others. Alas, Scala's numeric types don't all share a superclass, so we can't just say <code>T <: Number</code>. Instead, to make this work, Scala's math library <a href="http://www.azavea.com/blogs/labs/2011/06/scalas-numeric-type-class-pt-1/">defines an implicit <code>Numeric[T]</code> for the appropriate types T</a>.  Then in <code>List</code>'s definition uses it:
+Methods can enforce more complex type bounds via implicit parameters. For example, `List` supports `sum` on numeric contents but not on others. Alas, Scala's numeric types don't all share a superclass, so we can't just say `T <: Number`. Instead, to make this work, Scala's math library [defines an implicit `Numeric[T]` for the appropriate types T](http://www.azavea.com/blogs/labs/2011/06/scalas-numeric-type-class-pt-1/).  Then in `List`'s definition uses it:
 
 ```scala
 sum[B >: A](implicit num: Numeric[B]): B
 ```
 
-If you invoke <code>List(1,2).sum()</code>, you don't need to pass a _num_ parameter; it's set implicitly. But if you invoke <code>List("whoop").sum()</code>, it complains that it couldn't set <code>num</code>.
+If you invoke `List(1,2).sum()`, you don't need to pass a _num_ parameter; it's set implicitly. But if you invoke `List("whoop").sum()`, it complains that it couldn't set `num`.
 
-Methods may ask for some kinds of specific "evidence" for a type without setting up strange objects as with <code>Numeric</code>. Instead, you can use of these type-relation operators:
+Methods may ask for some kinds of specific "evidence" for a type without setting up strange objects as with `Numeric`. Instead, you can use of these type-relation operators:
 
 |A =:= B|A must be equal to B|
 |A <:< B|A must be a subtype of B|
@@ -1892,6 +1902,8 @@ trait LowPriorityOrderingImplicits {
 }
 ```
 
+---
+
 ### Context bounds & implicitly[]
 
 Scala 2.8 introduced a shorthand for threading through & accessing implicit arguments.
@@ -1917,9 +1929,9 @@ Combined, these often result in less code, especially when threading through vie
 
 # Higher-kinded types & ad-hoc polymorphism
 
-Scala can abstract over "higher kinded" types. For example, suppose that you needed to use several types of containers for several types of data. You might define a <code>Container</code> interface that might be implemented by means of several container types: an <code>Option</code>, a <code>List</code>, etc. You want to define an interface for using values in these containers without nailing down the values' type.
+Scala can abstract over "higher kinded" types. For example, suppose that you needed to use several types of containers for several types of data. You might define a `Container` interface that might be implemented by means of several container types: an `Option`, a `List`, etc. You want to define an interface for using values in these containers without nailing down the values' type.
 
-This is analogous to function currying. For example, whereas "unary types" have constructors like <code>List[A]</code>, meaning we have to satisfy one "level" of type variables in order to produce a concrete types (just like an uncurried function needs to be supplied by only one argument list to be invoked), a higher-kinded type needs more.
+This is analogous to function currying. For example, whereas "unary types" have constructors like `List[A]`, meaning we have to satisfy one "level" of type variables in order to produce a concrete types (just like an uncurried function needs to be supplied by only one argument list to be invoked), a higher-kinded type needs more.
 
 ```scala
 scala> trait Container[M[_]] { def put[A](x: A): M[A]; def get[A](m: M[A]): A }
