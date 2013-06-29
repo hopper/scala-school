@@ -705,7 +705,7 @@ ensures that we can handle any statement. Otherwise you will suffer a
 runtime error if you pass in a number that doesn't match. We discuss
 this more later.
 
-*See Also* Effective Scala has opinions about [when to use pattern matching](http://twitter.github.com/effectivescala/#Functional programming-Pattern matching) and [pattern matching formatting](http://twitter.github.com/effectivescala/#Formatting-Pattern matching). A Tour of Scala describes [Pattern Matching](http://www.scala-lang.org/node/120)
+*See Also* Effective Scala has opinions about [when to use pattern matching](http://twitter.github.com/effectivescala/#Functional%20programming-Pattern%20matching) and [pattern matching formatting](http://twitter.github.com/effectivescala/#Formatting-Pattern%20matching). A Tour of Scala describes [Pattern Matching](http://www.scala-lang.org/node/120)
 
 ---
 
@@ -822,7 +822,7 @@ Exceptions are available in Scala via a try-catch-finally syntax that uses patte
 try {
   remoteCalculatorService.add(1, 2)
 } catch {
-  case e: ServerIsDownException => log.error(e, "the remote calculator service is unavailable. should have kept your trusty HP.")
+  case e: ServerIsDownException => log.error(e, "the remote calculator service is unavailable.")
 } finally {
   remoteCalculatorService.close()
 }
@@ -835,7 +835,7 @@ val result: Int = try {
   remoteCalculatorService.add(1, 2)
 } catch {
   case e: ServerIsDownException => {
-    log.error(e, "the remote calculator service is unavailable. should have kept your trusty HP.")
+    log.error(e, "the remote calculator service is unavailable.")
     0
   }
 } finally {
@@ -937,7 +937,7 @@ scala> 1 -> 2
 res0: (Int, Int) = (1,2)
 ```
 
-*See Also* Effective Scala has opinions about [destructuring bindings](http://twitter.github.com/effectivescala/#Functional programming-Destructuring bindings) ("unpacking" a tuple).
+*See Also* Effective Scala has opinions about [destructuring bindings](http://twitter.github.com/effectivescala/#Functional%20programming-Destructuring%20bindings) ("unpacking" a tuple).
 
 ---
 
@@ -999,6 +999,8 @@ res1: Option[java.lang.String] = None
 
 Now our data appears trapped in this `Option`. How do we work with it?
 
+---
+
 A first instinct might be to do something conditionally based on the `isDefined` method.
 
 ```scala
@@ -1027,9 +1029,11 @@ val result = res1 match {
 }
 ```
 
-*See Also* Effective Scala has opinions about [Options](http://twitter.github.com/effectivescala/#Functional programming-Options).
+*See Also* Effective Scala has opinions about [Options](http://twitter.github.com/effectivescala/#Functional%20programming-Options).
 
-h1(#combinators). Functional Combinators
+---
+
+# Functional Combinators
 
 `List(1, 2, 3) map squared` applies the function `squared` to the elements of the the list, returning a new list, perhaps `List(1, 4, 9)`. We call operations like `map` <em>combinators</em>. (If you'd like a better definition, you might like [Explanation of combinators](http://stackoverflow.com/questions/7533837/explanation-of-combinators-for-the-working-man) on Stackoverflow.) Their most common use is on the standard data structures.
 
@@ -1229,7 +1233,7 @@ res1: List[Int] = List(2, 4, 6, 8)
 
 that example calling map and then flatten is an example of the "combinator"-like nature of these functions.
 
-*See Also* Effective Scala has opinions about [flatMap](http://twitter.github.com/effectivescala/#Functional programming-`flatMap`).
+*See Also* Effective Scala has opinions about [flatMap](http://twitter.github.com/effectivescala/#Functional%20programming-`flatMap`).
 
 ---
 
@@ -1345,10 +1349,6 @@ res1: java.lang.String = g(f(yay))
 
 ---
 
-# Currying vs Partial Application
-
----
-
 # case statements
 
 ### So just what are case statements?
@@ -1371,7 +1371,7 @@ A Partial Function is only defined for certain values of the defined type.  A Pa
 
 __Note__ `PartialFunction` is unrelated to a partially applied function that we talked about earlier.
 
-*See Also* Effective Scala has opinions about [PartialFunction](http://twitter.github.com/effectivescala/#Functional programming-Partial functions).
+*See Also* Effective Scala has opinions about [PartialFunction](http://twitter.github.com/effectivescala/#Functional%20programming-Partial%20functions).
 
 ```scala
 scala> val one: PartialFunction[Int, String] = { case 1 => "one" }
