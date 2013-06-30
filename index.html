@@ -535,38 +535,18 @@ You can organize your code inside of packages.
 
     package com.twitter.example
 
-at the top of a file will declare everything in the file to be in that package.
+    class ExampleClass
 
-Values and functions cannot be outside of a class or object.  Objects are a useful tool for organizing static functions.
+at the top of a file will declare everything in the file to be in that package. In another package, you'd need to `import` this class:
 
-    package com.twitter.example
+    import com.twitter.example.ExampleClass
+
     
-    object colorHolder {
-      val BLUE = "Blue"
-      val RED = "Red"
-    }
-
-Now you can access the members directly
-
-    println("the color is: " + com.twitter.example.colorHolder.BLUE)
-
-Notice what the scala repl says when you define this object:
-
-    scala> object colorHolder {
-         |   val Blue = "Blue"
-         |   val Red = "Red"
-         | }
-    defined module colorHolder
-
-This gives you a small hint that the designers of Scala designed objects to be part of Scala's module system.
-
 </section><section class="slide">
 
 ## Pattern Matching
 
-One of the most useful parts of Scala.
-
-Matching on values
+One of the most useful parts of Scala. Matching on values:
 
     val times = 1
     
@@ -576,7 +556,12 @@ Matching on values
       case _ => "some other number"
     }
 
-Matching with guards
+The `_` in the last case statement is a wildcard; it matches everything. Otherwise, you will suffer a
+runtime error if you pass in a number that doesn't match.
+
+</section><section class="slide">
+
+## Matching with Guards
 
     times match {
       case i if i == 1 => "one"
@@ -586,38 +571,25 @@ Matching with guards
 
 Notice how we captured the value in the variable 'i'.
 
-The `_` in the last case statement is a wildcard; it
-ensures that we can handle any statement. Otherwise you will suffer a
-runtime error if you pass in a number that doesn't match. We discuss
-this more later.
-
-*See Also* Effective Scala has opinions about [when to use pattern matching](http://twitter.github.com/effectivescala/##Functional%20programming-Pattern%20matching) and [pattern matching formatting](http://twitter.github.com/effectivescala/#Formatting-Pattern%20matching). A Tour of Scala describes [Pattern Matching](http://www.scala-lang.org/node/120)
-
 </section><section class="slide">
 
 ## Matching on type
 
 You can use `match` to handle values of different types differently.
 
-    def bigger(o: Any): Any = {
-      o match {
-        case i: Int if i < 0 => i - 1
-        case i: Int => i + 1
-        case d: Double if d < 0.0 => d - 0.1
-        case d: Double => d + 0.1
-        case text: String => text + "s"
-      }
+    def bigger(o: Any): Any = o match {
+      case i: Int if i < 0 => i - 1
+      case i: Int => i + 1
+      case d: Double if d < 0.0 => d - 0.1
+      case d: Double => d + 0.1
+      case text: String => text + "s"
     }
 
 </section><section class="slide">
 
 ## Matching on class members
 
-Remember our calculator from earlier.
-
-Let's classify them according to type.
-
-Here's the painful way first.
+Remember our calculator from earlier? Let's classify them according to type. Here's the painful way first:
 
     def calcType(calc: Calculator) = calc match {
       case _ if calc.brand == "hp" && calc.model == "20B" => "financial"
@@ -716,36 +688,7 @@ Scala has no concept of checked-exceptions: you are never required to surround a
 
 </section><section class="slide">
 
-## Collections
-
-This lesson covers:
-
-* Basic Data Structures
-    * "Lists"
-    * "Sets"
-    * "Tuple"
-    * "Maps"
-* Functional Combinators
-    * "map"
-    * "foreach"
-    * "filter"
-    * "zip"
-    * "partition"
-    * "find"
-    * "drop and dropWhile"
-    * "foldRight and foldLeft"
-    * "flatten"
-    * "flatMap"
-    * "Generalized functional combinators"
-    * "Map?"
-
-</section><section class="slide">
-   
-## Basic Data Structures
-
-Scala provides some nice collections.
-
-*See Also* Effective Scala has opinions about how to use [collections](http://twitter.github.com/effectivescala/##Collections).
+# Collections
 
 </section><section class="slide">
 
@@ -772,7 +715,7 @@ A tuple groups together simple logical collections of items without using a clas
     scala> val hostPort = ("localhost", 80)
     hostPort: (String, Int) = (localhost, 80)
 
-Unlike case classes, they don't have named accessors, instead they have accessors that are named by their position and is 1-based rather than 0-based.
+They have accessors that are named by their position (which is 1-based rather than 0-based).
 
     scala> hostPort._1
     res0: String = localhost
@@ -792,8 +735,6 @@ Tuple has some special sauce for simply making Tuples of 2 values: `->`
     scala> 1 -> 2
     res0: (Int, Int) = (1,2)
 
-*See Also* Effective Scala has opinions about [destructuring bindings](http://twitter.github.com/effectivescala/##Functional%20programming-Destructuring%20bindings) ("unpacking" a tuple).
-
 </section><section class="slide">
 
 ## Maps
@@ -805,7 +746,7 @@ It can hold basic datatypes.
 
 This looks like special syntax but remember back to our discussion of Tuple that `->` can be use to create Tuples.
 
-Map() also uses that variable argument syntax we learned back in Lesson ##1: `Map(1 -> "one", 2 -> "two")` which expands into `Map((1, "one"), (2, "two"))` with the first element being the key and the second being the value of the Map.
+Map() also uses that variable argument syntax we learned back in Lesson #1: `Map(1 -> "one", 2 -> "two")` which expands into `Map((1, "one"), (2, "two"))` with the first element being the key and the second being the value of the Map.
 
 Maps can themselves contain Maps or even functions as values.
 
@@ -939,8 +880,9 @@ zip aggregates the contents of two lists into a single list of pairs.
 `partition` splits a list based on where it falls with respect to a predicate function.
 
     scala> val numbers = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-    scala> numbers.partition(_ %2 == 0)
-    res0: (List[Int], List[Int]) = (List(2, 4, 6, 8, 10),List(1, 3, 5, 7, 9))
+    scala> val (even, odd) = numbers.partition { _ %2 == 0 }
+    even: List[Int] = List(2, 4, 6, 8, 10)
+    odd: List[Int] = List(1, 3, 5, 7, 9))
 
 </section><section class="slide">
 
@@ -1041,27 +983,6 @@ that example calling map and then flatten is an example of the "combinator"-like
 
 </section><section class="slide">
 
-## Generalized functional combinators
-
-Now we've learned a grab-bag of functions for working with collections.
-
-What we'd like is to be able to write our own functional combinators.
-
-Interestingly, every functional combinator shown above can be written on top of fold.  Let's see some examples.
-
-    def ourMap(numbers: List[Int], fn: Int => Int): List[Int] = {
-      numbers.foldRight(List[Int]()) { (x: Int, xs: List[Int]) =>
-        fn(x) :: xs
-      }
-    }
-    
-    scala> ourMap(numbers, timesTwo(_))
-    res0: List[Int] = List(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
-
-Why `List[Int]()`? Scala wasn't smart enough to realize that you wanted an empty list of Ints to accumulate into.
-
-</section><section class="slide">
-
 ## Map?
 
 All of the functional combinators shown work on Maps, too.  Maps can be thought of as a list of pairs so the functions you write work on a pair of the keys and values in the Map.
@@ -1080,26 +1001,6 @@ Lucky us, we can actually use a pattern match to extract the key and value nicel
 
     scala> extensions.filter({case (name, extension) => extension < 200})
     res0: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101))
-
-Why does this work? Why can you pass in a partial pattern match?
-
-Stay tuned for next week!
-
-
-</section><section class="slide">
-
-## Pattern matching & functional composition
-
-This lesson covers:
-
-* "Function Composition"
-    * compose
-    * andThen
-* "Currying vs Partial Application"
-* "PartialFunctions"
-    * range and domain
-    * composition with orElse
-* "What is a case statement?"
 
 </section><section class="slide">
 
