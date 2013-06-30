@@ -65,14 +65,12 @@ Having an interpreter available makes it easy to explore a problem space.
 ## Why Scala?
 
 * Expressive
-    * First-class functions
-    * Closures
+    * First-class functions and closures
 * Concise
     * Type inference
     * Literal syntax for function creation
 * Java interoperability
-    * Can reuse java libraries
-    * Can reuse java tools
+    * Can reuse java libraries and tools
     * No performance penalty
     * benefits from 15 years of JVM development and optimization
 
@@ -91,7 +89,7 @@ Scala is a `sca`lable `la`nguage. It can scale as you need it to. This is Scala:
 </section>
 
 <section class="slide no-md">
-but so is this:
+<h2>And this is Scala</h2>
 <pre><code>
 class HelloWorldSpec extends Specification {
 
@@ -102,6 +100,10 @@ class HelloWorldSpec extends Specification {
     }
 }
 </code></pre>
+</section>
+
+<section class="slide no-md">
+<h2>And this is Scala</h2>
 <pre><code>
 object SquareRoot extends Baysick {
   def main(args: Array[String]) = {
@@ -114,6 +116,10 @@ object SquareRoot extends Baysick {
   }
 }
 </code></pre>
+</section>
+
+<section class="slide no-md">
+<h2>And this is Scala</h2>
 <pre><code>
 def update() = {
   VenueRole where (_.venueid eqs this.id) 
@@ -193,6 +199,8 @@ If you need to change the binding, you can use a `var` instead.
     scala> name = "marius"
     name: java.lang.String = marius
 
+`var` is rarely used in idiomatic Scala.
+
 </section><section class="slide">
 
 ## Equality
@@ -225,6 +233,10 @@ In Scala, you need to specify the type signature for function parameters.  The i
     scala> val three = addOne(2)
     three: Int = 3
 
+</section><section class="slide">
+
+## Zero-Argument Functions 
+
 You can leave off parens on functions with no arguments.
 
     scala> def three() = 1 + 2
@@ -245,8 +257,6 @@ You can create anonymous functions.
     scala> (x: Int) => x + 1
     res2: (Int) => Int = &lt;function1>
 
-Types function adds 1 to an Int named x.
-
     scala> res2(1)
     res3: Int = 2
 
@@ -260,7 +270,7 @@ You can pass anonymous functions around or save them into vals.
 
 </section><section class="slide">
 
-## Functions (ctd.)
+## Multi-expression Functions
 
 If your function is made up of many expressions, you can use {} to give yourself some breathing room.
 
@@ -302,28 +312,21 @@ You can partially apply any argument in the argument list, not just the last one
 
 Sometimes it makes sense to let people apply some arguments to your function now and others later.
 
-Here's an example of a function that lets you build multipliers of two numbers together. At one call site, you'll decide which is the multiplier and at a later call site, you'll choose a multiplicand.
+Here's an example of a function with multiple argument lists:
 
     scala> def multiply(m: Int)(n: Int): Int = m * n
     multiply: (m: Int)(n: Int)Int
 
-You can call it directly with both arguments.
+You can call it directly with both arguments, or fill in the first and then the second.
 
     scala> multiply(2)(3)
     res0: Int = 6
-
-You can fill in the first parameter and partially apply the second.
 
     scala> val timesTwo = multiply(2) _
     timesTwo: (Int) => Int = &lt;function1&gt;
 
     scala> timesTwo(3)
     res1: Int = 6
-
-You can take any function of multiple arguments and curry it. Let's try with our earlier `adder`
-
-    scala> (adder _).curried
-    res1: (Int) => (Int) => Int = &lt;function1&gt;
 
 </section><section class="slide">
 
@@ -368,24 +371,16 @@ Contained are examples are defining methods with def and fields with val.  Metho
 Constructors aren't special methods, they are the code outside of method definitions in your class.  Let's extend our Calculator example to take a constructor argument and use it to initialize internal state.
 
     class Calculator(brand: String) {
-      /*
-       * A constructor.
-       */
-      val color: String = if (brand == "TI") {
-        "blue"
-      } else if (brand == "HP") {
-        "black"
-      } else {
-        "white"
-      }
 
-      // An instance method.
+    val color: String = 
+      if (brand == "TI") "blue"
+      else if (brand == "HP") "black"
+      else "white"
+
       def add(m: Int, n: Int): Int = m + n
     }
 
-Note the two different styles of comments.
-
-You can use the constructor to construct an instance:
+Use the `new` keyword to construct an instance:
 
     scala> val calc = new Calculator("HP")
     calc: Calculator = Calculator@1e64cc4d
@@ -401,38 +396,11 @@ Our BasicCalculator example gave an example of how Scala is expression-oriented.
 
 </section><section class="slide">
 
-## Aside: Functions vs Methods
-
-Functions and methods are largely interchangeable. Because functions and methods are so similar, you might not remember whether that *thing* you call is a function or a method. When you bump into a difference between methods and functions, it might confuse you.
-
-    scala> class C {
-         |   var acc = 0
-         |   def minc = { acc += 1 }
-         |   val finc = { () => acc += 1 }
-         | }
-    defined class C
-
-    scala> val c = new C
-    c: C = C@1af1bd6
-
-    scala> c.minc // calls c.minc()
-
-    scala> c.finc // returns the function as a value:
-    res2: () => Unit = &lt;function0&gt;
-
-When you can call one "function" without parentheses but not another, you might think <em>Whoops, I thought I knew how Scala functions worked, but I guess not. Maybe they sometimes need parentheses?</em> You might understand functions, but be using a method.
-
-In practice, you can do great things in Scala while remaining hazy on the difference between methods and functions. If you're new to Scala and read [explanations of the differences](https://www.google.com/search?q=difference+scala+function+method), you might have trouble following them. That doesn't mean you're going to have trouble using Scala. It just means that the difference between functions and methods is subtle enough such that explanations tend to dig into deep parts of the language.
-
-</section><section class="slide">
-
 ## Inheritance
 
     class ScientificCalculator(brand: String) extends Calculator(brand) {
       def log(m: Double, base: Double) = math.log(m) / math.log(base)
     }
-
-*See Also* Effective Scala points out that a [Type alias](http://twitter.github.com/effectivescala/##Types%20and%20Generics-Type%20aliases) is better than `extends` if the subclass isn't actually different from the superclass. A Tour of Scala describes [Subclassing](http://www.scala-lang.org/node/125).
 
 </section><section class="slide">
 
@@ -491,22 +459,9 @@ One class can extend several traits using the `with` keyword:
       val shineRefraction = 12
     }
 
-*See Also* Effective Scala has opinions about [trait](http://twitter.github.com/effectivescala/##Object oriented programming-Traits).
-
 </section><section class="slide">
 
-## Traits vs. Abstract Classes 
-
-If you want to define an interface-like type, you might find it difficult to choose between a trait or an abstract class. Either one lets you define a type with some behavior, asking extenders to define some other behavior. Some rules of thumb:
-
-* Favor using traits. It's handy that a class can extend several traits; a class can extend only one class.
-* If you need a constructor parameter, use an abstract class. Abstract class constructors can take parameters; trait constructors can't. For example, you can't say `trait t(i: Int) {}`; the `i` parameter is illegal.
-
-You are not the first person to ask this question. See fuller answers at stackoverflow: [Scala traits vs abstract classes](http://stackoverflow.com/questions/1991042/scala-traits-vs-abstract-classes), [Difference between Abstract Class and Trait](http://stackoverflow.com/questions/2005681/difference-between-abstract-class-and-trait), and [Programming in Scala: To trait, or not to trait?](http://www.artima.com/pins1ed/traits.html##12.7)
-
-</section><section class="slide">
-
-## Types
+## Type Parameters
 
 Earlier, you saw that we defined a function that took an `Int` which is a type of Number. Functions can also be generic and work on any type. When that occurs, you'll see a type parameter introduced with the square bracket syntax. Here's an example of a Cache of generic Keys and Values.
 
@@ -522,36 +477,9 @@ Methods can also have type parameters introduced.
 
 </section><section class="slide">
 
-## Basics continued
-
-This lesson covers:
-
-* "apply"
-* "objects"
-* "Functions are Objects"
-* "packages"
-* "pattern matching"
-* "case classes"
-* "try-catch-finally"
-
-</section><section class="slide">
-
 ## apply methods
 
-apply methods give you a nice syntactic sugar for when a class or object has one main use.
-
-    scala> class Foo {}
-    defined class Foo
-    
-    scala> object FooMaker {
-         |   def apply() = new Foo
-         | }
-    defined module FooMaker
-    
-    scala> val newFoo = FooMaker()
-    newFoo: Foo = Foo@5b83f762
-
-or
+apply methods give you a nice syntactic sugar for when a class has one main use.
 
     scala> class Bar {
          |   def apply() = 0
@@ -564,31 +492,33 @@ or
     scala> bar()
     res8: Int = 0
 
-Here our instance object looks like we're calling a method. More on that later!
+Here our instance object looks like we're calling a function. More on that later!
+
+</section><section class="slide">
+
+## Functions are Objects
+
+In Scala, functions are represented by a set of traits: `Function0` through `Function22`.
+
+    val double = new Function1[Int, Int] {
+      def apply(x: Int): Int = x * 2
+    }
+
+is eqivalent to
+
+    val double = { x: Int => x * 2} 
 
 </section><section class="slide">
 
 ## Objects
 
-Objects are used to hold single instances of a class. Often used for factories.
+Objects are like classes, but with a single instance. Often used for 'static' values.
 
-    object Timer {
-      var count = 0
-    
-      def currentCount(): Long = {
-        count += 1
-        count
-      }
+    object Constants {
+      val Pi = 3.14 // Close enough
     }
 
-How to use
-
-    scala> Timer.currentCount()
-    res0: Long = 1
-
-Classes and Objects can have the same name.  The object is called a 'Companion Object'.  We commonly use Companion Objects for Factories.
-
-Here is a trivial example that only serves to remove the need to use 'new' to create an instance.
+Classes and Objects can have the same name.  The object is called a 'Companion Object'.  We commonly use Companion Objects for Factories. Here is a trivial example that only serves to remove the need to use 'new' to create an instance.
 
     class Bar(foo: String)
     
@@ -596,47 +526,6 @@ Here is a trivial example that only serves to remove the need to use 'new' to cr
       def apply(foo: String) = new Bar(foo)
     }
 
-
-</section><section class="slide">
-
-## Functions are Objects
-
-In Scala, we talk about object-functional programming often.  What does that mean? What is a Function, really?
-
-A Function is a set of traits. Specifically, a function that takes one argument is an instance of a Function1 trait. This trait defines the `apply()` syntactic sugar we learned earlier, allowing you to call an object like you would a function.
-
-    scala> object addOne extends Function1[Int, Int] {
-         |   def apply(m: Int): Int = m + 1
-         | }
-    defined module addOne
-    
-    scala> addOne(1)
-    res2: Int = 2
-
-There is Function1 through 22.  Why 22?  It's an arbitrary magic number.  I've never needed a function with more than 22 arguments so it seems to work out.
-
-The syntactic sugar of apply helps unify the duality of object and functional programming.  You can pass classes around and use them as functions and functions are just instances of classes under the covers.
-
-Does this mean that every time you define a method in your class, you're actually getting an instance of Function*?  No, methods in classes are methods.  Methods defined standalone in the repl are Function* instances.
-
-Classes can also extend Function and those instances can be called with ().
-
-    scala> class AddOne extends Function1[Int, Int] {
-         |   def apply(m: Int): Int = m + 1
-         | }
-    defined class AddOne
-    
-    scala> val plusOne = new AddOne()
-    plusOne: AddOne = &lt;function1&gt;
-    
-    scala> plusOne(1)
-    res0: Int = 2
-
-A nice short-hand for `extends Function1[Int, Int]` is `extends (Int => Int)`
-
-    class AddOne extends (Int => Int) {
-      def apply(m: Int): Int = m + 1
-    }
 
 </section><section class="slide">
 
@@ -1672,29 +1561,6 @@ Methods can enforce more complex type bounds via implicit parameters. For exampl
 
 If you invoke `List(1,2).sum()`, you don't need to pass a _num_ parameter; it's set implicitly. But if you invoke `List("whoop").sum()`, it complains that it couldn't set `num`.
 
-Methods may ask for some kinds of specific "evidence" for a type without setting up strange objects as with `Numeric`. Instead, you can use of these type-relation operators:
-
-|A =:= B|A must be equal to B|
-|A <:< B|A must be a subtype of B|
-|A <%< B|A must be viewable as B|
-
-    scala> class Container[A](value: A) { def addIt(implicit evidence: A =:= Int) = 123 + value }
-    defined class Container
-    
-    scala> (new Container(123)).addIt
-    res11: Int = 246
-    
-    scala> (new Container("123")).addIt
-    &lt;console&gt;:10: error: could not find implicit value for parameter evidence: =:=[java.lang.String,Int]
-
-Similarly, given our previous implicit, we can relax the constraint to viewability:
-
-    scala> class Container[A](value: A) { def addIt(implicit evidence: A <%< Int) = 123 + value }
-    defined class Container
-    
-    scala> (new Container("123")).addIt
-    res15: Int = 246
-
 </section><section class="slide">
 
 ## Generic programming with views
@@ -1719,14 +1585,6 @@ The main advantages of this are:
     scala> List(1,2,3,4).min(new Ordering[Int] { def compare(a: Int, b: Int) = b compare a })
     res3: Int = 4
 
-As a sidenote, there are views in the standard library that translates *Ordered* into *Ordering* (and vice versa).
-
-    trait LowPriorityOrderingImplicits {
-      implicit def ordered[A <: Ordered[A]]: Ordering[A] = new Ordering[A] {
-        def compare(x: A, y: A) = x.compare(y)
-      }
-    }
-
 </section><section class="slide">
 
 #### Context bounds & implicitly[]
@@ -1745,104 +1603,6 @@ Implicit values may be accessed via *implicitly*
     res37: Ordering[Int] = scala.math.Ordering$Int$@3a9291cf
 
 Combined, these often result in less code, especially when threading through views.
-
-</section><section class="slide">
-
-## Higher-kinded types & ad-hoc polymorphism
-
-Scala can abstract over "higher kinded" types. For example, suppose that you needed to use several types of containers for several types of data. You might define a `Container` interface that might be implemented by means of several container types: an `Option`, a `List`, etc. You want to define an interface for using values in these containers without nailing down the values' type.
-
-This is analogous to function currying. For example, whereas "unary types" have constructors like `List[A]`, meaning we have to satisfy one "level" of type variables in order to produce a concrete types (just like an uncurried function needs to be supplied by only one argument list to be invoked), a higher-kinded type needs more.
-
-	scala> trait Container[M[_]] { def put[A](x: A): M[A]; def get[A](m: M[A]): A }
-
-	scala> val container = new Container[List] { def put[A](x: A) = List(x); def get[A](m: List[A]) = m.head }
-	container: java.lang.Object with Container[List] = $anon$1@7c8e3f75
-
-	scala> container.put("hey")
-	res24: List[java.lang.String] = List(hey)
-
-	scala> container.put(123)
-	res25: List[Int] = List(123)
-
-Note that *Container* is polymorphic in a parameterized type ("container type").
-
-If we combine using containers with implicits, we get "ad-hoc" polymorphism: the ability to write generic functions over containers.
-
-	scala> trait Container[M[_]] { def put[A](x: A): M[A]; def get[A](m: M[A]): A }
-
-	scala> implicit val listContainer = new Container[List] { def put[A](x: A) = List(x); def get[A](m: List[A]) = m.head }
-
-	scala> implicit val optionContainer = new Container[Some] { def put[A](x: A) = Some(x); def get[A](m: Some[A]) = m.get }
-
-	scala> def tupleize[M[_]: Container, A, B](fst: M[A], snd: M[B]) = {
-	     | val c = implicitly[Container[M]]                             
-	     | c.put(c.get(fst), c.get(snd))
-	     | }
-	tupleize: [M[_],A,B](fst: M[A],snd: M[B])(implicit evidence$1: Container[M])M[(A, B)]
-
-	scala> tupleize(Some(1), Some(2))
-	res33: Some[(Int, Int)] = Some((1,2))
-
-	scala> tupleize(List(1), List(2))
-	res34: List[(Int, Int)] = List((1,2))
-
-</section><section class="slide">
-
-## F-bounded polymorphism
-
-Often it's necessary to access a concrete subclass in a (generic) trait. For example, imagine you had some trait that is generic, but can be compared to a particular subclass of that trait.
-
-    trait Container extends Ordered[Container]
-
-However, this now necessitates the compare method
-
-    def compare(that: Container): Int
-
-And so we cannot access the concrete subtype, e.g.:
-
-    class MyContainer extends Container {
-      def compare(that: MyContainer): Int
-    }
-
-fails to compile, since we are specifying Ordered for *Container*, not the particular subtype.
-
-To reconcile this, we instead use F-bounded polymorphism.
-
-    trait Container[A <: Container[A]] extends Ordered[A]
-
-Strange type!  But note now how Ordered is parameterized on *A*, which itself is *Container[A]*
-
-So, now 
-
-	class MyContainer extends Container[MyContainer] { 
-	  def compare(that: MyContainer) = 0 
-	}
-
-They are now ordered:
-
-	scala> List(new MyContainer, new MyContainer, new MyContainer)
-	res3: List[MyContainer] = List(MyContainer@30f02a6d, MyContainer@67717334, MyContainer@49428ffa)
-
-	scala> List(new MyContainer, new MyContainer, new MyContainer).min
-	res4: MyContainer = MyContainer@33dfeb30
-
-Given that they are all subtypes of *Container[_]*, we can define another subclass & create a mixed list of *Container[_]*:
-
-	scala> class YourContainer extends Container[YourContainer] { def compare(that: YourContainer) = 0 }
-	defined class YourContainer
-
-	scala> List(new MyContainer, new MyContainer, new MyContainer, new YourContainer)                   
-	res2: List[Container[_ >: YourContainer with MyContainer <: Container[_ >: YourContainer with MyContainer <: ScalaObject]]] 
-	  = List(MyContainer@3be5d207, MyContainer@6d3fe849, MyContainer@7eab48a7, YourContainer@1f2f0ce9)
-
-Note how the resulting type is now lower-bound by *YourContainer with MyContainer*. This is the work of the type inferencer. Interestingly- this type doesn't even need to make sense, it only provides a logical greatest lower bound for the unified type of the list. What happens if we try to use *Ordered* now?
-
-	(new MyContainer, new MyContainer, new MyContainer, new YourContainer).min
-	&lt;console&gt;:9: error: could not find implicit value for parameter cmp:
-	  Ordering[Container[_ >: YourContainer with MyContainer <: Container[_ >: YourContainer with MyContainer <: ScalaObject]]]
-
-No *Ordered[]* exists for the unified type. Too bad.
 
 </section><section class="slide">
 
@@ -1896,69 +1656,6 @@ As we know, type information is lost at compile time due to _erasure_. Scala fea
 	scala> (new MakeFoo[String]).make
 	res10: String = ""
 
-</section><section class="slide">
-
-## Case study: Finagle
-
-See: https://github.com/twitter/finagle
-
-	trait Service[-Req, +Rep] extends (Req => Future[Rep])
-
-	trait Filter[-ReqIn, +RepOut, +ReqOut, -RepIn]
-	  extends ((ReqIn, Service[ReqOut, RepIn]) => Future[RepOut])
-	{
-	  def andThen[Req2, Rep2](next: Filter[ReqOut, RepIn, Req2, Rep2]) =
-	    new Filter[ReqIn, RepOut, Req2, Rep2] {
-	      def apply(request: ReqIn, service: Service[Req2, Rep2]) = {
-	        Filter.this.apply(request, new Service[ReqOut, RepIn] {
-	          def apply(request: ReqOut): Future[RepIn] = next(request, service)
-	          override def release() = service.release()
-	          override def isAvailable = service.isAvailable
-	        })
-	      }
-	    }
-    
-	  def andThen(service: Service[ReqOut, RepIn]) = new Service[ReqIn, RepOut] {
-	    private[this] val refcounted = new RefcountedService(service)
-
-	    def apply(request: ReqIn) = Filter.this.apply(request, refcounted)
-	    override def release() = refcounted.release()
-	    override def isAvailable = refcounted.isAvailable
-	  }    
-	}
-
-A service may authenticate requests with a filter.
-
-	trait RequestWithCredentials extends Request {
-	  def credentials: Credentials
-	}
-
-	class CredentialsFilter(credentialsParser: CredentialsParser)
-	  extends Filter[Request, Response, RequestWithCredentials, Response]
-	{
-	  def apply(request: Request, service: Service[RequestWithCredentials, Response]): Future[Response] = {
-	    val requestWithCredentials = new RequestWrapper with RequestWithCredentials {
-	      val underlying = request
-	      val credentials = credentialsParser(request) getOrElse NullCredentials
-	    }
-
-	    service(requestWithCredentials)
-	  }
-	}
-
-Note how the underlying service requires an authenticated request, and that this is statically verified. Filters can thus be thought of as service transformers.
-
-Many filters can be composed together:
-
-	val upFilter =
-	  logTransaction     andThen
-	  handleExceptions   andThen
-	  extractCredentials andThen
-	  homeUser           andThen
-	  authenticate       andThen
-	  route
-
-Type safely!
 </section>
 </div>
 <!-- Required JS files. -->
