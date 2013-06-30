@@ -32,6 +32,53 @@ Having an interpreter available makes it easy to explore a problem space.
     * Can reuse java libraries
     * Can reuse java tools
     * No performance penalty
+    * benefits from 15 years of JVM development and optimization
+
+---
+
+# What Scala?
+
+Scala is a **sca**lable **la**nguage. It can scale as you need it to.
+
+```scala
+class Hello {
+
+  def greet(name : String) {
+    println("Hi there " + name)
+  }
+}
+```
+
+but this is also scala:
+
+```scala
+class HelloWorldSpec extends Specification {
+
+    "The 'Hello world' string" should {
+      "contain 11 characters" in {
+        "Hello world" must have size(11)
+      }
+    }
+}
+
+object SquareRoot extends Baysick {
+  def main(args:Array[String]) = {
+    10 PRINT "Enter a number"
+    20 INPUT 'n
+    30 PRINT "Square root of " % "'n is " % SQRT('n)
+    40 END
+
+    RUN
+  }
+}
+
+def update() = {
+  VenueRole where (_.venueid eqs this.id) 
+    and (_.userid eqs userid)
+    modify (_.role_type setTo RoleType.manager) 
+    upsertOne()
+}
+```
 
 ---
 
@@ -46,7 +93,7 @@ Having an interpreter available makes it easy to explore a problem space.
 
 # Think Scala
 
-Scala is not just a nicer Java.  You should learn it with a fresh mind- you will get more out of these classes.
+Although Scala is simply a jar file on your classpath, it is not just a library or a nicer/cleaner Java. It is its own language that happens to be compatible with all the java ecosystem. To properly learn Scala, approach it with a fresh mind.
 
 ---
 
@@ -846,6 +893,8 @@ val result: Int = try {
 This is not an example of excellent programming style, just an example of try-catch-finally resulting in expressions like most everything else in Scala.
 
 Finally will be called after an exception has been handled and is not part of the expression.
+
+Scala has no concept of checked-exceptions: you are never required to surround a method with a try-catch block.
 
 ---
 
