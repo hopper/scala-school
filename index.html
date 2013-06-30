@@ -20,20 +20,33 @@
 
 	<!-- Style theme. More available in /themes/style/ or create your own. -->
 	<!--<link rel="stylesheet" href="themes/style/web-2.0.css">-->
-	<link rel="stylesheet" href="themes/deskjs-theme-mozilla/sandstone.css">
+	<link rel="stylesheet" href="themes/deckjs-theme-mozilla/sandstone.nightly.css">
 
 	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
 	<link rel="stylesheet" href="themes/transition/horizontal-slide.css">
 
 	<!-- Required Modernizr file -->
 	<script src="modernizr.custom.js"></script>
-<link rel="stylesheet" href="highlight.js/styles/solarized_dark.css">
-<script src="highlight.js/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+	
+	<!-- Syntax highlighting -->
+	<link rel="stylesheet" href="highlight.js/styles/solarized_dark.css">
 
+	<style>
+	  div.header {
+		  position:absolute;
+		  top: 10px;
+		  right:10px;
+		  height:50px;
+		  width:150px;
+		  z-index:10;
+	      background-image:url('hopper-logo-desktop-bar.png');
+		  background-repeat:no-repeat;
+	}
+	</style>
 </head>
-<body class="deck-container">
-
+<body>
+	<div class="header"></div>
+	<div class="deck-container">
 <section class="slide">
 # Scala School
 </section>
@@ -47,7 +60,7 @@ Some examples will be given as if written in the interpreter and others as if wr
 
 Having an interpreter available makes it easy to explore a problem space.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Why Scala?
 
@@ -63,11 +76,11 @@ Having an interpreter available makes it easy to explore a problem space.
     * No performance penalty
     * benefits from 15 years of JVM development and optimization
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## What Scala?
 
-Scala is a **sca**lable **la**nguage. It can scale as you need it to.
+Scala is a `sca`lable `la`nguage. It can scale as you need it to. This is Scala:
 
     class Hello {
 
@@ -75,37 +88,42 @@ Scala is a **sca**lable **la**nguage. It can scale as you need it to.
         println("Hi there " + name)
       }
     }
+</section>
 
-but this is also scala:
+<section class="slide no-md">
+but so is this:
+<pre><code>
+class HelloWorldSpec extends Specification {
 
-    class HelloWorldSpec extends Specification {
-
-        "The 'Hello world' string" should {
-          "contain 11 characters" in {
-            "Hello world" must have size(11)
-          }
-        }
-    }
-
-    object SquareRoot extends Baysick {
-      def main(args:Array[String]) = {
-        10 PRINT "Enter a number"
-        20 INPUT 'n
-        30 PRINT "Square root of " % "'n is " % SQRT('n)
-        40 END
-
-        RUN
+    "The 'Hello world' string" should {
+      "contain 11 characters" in {
+        "Hello world" must have size(11)
       }
     }
+}
+</code></pre>
+<pre><code>
+object SquareRoot extends Baysick {
+  def main(args: Array[String]) = {
+    10 PRINT "Enter a number"
+    20 INPUT 'n
+    30 PRINT "Square root of " % "'n is " % SQRT('n)
+    40 END
 
-    def update() = {
-      VenueRole where (_.venueid eqs this.id) 
-        and (_.userid eqs userid)
-        modify (_.role_type setTo RoleType.manager) 
-        upsertOne()
-    }
-
-</section><section class='slide'>
+    RUN
+  }
+}
+</code></pre>
+<pre><code>
+def update() = {
+  VenueRole where (_.venueid eqs this.id) 
+    and (_.userid eqs userid)
+    modify (_.role_type setTo RoleType.manager) 
+    upsertOne()
+}
+</code>
+</pre>
+</section><section class="slide">
 
 ## How Scala?
 
@@ -114,13 +132,13 @@ but this is also scala:
     * Or even some non-standard JVMs like Dalvik
     * Scala compiler written by author of Java compiler
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Think Scala
 
 Although Scala is simply a jar file on your classpath, it is not just a library or a nicer/cleaner Java. It is its own language that happens to be compatible with all the java ecosystem. To properly learn Scala, approach it with a fresh mind.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Start the Interpreter
 
@@ -138,7 +156,7 @@ Start the included `sbt console`.
     scala>
 
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Expressions
 
@@ -149,7 +167,7 @@ Start the included `sbt console`.
 
 (Almost) everything in Scala is an expression.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Values
 
@@ -161,9 +179,9 @@ You can give the result of an expression a name.
 You cannot change the binding to a val.
 
     scala> two = 2
-    < console>:8: error: reassignment to val
+    &lt;console>:8: error: reassignment to val
            two = 2
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Variables
 
@@ -175,7 +193,7 @@ If you need to change the binding, you can use a `var` instead.
     scala> name = "marius"
     name: java.lang.String = marius
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Equality
 
@@ -193,7 +211,7 @@ Scala  has both reference and value equality.
     scala> foo.eq(bar)
     res10: Boolean = false
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Functions
 
@@ -218,16 +236,16 @@ You can leave off parens on functions with no arguments.
     scala> three
     res3: Int = 3
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Anonymous Functions
 
 You can create anonymous functions.
 
     scala> (x: Int) => x + 1
-    res2: (Int) => Int = <function1>
+    res2: (Int) => Int = &lt;function1>
 
-This function adds 1 to an Int named x.
+Types function adds 1 to an Int named x.
 
     scala> res2(1)
     res3: Int = 2
@@ -235,12 +253,12 @@ This function adds 1 to an Int named x.
 You can pass anonymous functions around or save them into vals.
 
     scala> val addOne = (x: Int) => x + 1
-    addOne: (Int) => Int = <function1>
+    addOne: (Int) => Int = &lt;function1>
 
     scala> addOne(1)
     res4: Int = 2
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Functions (ctd.)
 
@@ -257,11 +275,11 @@ This is also true of an anonymous function.
       println("hello world")
       i * 2
     }
-    res0: (Int) => Int = <function1>
+    res0: (Int) => Int = &lt;function1&gt;
 
 You will see this syntax often used when passing an anonymous function as an argument.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Partial application
 
@@ -271,14 +289,14 @@ You can partially apply a function with an underscore, which gives you another f
     adder: (m: Int,n: Int)Int
 
     scala> val add2 = adder(2, _:Int)
-    add2: (Int) => Int = <function1>
+    add2: (Int) => Int = &lt;function1&gt;
 
     scala> add2(3)
     res50: Int = 5
 
 You can partially apply any argument in the argument list, not just the last one.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Curried functions
 
@@ -297,7 +315,7 @@ You can call it directly with both arguments.
 You can fill in the first parameter and partially apply the second.
 
     scala> val timesTwo = multiply(2) _
-    timesTwo: (Int) => Int = < function1>
+    timesTwo: (Int) => Int = &lt;function1&gt;
 
     scala> timesTwo(3)
     res1: Int = 6
@@ -305,9 +323,9 @@ You can fill in the first parameter and partially apply the second.
 You can take any function of multiple arguments and curry it. Let's try with our earlier `adder`
 
     scala> (adder _).curried
-    res1: (Int) => (Int) => Int = < function1>
+    res1: (Int) => (Int) => Int = &lt;function1&gt;
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Variable length arguments
 
@@ -322,7 +340,7 @@ There is a special syntax for methods that can take parameters of a repeated typ
     scala> capitalizeAll("rarity", "applejack")
     res2: Seq[String] = ArrayBuffer(Rarity, Applejack)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Classes
 
@@ -343,7 +361,7 @@ There is a special syntax for methods that can take parameters of a repeated typ
 
 Contained are examples are defining methods with def and fields with val.  Methods are just functions that can access the state of the class.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Constructor
 
@@ -375,13 +393,13 @@ You can use the constructor to construct an instance:
     scala> calc.color
     res0: String = black
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Expressions
 
 Our BasicCalculator example gave an example of how Scala is expression-oriented.  The value color was bound based on an if/else expression. Scala is highly expression-oriented: most things are expressions rather than statements.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Aside: Functions vs Methods
 
@@ -400,13 +418,13 @@ Functions and methods are largely interchangeable. Because functions and methods
     scala> c.minc // calls c.minc()
 
     scala> c.finc // returns the function as a value:
-    res2: () => Unit = <function0>
+    res2: () => Unit = &lt;function0&gt;
 
 When you can call one "function" without parentheses but not another, you might think <em>Whoops, I thought I knew how Scala functions worked, but I guess not. Maybe they sometimes need parentheses?</em> You might understand functions, but be using a method.
 
 In practice, you can do great things in Scala while remaining hazy on the difference between methods and functions. If you're new to Scala and read [explanations of the differences](https://www.google.com/search?q=difference+scala+function+method), you might have trouble following them. That doesn't mean you're going to have trouble using Scala. It just means that the difference between functions and methods is subtle enough such that explanations tend to dig into deep parts of the language.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Inheritance
 
@@ -416,7 +434,7 @@ In practice, you can do great things in Scala while remaining hazy on the differ
 
 *See Also* Effective Scala points out that a [Type alias](http://twitter.github.com/effectivescala/##Types%20and%20Generics-Type%20aliases) is better than `extends` if the subclass isn't actually different from the superclass. A Tour of Scala describes [Subclassing](http://www.scala-lang.org/node/125).
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Overloading methods
 
@@ -424,7 +442,7 @@ In practice, you can do great things in Scala while remaining hazy on the differ
       def log(m: Int): Double = log(m, math.exp(1))
     }
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Abstract Classes
 
@@ -441,14 +459,14 @@ You can define an `abstract class`, a class that defines some methods but does n
     defined class Circle
 
     scala> val s = new Shape
-    < console>:8: error: class Shape is abstract; cannot be instantiated
+    &lt;console&gt;:8: error: class Shape is abstract; cannot be instantiated
            val s = new Shape
                ^
 
     scala> val c = new Circle(2)
     c: Circle = Circle@65c0035b
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Traits
 
@@ -475,7 +493,7 @@ One class can extend several traits using the `with` keyword:
 
 *See Also* Effective Scala has opinions about [trait](http://twitter.github.com/effectivescala/##Object oriented programming-Traits).
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Traits vs. Abstract Classes 
 
@@ -486,7 +504,7 @@ If you want to define an interface-like type, you might find it difficult to cho
 
 You are not the first person to ask this question. See fuller answers at stackoverflow: [Scala traits vs abstract classes](http://stackoverflow.com/questions/1991042/scala-traits-vs-abstract-classes), [Difference between Abstract Class and Trait](http://stackoverflow.com/questions/2005681/difference-between-abstract-class-and-trait), and [Programming in Scala: To trait, or not to trait?](http://www.artima.com/pins1ed/traits.html##12.7)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Types
 
@@ -502,6 +520,7 @@ Methods can also have type parameters introduced.
 
     def remove[K](key: K)
 
+</section><section class="slide">
 
 ## Basics continued
 
@@ -515,7 +534,7 @@ This lesson covers:
 * "case classes"
 * "try-catch-finally"
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## apply methods
 
@@ -547,7 +566,7 @@ or
 
 Here our instance object looks like we're calling a method. More on that later!
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Objects
 
@@ -578,7 +597,7 @@ Here is a trivial example that only serves to remove the need to use 'new' to cr
     }
 
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Functions are Objects
 
@@ -608,7 +627,7 @@ Classes can also extend Function and those instances can be called with ().
     defined class AddOne
     
     scala> val plusOne = new AddOne()
-    plusOne: AddOne = <function1>
+    plusOne: AddOne = &lt;function1&gt;
     
     scala> plusOne(1)
     res0: Int = 2
@@ -619,7 +638,7 @@ A nice short-hand for `extends Function1[Int, Int]` is `extends (Int => Int)`
       def apply(m: Int): Int = m + 1
     }
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Packages
 
@@ -652,7 +671,7 @@ Notice what the scala repl says when you define this object:
 
 This gives you a small hint that the designers of Scala designed objects to be part of Scala's module system.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Pattern Matching
 
@@ -685,7 +704,7 @@ this more later.
 
 *See Also* Effective Scala has opinions about [when to use pattern matching](http://twitter.github.com/effectivescala/##Functional%20programming-Pattern%20matching) and [pattern matching formatting](http://twitter.github.com/effectivescala/#Formatting-Pattern%20matching). A Tour of Scala describes [Pattern Matching](http://www.scala-lang.org/node/120)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Matching on type
 
@@ -701,7 +720,7 @@ You can use `match` to handle values of different types differently.
       }
     }
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Matching on class members
 
@@ -720,7 +739,7 @@ Here's the painful way first.
 
 Wow, that's painful.  Thankfully Scala provides some nice tools specifically for this.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Case Classes
 
@@ -745,7 +764,7 @@ case classes automatically have equality and nice toString methods based on the 
 
 case classes can have methods just like normal classes.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Case Classes with pattern matching
 
@@ -773,7 +792,7 @@ Other alternatives for that last match
 
       case c@Calculator(_, _) => "Calculator: %s of unknown type".format(c)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Exceptions
 
@@ -806,7 +825,7 @@ Finally will be called after an exception has been handled and is not part of th
 
 Scala has no concept of checked-exceptions: you are never required to surround a method with a try-catch block.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Collections
 
@@ -831,7 +850,7 @@ This lesson covers:
     * "Generalized functional combinators"
     * "Map?"
 
-</section><section class='slide'>
+</section><section class="slide">
    
 ## Basic Data Structures
 
@@ -839,14 +858,14 @@ Scala provides some nice collections.
 
 *See Also* Effective Scala has opinions about how to use [collections](http://twitter.github.com/effectivescala/##Collections).
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Lists
 
     scala> val numbers = List(1, 2, 3, 4)
     numbers: List[Int] = List(1, 2, 3, 4)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Sets
 
@@ -855,7 +874,7 @@ Sets have no duplicates
     scala> Set(1, 1, 2)
     res0: scala.collection.immutable.Set[Int] = Set(1, 2)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Tuple
 
@@ -886,7 +905,7 @@ Tuple has some special sauce for simply making Tuples of 2 values: `->`
 
 *See Also* Effective Scala has opinions about [destructuring bindings](http://twitter.github.com/effectivescala/##Functional%20programming-Destructuring%20bindings) ("unpacking" a tuple).
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Maps
 
@@ -905,7 +924,7 @@ Maps can themselves contain Maps or even functions as values.
 
     Map("timesTwo" -> { timesTwo(_) })
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Option
 
@@ -936,7 +955,7 @@ Let's look at an example of how Option is used:
 
 Now our data appears trapped in this `Option`. How do we work with it?
 
-</section><section class='slide'>
+</section><section class="slide">
 
 A first instinct might be to do something conditionally based on the `isDefined` method.
 
@@ -962,13 +981,13 @@ Pattern matching fits naturally with `Option`.
 
 *See Also* Effective Scala has opinions about [Options](http://twitter.github.com/effectivescala/##Functional%20programming-Options).
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Functional Combinators
 
 `List(1, 2, 3) map squared` applies the function `squared` to the elements of the the list, returning a new list, perhaps `List(1, 4, 9)`. We call operations like `map` <em>combinators</em>. (If you'd like a better definition, you might like [Explanation of combinators](http://stackoverflow.com/questions/7533837/explanation-of-combinators-for-the-working-man) on Stackoverflow.) Their most common use is on the standard data structures.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## map
 
@@ -985,7 +1004,7 @@ or pass in a partially evaluated function
     scala> numbers.map(timesTwo _)
     res0: List[Int] = List(2, 4, 6, 8)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## foreach
 
@@ -1000,7 +1019,7 @@ You can try to store the return in a value but it'll be of type Unit (i.e. void)
     scala> val doubled = numbers.foreach((i: Int) => i * 2)
     doubled: Unit = ()
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## filter
 
@@ -1015,7 +1034,7 @@ removes any elements where the function you pass in evaluates to false.  Functio
     scala> numbers.filter(isEven _)
     res2: List[Int] = List(2, 4)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## zip
 
@@ -1024,7 +1043,7 @@ zip aggregates the contents of two lists into a single list of pairs.
     scala> List(1, 2, 3).zip(List("a", "b", "c"))
     res0: List[(Int, String)] = List((1,a), (2,b), (3,c))
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## partition
 
@@ -1034,7 +1053,7 @@ zip aggregates the contents of two lists into a single list of pairs.
     scala> numbers.partition(_ %2 == 0)
     res0: (List[Int], List[Int]) = (List(2, 4, 6, 8, 10),List(1, 3, 5, 7, 9))
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## find
 
@@ -1043,7 +1062,7 @@ find returns the first element of a collection that matches a predicate function
     scala> numbers.find((i: Int) => i > 5)
     res0: Option[Int] = Some(6)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## drop & dropWhile
 
@@ -1057,7 +1076,7 @@ find returns the first element of a collection that matches a predicate function
     scala> numbers.dropWhile(_ % 2 != 0)
     res0: List[Int] = List(2, 3, 4, 5, 6, 7, 8, 9, 10)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## foldLeft
 
@@ -1082,7 +1101,7 @@ Seen visually:
     m: 45 n: 10
     res0: Int = 55
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## foldRight
 
@@ -1101,7 +1120,7 @@ Is the same as foldLeft except it runs in the opposite direction.
     m: 1 n: 54
     res0: Int = 55
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## flatten
 
@@ -1110,7 +1129,7 @@ flatten collapses one level of nested structure.
     scala> List(List(1, 2), List(3, 4)).flatten
     res0: List[Int] = List(1, 2, 3, 4)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## flatMap
 
@@ -1131,7 +1150,7 @@ that example calling map and then flatten is an example of the "combinator"-like
 
 *See Also* Effective Scala has opinions about [flatMap](http://twitter.github.com/effectivescala/##Functional%20programming-`flatMap`).
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Generalized functional combinators
 
@@ -1152,7 +1171,7 @@ Interestingly, every functional combinator shown above can be written on top of 
 
 Why `List[Int]()`? Scala wasn't smart enough to realize that you wanted an empty list of Ints to accumulate into.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Map?
 
@@ -1178,7 +1197,7 @@ Why does this work? Why can you pass in a partial pattern match?
 Stay tuned for next week!
 
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Pattern matching & functional composition
 
@@ -1193,7 +1212,7 @@ This lesson covers:
     * composition with orElse
 * "What is a case statement?"
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Function Composition
 
@@ -1205,31 +1224,31 @@ Let's make two aptly-named functions:
     scala> def g(s: String) = "g(" + s + ")"
     g: (String)java.lang.String
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## compose
 
 `compose` makes a new function that composes other functions `f(g(x))`
 
     scala> val fComposeG = f _ compose g _
-    fComposeG: (String) => java.lang.String = <function>
+    fComposeG: (String) => java.lang.String = &lt;function&gt;
     
     scala> fComposeG("yay")
     res0: java.lang.String = f(g(yay))
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## andThen
 
 `andThen` is like `compose`, but calls the first function and then the second, `g(f(x))`
 
     scala> val fAndThenG = f _ andThen g _
-    fAndThenG: (String) => java.lang.String = <function>
+    fAndThenG: (String) => java.lang.String = &lt;function&gt;
     
     scala> fAndThenG("yay")
     res1: java.lang.String = g(f(yay))
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## case statements
 
@@ -1241,7 +1260,7 @@ It's a subclass of function called a PartialFunction.
 
 They are multiple PartialFunctions composed together.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Understanding PartialFunction
 
@@ -1256,7 +1275,7 @@ __Note__ `PartialFunction` is unrelated to a partially applied function that we 
 *See Also* Effective Scala has opinions about [PartialFunction](http://twitter.github.com/effectivescala/##Functional%20programming-Partial%20functions).
 
     scala> val one: PartialFunction[Int, String] = { case 1 => "one" }
-    one: PartialFunction[Int,String] = <function1>
+    one: PartialFunction[Int,String] = &lt;function1&gt;
     
     scala> one.isDefinedAt(1)
     res0: Boolean = true
@@ -1269,23 +1288,23 @@ You can apply a partial function.
     scala> one(1)
     res2: String = one
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Partial Functions (ctd.)
 
 PartialFunctions can be composed with something new, called orElse, that reflects whether the PartialFunction is defined over the supplied argument.
 
     scala> val two: PartialFunction[Int, String] = { case 2 => "two" }
-    two: PartialFunction[Int,String] = <function1>
+    two: PartialFunction[Int,String] = &lt;function1&gt;
     
     scala> val three: PartialFunction[Int, String] = { case 3 => "three" }
-    three: PartialFunction[Int,String] = <function1>
+    three: PartialFunction[Int,String] = &lt;function1&gt;
     
     scala> val wildcard: PartialFunction[Int, String] = { case _ => "something else" }
-    wildcard: PartialFunction[Int,String] = <function1>
+    wildcard: PartialFunction[Int,String] = &lt;function1&gt;
     
     scala> val partial = one orElse two orElse three orElse wildcard
-    partial: PartialFunction[Int,String] = <function1>
+    partial: PartialFunction[Int,String] = &lt;function1&gt;
     
     scala> partial(5)
     res24: String = something else
@@ -1302,7 +1321,7 @@ PartialFunctions can be composed with something new, called orElse, that reflect
     scala> partial(0)
     res28: String = something else
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## The mystery of `case`
 
@@ -1323,7 +1342,7 @@ Why does this work?
 
 A PartialFunction is a subtype of Function so filter can also take a PartialFunction!
 
-</section><section class='slide'>
+</section><section class="slide">
 
 This lesson covers:
 
@@ -1335,7 +1354,7 @@ This lesson covers:
 * "Bounds"
 * "Quantification"
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## What are static types?  Why are they useful?
 
@@ -1357,7 +1376,7 @@ With increasing expressiveness in type systems, we can produce more reliable cod
 
 Note that all type information is removed at compile time. It is no longer needed. This is called erasure.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Types in Scala
 
@@ -1368,7 +1387,7 @@ Scala's powerful type system allows for very rich expression. Some of its chief 
 * *existential quantification* roughly, defining something _for some_ unnamed type
 * *views* we'll learn these next week; roughly, "castability" of values of one type to another
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Scala Type System
 
@@ -1379,7 +1398,7 @@ Scala's powerful type system allows for very rich expression. Some of its chief 
 
 Credit: http://joelabrahamsson.com/learning-scala-part-eight-scalas-type-hierarchy-and-object-equality/
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Parametric polymorphism
 
@@ -1405,7 +1424,7 @@ Polymorphism is achieved through specifying _type variables_.
     scala> drop1(List(1,2,3))
     res1: List[Int] = List(2, 3)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Scala has rank-1 polymorphism
 
@@ -1423,7 +1442,7 @@ This does not compile, because all type variables have to be fixed at the invoca
 
 ...you get a type mismatch.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Type inference
 
@@ -1436,7 +1455,7 @@ Scala's type inference system works a little differently, but it's similar in sp
 In Scala, for example, you cannot do the following:
 
     scala> { x => x }
-    < console>:7: error: missing parameter type
+    &lt;console&gt;:7: error: missing parameter type
            { x => x }
 
 In scala all type inference is _local_. Scala considers one expression at a time. For example:
@@ -1455,7 +1474,7 @@ In scala all type inference is _local_. Scala considers one expression at a time
 
 Types are now preserved, The Scala compiler infers the type parameter for us. Note also how we did not have to specify the return type explicitly.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Variance
 
@@ -1475,7 +1494,7 @@ The subtype relationship really means: for a given type T, if T' is a subtype, c
     cv: Covariant[AnyRef] = Covariant@4035acf6
     
     scala> val cv: Covariant[String] = new Covariant[AnyRef]
-    < console>:6: error: type mismatch;
+    &lt;console&gt;:6: error: type mismatch;
      found   : Covariant[AnyRef]
      required: Covariant[String]
            val cv: Covariant[String] = new Covariant[AnyRef]
@@ -1488,7 +1507,7 @@ The subtype relationship really means: for a given type T, if T' is a subtype, c
     cv: Contravariant[AnyRef] = Contravariant@49fa7ba
     
     scala> val fail: Contravariant[AnyRef] = new Contravariant[String]
-    < console>:6: error: type mismatch;
+    &lt;console&gt;:6: error: type mismatch;
      found   : Contravariant[String]
      required: Contravariant[AnyRef]
            val fail: Contravariant[AnyRef] = new Contravariant[String]
@@ -1516,21 +1535,21 @@ Suppose you need a function that takes a `Bird` param:
 The standard animal library has a function that does what you want, but it takes an `Animal` parameter instead.  In most situations, if you say "I need a ___, I have a subclass of ___", you're OK. But function parameters are contravariant. If you need a function that takes a `Bird` and you have a function that takes an `Chicken`, that function would choke on a `Duck`. But a function that takes an `Animal` is OK:
 
     scala> val getTweet: (Bird => String) = ((a: Animal) => a.sound )
-    getTweet: Bird => String = <function1>
+    getTweet: Bird => String = &lt;function1&gt;
 
 A function's return value type is covariant. If you need a function that returns a `Bird` but have a function that returns a `Chicken`, that's great.
 
     scala> val hatch: (() => Bird) = (() => new Chicken )
-    hatch: () => Bird = <function0>
+    hatch: () => Bird = &lt;function0&gt;
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Bounds
 
 Scala allows you to restrict polymorphic variables using _bounds_. These bounds express subtype relationships.
 
     scala> def cacophony[T](things: Seq[T]) = things map (_.sound)
-    < console>:7: error: value sound is not a member of type parameter T
+    &lt;console&gt;:7: error: value sound is not a member of type parameter T
            def cacophony[T](things: Seq[T]) = things map (_.sound)
                                                             ^
     
@@ -1555,7 +1574,7 @@ Lower type bounds are also supported; they come in handy with contravariance and
 
 Note that the return type is `Animal`.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Quantification
 
@@ -1592,7 +1611,7 @@ You may also apply bounds to wildcard type variables:
     hashcodes: (Seq[_ <: AnyRef])Seq[Int]
     
     scala> hashcodes(Seq(1,2,3))
-    < console>:7: error: type mismatch;
+    &lt;console&gt;:7: error: type mismatch;
      found   : Int(1)
      required: AnyRef
     Note: primitive types are not implicitly converted to AnyRef.
@@ -1605,7 +1624,7 @@ You may also apply bounds to wildcard type variables:
 
 *See Also* [Existential types in Scala by D. R. MacIver](http://www.drmaciver.com/2008/03/existential-types-in-scala/)
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## View bounds ("type classes")
 
@@ -1639,11 +1658,11 @@ This says that *A* has to be "viewable" as *Int*.  Let's try it.
     res12: Int = 246
     
     scala> (new Container[Float]).addIt(123.2F)
-    <console>:8: error: could not find implicit value for evidence parameter of type (Float) => Int
+    &lt;console&gt;:8: error: could not find implicit value for evidence parameter of type (Float) => Int
            (new Container[Float]).addIt(123.2)
             ^
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Other type bounds
 
@@ -1666,7 +1685,7 @@ Methods may ask for some kinds of specific "evidence" for a type without setting
     res11: Int = 246
     
     scala> (new Container("123")).addIt
-    < console>:10: error: could not find implicit value for parameter evidence: =:=[java.lang.String,Int]
+    &lt;console&gt;:10: error: could not find implicit value for parameter evidence: =:=[java.lang.String,Int]
 
 Similarly, given our previous implicit, we can relax the constraint to viewability:
 
@@ -1676,7 +1695,7 @@ Similarly, given our previous implicit, we can relax the constraint to viewabili
     scala> (new Container("123")).addIt
     res15: Int = 246
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Generic programming with views
 
@@ -1708,7 +1727,7 @@ As a sidenote, there are views in the standard library that translates *Ordered*
       }
     }
 
-</section><section class='slide'>
+</section><section class="slide">
 
 #### Context bounds & implicitly[]
 
@@ -1727,7 +1746,7 @@ Implicit values may be accessed via *implicitly*
 
 Combined, these often result in less code, especially when threading through views.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Higher-kinded types & ad-hoc polymorphism
 
@@ -1735,248 +1754,213 @@ Scala can abstract over "higher kinded" types. For example, suppose that you nee
 
 This is analogous to function currying. For example, whereas "unary types" have constructors like `List[A]`, meaning we have to satisfy one "level" of type variables in order to produce a concrete types (just like an uncurried function needs to be supplied by only one argument list to be invoked), a higher-kinded type needs more.
 
-```scala
-scala> trait Container[M[_]] { def put[A](x: A): M[A]; def get[A](m: M[A]): A }
+	scala> trait Container[M[_]] { def put[A](x: A): M[A]; def get[A](m: M[A]): A }
 
-scala> val container = new Container[List] { def put[A](x: A) = List(x); def get[A](m: List[A]) = m.head }
-container: java.lang.Object with Container[List] = $anon$1@7c8e3f75
+	scala> val container = new Container[List] { def put[A](x: A) = List(x); def get[A](m: List[A]) = m.head }
+	container: java.lang.Object with Container[List] = $anon$1@7c8e3f75
 
-scala> container.put("hey")
-res24: List[java.lang.String] = List(hey)
+	scala> container.put("hey")
+	res24: List[java.lang.String] = List(hey)
 
-scala> container.put(123)
-res25: List[Int] = List(123)
-```
+	scala> container.put(123)
+	res25: List[Int] = List(123)
 
 Note that *Container* is polymorphic in a parameterized type ("container type").
 
 If we combine using containers with implicits, we get "ad-hoc" polymorphism: the ability to write generic functions over containers.
 
-```scala
-scala> trait Container[M[_]] { def put[A](x: A): M[A]; def get[A](m: M[A]): A }
+	scala> trait Container[M[_]] { def put[A](x: A): M[A]; def get[A](m: M[A]): A }
 
-scala> implicit val listContainer = new Container[List] { def put[A](x: A) = List(x); def get[A](m: List[A]) = m.head }
+	scala> implicit val listContainer = new Container[List] { def put[A](x: A) = List(x); def get[A](m: List[A]) = m.head }
 
-scala> implicit val optionContainer = new Container[Some] { def put[A](x: A) = Some(x); def get[A](m: Some[A]) = m.get }
+	scala> implicit val optionContainer = new Container[Some] { def put[A](x: A) = Some(x); def get[A](m: Some[A]) = m.get }
 
-scala> def tupleize[M[_]: Container, A, B](fst: M[A], snd: M[B]) = {
-     | val c = implicitly[Container[M]]                             
-     | c.put(c.get(fst), c.get(snd))
-     | }
-tupleize: [M[_],A,B](fst: M[A],snd: M[B])(implicit evidence$1: Container[M])M[(A, B)]
+	scala> def tupleize[M[_]: Container, A, B](fst: M[A], snd: M[B]) = {
+	     | val c = implicitly[Container[M]]                             
+	     | c.put(c.get(fst), c.get(snd))
+	     | }
+	tupleize: [M[_],A,B](fst: M[A],snd: M[B])(implicit evidence$1: Container[M])M[(A, B)]
 
-scala> tupleize(Some(1), Some(2))
-res33: Some[(Int, Int)] = Some((1,2))
+	scala> tupleize(Some(1), Some(2))
+	res33: Some[(Int, Int)] = Some((1,2))
 
-scala> tupleize(List(1), List(2))
-res34: List[(Int, Int)] = List((1,2))
-```
+	scala> tupleize(List(1), List(2))
+	res34: List[(Int, Int)] = List((1,2))
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## F-bounded polymorphism
 
 Often it's necessary to access a concrete subclass in a (generic) trait. For example, imagine you had some trait that is generic, but can be compared to a particular subclass of that trait.
 
-```scala
-trait Container extends Ordered[Container]
-```
+    trait Container extends Ordered[Container]
 
 However, this now necessitates the compare method
 
-```scala
-def compare(that: Container): Int
-```
+    def compare(that: Container): Int
 
 And so we cannot access the concrete subtype, e.g.:
 
-```scala
-class MyContainer extends Container {
-  def compare(that: MyContainer): Int
-}
-```
+    class MyContainer extends Container {
+      def compare(that: MyContainer): Int
+    }
 
 fails to compile, since we are specifying Ordered for *Container*, not the particular subtype.
 
 To reconcile this, we instead use F-bounded polymorphism.
 
-```scala
-trait Container[A <: Container[A]] extends Ordered[A]
-```
+    trait Container[A <: Container[A]] extends Ordered[A]
 
 Strange type!  But note now how Ordered is parameterized on *A*, which itself is *Container[A]*
 
 So, now 
 
-```scala
-class MyContainer extends Container[MyContainer] { 
-  def compare(that: MyContainer) = 0 
-}
-```
+	class MyContainer extends Container[MyContainer] { 
+	  def compare(that: MyContainer) = 0 
+	}
 
 They are now ordered:
 
-```scala
-scala> List(new MyContainer, new MyContainer, new MyContainer)
-res3: List[MyContainer] = List(MyContainer@30f02a6d, MyContainer@67717334, MyContainer@49428ffa)
+	scala> List(new MyContainer, new MyContainer, new MyContainer)
+	res3: List[MyContainer] = List(MyContainer@30f02a6d, MyContainer@67717334, MyContainer@49428ffa)
 
-scala> List(new MyContainer, new MyContainer, new MyContainer).min
-res4: MyContainer = MyContainer@33dfeb30
-```
+	scala> List(new MyContainer, new MyContainer, new MyContainer).min
+	res4: MyContainer = MyContainer@33dfeb30
 
 Given that they are all subtypes of *Container[_]*, we can define another subclass & create a mixed list of *Container[_]*:
 
-```scala
-scala> class YourContainer extends Container[YourContainer] { def compare(that: YourContainer) = 0 }
-defined class YourContainer
+	scala> class YourContainer extends Container[YourContainer] { def compare(that: YourContainer) = 0 }
+	defined class YourContainer
 
-scala> List(new MyContainer, new MyContainer, new MyContainer, new YourContainer)                   
-res2: List[Container[_ >: YourContainer with MyContainer <: Container[_ >: YourContainer with MyContainer <: ScalaObject]]] 
-  = List(MyContainer@3be5d207, MyContainer@6d3fe849, MyContainer@7eab48a7, YourContainer@1f2f0ce9)
-```
+	scala> List(new MyContainer, new MyContainer, new MyContainer, new YourContainer)                   
+	res2: List[Container[_ >: YourContainer with MyContainer <: Container[_ >: YourContainer with MyContainer <: ScalaObject]]] 
+	  = List(MyContainer@3be5d207, MyContainer@6d3fe849, MyContainer@7eab48a7, YourContainer@1f2f0ce9)
 
 Note how the resulting type is now lower-bound by *YourContainer with MyContainer*. This is the work of the type inferencer. Interestingly- this type doesn't even need to make sense, it only provides a logical greatest lower bound for the unified type of the list. What happens if we try to use *Ordered* now?
 
-```scala
-(new MyContainer, new MyContainer, new MyContainer, new YourContainer).min
-<console>:9: error: could not find implicit value for parameter cmp:
-  Ordering[Container[_ >: YourContainer with MyContainer <: Container[_ >: YourContainer with MyContainer <: ScalaObject]]]
-```
+	(new MyContainer, new MyContainer, new MyContainer, new YourContainer).min
+	&lt;console&gt;:9: error: could not find implicit value for parameter cmp:
+	  Ordering[Container[_ >: YourContainer with MyContainer <: Container[_ >: YourContainer with MyContainer <: ScalaObject]]]
 
 No *Ordered[]* exists for the unified type. Too bad.
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Structural types
 
 Scala has support for *structural types* -- type requirements are expressed by interface _structure_ instead of a concrete type.
 
-```scala
-scala> def foo(x: { def get: Int }) = 123 + x.get
-foo: (x: AnyRef{def get: Int})Int
+	scala> def foo(x: { def get: Int }) = 123 + x.get
+	foo: (x: AnyRef{def get: Int})Int
 
-scala> foo(new { def get = 10 })                 
-res0: Int = 133
-```
+	scala> foo(new { def get = 10 })                 
+	res0: Int = 133
 
 This can be quite nice in many situations, but the implementation uses reflection, so be performance-aware!
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Abstract type members
 
 In a trait, you can leave type members abstract.
 
-```scala
-scala> trait Foo { type A; val x: A; def getX: A = x }
-defined trait Foo
+	scala> trait Foo { type A; val x: A; def getX: A = x }
+	defined trait Foo
 
-scala> (new Foo { type A = Int; val x = 123 }).getX   
-res3: Int = 123
+	scala> (new Foo { type A = Int; val x = 123 }).getX   
+	res3: Int = 123
 
-scala> (new Foo { type A = String; val x = "hey" }).getX
-res4: java.lang.String = hey
-```
+	scala> (new Foo { type A = String; val x = "hey" }).getX
+	res4: java.lang.String = hey
 
 This is often a useful trick when doing dependency injection, etc.
 
 You can refer to an abstract type variable using the hash-operator:
 
-```scala
-scala> trait Foo[M[_]] { type t[A] = M[A] }
-defined trait Foo
+	scala> trait Foo[M[_]] { type t[A] = M[A] }
+	defined trait Foo
 
-scala> val x: Foo[List]##t[Int] = List(1)
-x: List[Int] = List(1)
-```
+	scala> val x: Foo[List]##t[Int] = List(1)
+	x: List[Int] = List(1)
 
-
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Type erasures & manifests
 
 As we know, type information is lost at compile time due to _erasure_. Scala features *Manifests*, allowing us to selectively recover type information. Manifests are provided as an implicit value, generated by the compiler as needed.
 
-```scala
-scala> class MakeFoo[A](implicit manifest: Manifest[A]) {
-     |   def make: A = manifest.erasure.newInstance.asInstanceOf[A]
-     | }
+	scala> class MakeFoo[A](implicit manifest: Manifest[A]) {
+	     |   def make: A = manifest.erasure.newInstance.asInstanceOf[A]
+	     | }
 
-scala> (new MakeFoo[String]).make
-res10: String = ""
-```
+	scala> (new MakeFoo[String]).make
+	res10: String = ""
 
-</section><section class='slide'>
+</section><section class="slide">
 
 ## Case study: Finagle
 
 See: https://github.com/twitter/finagle
 
-```scala
-trait Service[-Req, +Rep] extends (Req => Future[Rep])
+	trait Service[-Req, +Rep] extends (Req => Future[Rep])
 
-trait Filter[-ReqIn, +RepOut, +ReqOut, -RepIn]
-  extends ((ReqIn, Service[ReqOut, RepIn]) => Future[RepOut])
-{
-  def andThen[Req2, Rep2](next: Filter[ReqOut, RepIn, Req2, Rep2]) =
-    new Filter[ReqIn, RepOut, Req2, Rep2] {
-      def apply(request: ReqIn, service: Service[Req2, Rep2]) = {
-        Filter.this.apply(request, new Service[ReqOut, RepIn] {
-          def apply(request: ReqOut): Future[RepIn] = next(request, service)
-          override def release() = service.release()
-          override def isAvailable = service.isAvailable
-        })
-      }
-    }
+	trait Filter[-ReqIn, +RepOut, +ReqOut, -RepIn]
+	  extends ((ReqIn, Service[ReqOut, RepIn]) => Future[RepOut])
+	{
+	  def andThen[Req2, Rep2](next: Filter[ReqOut, RepIn, Req2, Rep2]) =
+	    new Filter[ReqIn, RepOut, Req2, Rep2] {
+	      def apply(request: ReqIn, service: Service[Req2, Rep2]) = {
+	        Filter.this.apply(request, new Service[ReqOut, RepIn] {
+	          def apply(request: ReqOut): Future[RepIn] = next(request, service)
+	          override def release() = service.release()
+	          override def isAvailable = service.isAvailable
+	        })
+	      }
+	    }
     
-  def andThen(service: Service[ReqOut, RepIn]) = new Service[ReqIn, RepOut] {
-    private[this] val refcounted = new RefcountedService(service)
+	  def andThen(service: Service[ReqOut, RepIn]) = new Service[ReqIn, RepOut] {
+	    private[this] val refcounted = new RefcountedService(service)
 
-    def apply(request: ReqIn) = Filter.this.apply(request, refcounted)
-    override def release() = refcounted.release()
-    override def isAvailable = refcounted.isAvailable
-  }    
-}
-```
+	    def apply(request: ReqIn) = Filter.this.apply(request, refcounted)
+	    override def release() = refcounted.release()
+	    override def isAvailable = refcounted.isAvailable
+	  }    
+	}
 
 A service may authenticate requests with a filter.
 
-```scala
-trait RequestWithCredentials extends Request {
-  def credentials: Credentials
-}
+	trait RequestWithCredentials extends Request {
+	  def credentials: Credentials
+	}
 
-class CredentialsFilter(credentialsParser: CredentialsParser)
-  extends Filter[Request, Response, RequestWithCredentials, Response]
-{
-  def apply(request: Request, service: Service[RequestWithCredentials, Response]): Future[Response] = {
-    val requestWithCredentials = new RequestWrapper with RequestWithCredentials {
-      val underlying = request
-      val credentials = credentialsParser(request) getOrElse NullCredentials
-    }
+	class CredentialsFilter(credentialsParser: CredentialsParser)
+	  extends Filter[Request, Response, RequestWithCredentials, Response]
+	{
+	  def apply(request: Request, service: Service[RequestWithCredentials, Response]): Future[Response] = {
+	    val requestWithCredentials = new RequestWrapper with RequestWithCredentials {
+	      val underlying = request
+	      val credentials = credentialsParser(request) getOrElse NullCredentials
+	    }
 
-    service(requestWithCredentials)
-  }
-}
-```
+	    service(requestWithCredentials)
+	  }
+	}
 
 Note how the underlying service requires an authenticated request, and that this is statically verified. Filters can thus be thought of as service transformers.
 
 Many filters can be composed together:
 
-```scala
-val upFilter =
-  logTransaction     andThen
-  handleExceptions   andThen
-  extractCredentials andThen
-  homeUser           andThen
-  authenticate       andThen
-  route
-```
+	val upFilter =
+	  logTransaction     andThen
+	  handleExceptions   andThen
+	  extractCredentials andThen
+	  homeUser           andThen
+	  authenticate       andThen
+	  route
 
 Type safely!
 </section>
-
+</div>
 <!-- Required JS files. -->
 <script src="jquery-1.7.2.min.js"></script>
 <script src="core/deck.core.js"></script>
@@ -1988,14 +1972,18 @@ Type safely!
 <script src="extensions/goto/deck.goto.js"></script>
 <script src="extensions/status/deck.status.js"></script>
 <script src="extensions/navigation/deck.navigation.js"></script>
-<script src="extensions/scale/deck.scale.js"></script>
 <script src="extensions/markdown/Markdown.Converter.js"></script>
 <script src="extensions/markdown/deck.markdown.js"></script>
+<script src="extensions/scale/deck.scale.js"></script>
+<script src="highlight.js/highlight.pack.js"></script>
 
 <!-- Initialize the deck. You can put this in an external file if desired. -->
 <script>
 	$(function() {
 		$.deck('.slide');
+		$('pre code').each(function(i, e) {
+			e.innerHTML = hljs.highlight(e.className || 'scala', e.innerText).value
+		});
 	});
 </script>
 
