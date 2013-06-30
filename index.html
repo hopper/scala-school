@@ -1,16 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Title</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <style type="text/css" media="screen">
-      /* Slideshow styles */
-    </style>
-  </head>
-  <body>
-    <textarea id="source">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport" content="width=1024, user-scalable=no">
 
-# About this class
+	<title>Your deck.js Presentation</title>
+
+	<!-- Required stylesheet -->
+	<link rel="stylesheet" href="core/deck.core.css">
+
+	<!-- Extension CSS files go here. Remove or add as needed. -->
+	<link rel="stylesheet" href="extensions/goto/deck.goto.css">
+	<link rel="stylesheet" href="extensions/menu/deck.menu.css">
+	<link rel="stylesheet" href="extensions/navigation/deck.navigation.css">
+	<link rel="stylesheet" href="extensions/status/deck.status.css">
+	<link rel="stylesheet" href="extensions/hash/deck.hash.css">
+	<link rel="stylesheet" href="extensions/scale/deck.scale.css">
+
+	<!-- Style theme. More available in /themes/style/ or create your own. -->
+	<!--<link rel="stylesheet" href="themes/style/web-2.0.css">-->
+	<link rel="stylesheet" href="themes/deskjs-theme-mozilla/sandstone.css">
+
+	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
+	<link rel="stylesheet" href="themes/transition/horizontal-slide.css">
+
+	<!-- Required Modernizr file -->
+	<script src="modernizr.custom.js"></script>
+<link rel="stylesheet" href="highlight.js/styles/solarized_dark.css">
+<script src="highlight.js/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+<body class="deck-container">
+
+<section class="slide">
+# Scala School
+</section>
+
+<section class="slide">
+## About this class
 
 The first few weeks will cover basic syntax and concepts, then we'll start to open it up with more exercises.
 
@@ -18,9 +47,9 @@ Some examples will be given as if written in the interpreter and others as if wr
 
 Having an interpreter available makes it easy to explore a problem space.
 
----
+</section><section class='slide'>
 
-# Why Scala?
+## Why Scala?
 
 * Expressive
     * First-class functions
@@ -34,520 +63,450 @@ Having an interpreter available makes it easy to explore a problem space.
     * No performance penalty
     * benefits from 15 years of JVM development and optimization
 
----
+</section><section class='slide'>
 
-# What Scala?
+## What Scala?
 
 Scala is a **sca**lable **la**nguage. It can scale as you need it to.
 
-```scala
-class Hello {
+    class Hello {
 
-  def greet(name : String) {
-    println("Hi there " + name)
-  }
-}
-```
+      def greet(name : String) {
+        println("Hi there " + name)
+      }
+    }
 
 but this is also scala:
 
-```scala
-class HelloWorldSpec extends Specification {
+    class HelloWorldSpec extends Specification {
 
-    "The 'Hello world' string" should {
-      "contain 11 characters" in {
-        "Hello world" must have size(11)
+        "The 'Hello world' string" should {
+          "contain 11 characters" in {
+            "Hello world" must have size(11)
+          }
+        }
+    }
+
+    object SquareRoot extends Baysick {
+      def main(args:Array[String]) = {
+        10 PRINT "Enter a number"
+        20 INPUT 'n
+        30 PRINT "Square root of " % "'n is " % SQRT('n)
+        40 END
+
+        RUN
       }
     }
-}
 
-object SquareRoot extends Baysick {
-  def main(args:Array[String]) = {
-    10 PRINT "Enter a number"
-    20 INPUT 'n
-    30 PRINT "Square root of " % "'n is " % SQRT('n)
-    40 END
+    def update() = {
+      VenueRole where (_.venueid eqs this.id) 
+        and (_.userid eqs userid)
+        modify (_.role_type setTo RoleType.manager) 
+        upsertOne()
+    }
 
-    RUN
-  }
-}
+</section><section class='slide'>
 
-def update() = {
-  VenueRole where (_.venueid eqs this.id) 
-    and (_.userid eqs userid)
-    modify (_.role_type setTo RoleType.manager) 
-    upsertOne()
-}
-```
-
----
-
-# How Scala?
+## How Scala?
 
 * Compiles to java bytecode
 * Works with any standard JVM
     * Or even some non-standard JVMs like Dalvik
     * Scala compiler written by author of Java compiler
 
----
+</section><section class='slide'>
 
-# Think Scala
+## Think Scala
 
 Although Scala is simply a jar file on your classpath, it is not just a library or a nicer/cleaner Java. It is its own language that happens to be compatible with all the java ecosystem. To properly learn Scala, approach it with a fresh mind.
 
----
+</section><section class='slide'>
 
-# Start the Interpreter
+## Start the Interpreter
 
 Start the included `sbt console`.
 
-```scala
-$ sbt console
 
-[...]
+    $ sbt console
 
-Welcome to Scala version 2.8.0.final (Java HotSpot(TM) 64-Bit Server VM, Java 1.6.0_20).
-Type in expressions to have them evaluated.
-Type :help for more information.
+    [...]
 
-scala>
-```
+    Welcome to Scala version 2.8.0.final (Java HotSpot(TM) 64-Bit Server VM, Java 1.6.0_20).
+    Type in expressions to have them evaluated.
+    Type :help for more information.
+
+    scala>
 
 
----
+</section><section class='slide'>
 
-# Expressions
+## Expressions
 
-```scala
-scala> 1 + 1
-res0: Int = 2
-```
+    scala> 1 + 1
+    res0: Int = 2
 
-res0 is an automatically created value name given by the interpreter to the result of your expression.  It has the type Int and contains the Integer 2.
+```res0``` is an automatically created value name given by the interpreter to the result of your expression.  It has the type Int and contains the Integer 2.
 
 (Almost) everything in Scala is an expression.
 
----
+</section><section class='slide'>
 
-# Values
+## Values
 
 You can give the result of an expression a name.
 
-```scala
-scala> val two = 1 + 1
-two: Int = 2
-```
+    scala> val two = 1 + 1
+    two: Int = 2
 
 You cannot change the binding to a val.
 
-```scala
-scala> two = 2
-<console>:8: error: reassignment to val
-       two = 2
-```
----
+    scala> two = 2
+    < console>:8: error: reassignment to val
+           two = 2
+</section><section class='slide'>
 
-# Variables
+## Variables
 
 If you need to change the binding, you can use a `var` instead.
 
-```scala
-scala> var name = "steve"
-name: java.lang.String = steve
+    scala> var name = "steve"
+    name: java.lang.String = steve
 
-scala> name = "marius"
-name: java.lang.String = marius
-```
+    scala> name = "marius"
+    name: java.lang.String = marius
 
----
+</section><section class='slide'>
 
-# Equality
+## Equality
 
 Scala  has both reference and value equality.
 
-```scala
-scala> val foo = new String("foobar")
-foo: java.lang.String = foobar
+    scala> val foo = new String("foobar")
+    foo: java.lang.String = foobar
 
-scala> val bar = new String("foobar")
-bar: java.lang.String = foobar
+    scala> val bar = new String("foobar")
+    bar: java.lang.String = foobar
 
-scala> foo == bar
-res9: Boolean = true
+    scala> foo == bar
+    res9: Boolean = true
 
-scala> foo.eq(bar)
-res10: Boolean = false
-```
+    scala> foo.eq(bar)
+    res10: Boolean = false
 
----
+</section><section class='slide'>
 
-# Functions
+## Functions
 
 You can create functions with def.
 
-```scala
-scala> def addOne(m: Int): Int = m + 1
-addOne: (m: Int)Int
-```
+    scala> def addOne(m: Int): Int = m + 1
+    addOne: (m: Int)Int
 
 In Scala, you need to specify the type signature for function parameters.  The interpreter happily repeats the type signature back to you.
 
-```scala
-scala> val three = addOne(2)
-three: Int = 3
-```
+    scala> val three = addOne(2)
+    three: Int = 3
 
 You can leave off parens on functions with no arguments.
 
-```scala
-scala> def three() = 1 + 2
-three: ()Int
+    scala> def three() = 1 + 2
+    three: ()Int
 
-scala> three()
-res2: Int = 3
+    scala> three()
+    res2: Int = 3
 
-scala> three
-res3: Int = 3
-```
+    scala> three
+    res3: Int = 3
 
----
+</section><section class='slide'>
 
-# Anonymous Functions
+## Anonymous Functions
 
 You can create anonymous functions.
 
-```scala
-scala> (x: Int) => x + 1
-res2: (Int) => Int = <function1>
-```
+    scala> (x: Int) => x + 1
+    res2: (Int) => Int = <function1>
 
 This function adds 1 to an Int named x.
 
-```scala
-scala> res2(1)
-res3: Int = 2
-```
+    scala> res2(1)
+    res3: Int = 2
 
 You can pass anonymous functions around or save them into vals.
 
-```scala
-scala> val addOne = (x: Int) => x + 1
-addOne: (Int) => Int = <function1>
+    scala> val addOne = (x: Int) => x + 1
+    addOne: (Int) => Int = <function1>
 
-scala> addOne(1)
-res4: Int = 2
-```
+    scala> addOne(1)
+    res4: Int = 2
 
----
+</section><section class='slide'>
 
-# Functions (ctd.)
+## Functions (ctd.)
 
 If your function is made up of many expressions, you can use {} to give yourself some breathing room.
 
-```scala
-def timesTwo(i: Int): Int = {
-  println("hello world")
-  i * 2
-}
-```
+    def timesTwo(i: Int): Int = {
+      println("hello world")
+      i * 2
+    }
 
 This is also true of an anonymous function.
 
-```scala
-scala> { i: Int =>
-  println("hello world")
-  i * 2
-}
-res0: (Int) => Int = <function1>
-```
+    scala> { i: Int =>
+      println("hello world")
+      i * 2
+    }
+    res0: (Int) => Int = <function1>
 
 You will see this syntax often used when passing an anonymous function as an argument.
 
----
+</section><section class='slide'>
 
-# Partial application
+## Partial application
 
 You can partially apply a function with an underscore, which gives you another function. Scala uses the underscore to mean different things in different contexts, but you can usually think of it as an unnamed magical wildcard. In the context of `{ _ + 2 }` it means an unnamed parameter. You can use it like so:
 
-```scala
-scala> def adder(m: Int, n: Int) = m + n
-adder: (m: Int,n: Int)Int
-```
+    scala> def adder(m: Int, n: Int) = m + n
+    adder: (m: Int,n: Int)Int
 
-```scala
-scala> val add2 = adder(2, _:Int)
-add2: (Int) => Int = <function1>
+    scala> val add2 = adder(2, _:Int)
+    add2: (Int) => Int = <function1>
 
-scala> add2(3)
-res50: Int = 5
-```
+    scala> add2(3)
+    res50: Int = 5
 
 You can partially apply any argument in the argument list, not just the last one.
 
----
+</section><section class='slide'>
 
-# Curried functions
+## Curried functions
 
 Sometimes it makes sense to let people apply some arguments to your function now and others later.
 
 Here's an example of a function that lets you build multipliers of two numbers together. At one call site, you'll decide which is the multiplier and at a later call site, you'll choose a multiplicand.
 
-```scala
-scala> def multiply(m: Int)(n: Int): Int = m * n
-multiply: (m: Int)(n: Int)Int
-```
+    scala> def multiply(m: Int)(n: Int): Int = m * n
+    multiply: (m: Int)(n: Int)Int
 
 You can call it directly with both arguments.
 
-```scala
-scala> multiply(2)(3)
-res0: Int = 6
-```
+    scala> multiply(2)(3)
+    res0: Int = 6
 
 You can fill in the first parameter and partially apply the second.
 
-```scala
-scala> val timesTwo = multiply(2) _
-timesTwo: (Int) => Int = <function1>
+    scala> val timesTwo = multiply(2) _
+    timesTwo: (Int) => Int = < function1>
 
-scala> timesTwo(3)
-res1: Int = 6
-```
+    scala> timesTwo(3)
+    res1: Int = 6
 
 You can take any function of multiple arguments and curry it. Let's try with our earlier `adder`
 
-```scala
-scala> (adder _).curried
-res1: (Int) => (Int) => Int = <function1>
-```
+    scala> (adder _).curried
+    res1: (Int) => (Int) => Int = < function1>
 
----
+</section><section class='slide'>
 
-# Variable length arguments
+## Variable length arguments
 
 There is a special syntax for methods that can take parameters of a repeated type. To apply String's `capitalize` function to several strings, you might write:
 
-```scala
-def capitalizeAll(args: String*) = {
-  args.map { arg =>
-    arg.capitalize
-  }
-}
+    def capitalizeAll(args: String*) = {
+      args.map { arg =>
+        arg.capitalize
+      }
+    }
 
-scala> capitalizeAll("rarity", "applejack")
-res2: Seq[String] = ArrayBuffer(Rarity, Applejack)
-```
+    scala> capitalizeAll("rarity", "applejack")
+    res2: Seq[String] = ArrayBuffer(Rarity, Applejack)
 
----
+</section><section class='slide'>
 
-# Classes
+## Classes
 
-```scala
-scala> class Calculator {
-     |   val brand: String = "HP"
-     |   def add(m: Int, n: Int): Int = m + n
-     | }
-defined class Calculator
+    scala> class Calculator {
+         |   val brand: String = "HP"
+         |   def add(m: Int, n: Int): Int = m + n
+         | }
+    defined class Calculator
 
-scala> val calc = new Calculator
-calc: Calculator = Calculator@e75a11
+    scala> val calc = new Calculator
+    calc: Calculator = Calculator@e75a11
 
-scala> calc.add(1, 2)
-res1: Int = 3
+    scala> calc.add(1, 2)
+    res1: Int = 3
 
-scala> calc.brand
-res2: String = "HP"
-```
+    scala> calc.brand
+    res2: String = "HP"
 
 Contained are examples are defining methods with def and fields with val.  Methods are just functions that can access the state of the class.
 
----
+</section><section class='slide'>
 
-# Constructor
+## Constructor
 
 Constructors aren't special methods, they are the code outside of method definitions in your class.  Let's extend our Calculator example to take a constructor argument and use it to initialize internal state.
 
-```scala
-class Calculator(brand: String) {
-  /*
-   * A constructor.
-   */
-  val color: String = if (brand == "TI") {
-    "blue"
-  } else if (brand == "HP") {
-    "black"
-  } else {
-    "white"
-  }
+    class Calculator(brand: String) {
+      /*
+       * A constructor.
+       */
+      val color: String = if (brand == "TI") {
+        "blue"
+      } else if (brand == "HP") {
+        "black"
+      } else {
+        "white"
+      }
 
-  // An instance method.
-  def add(m: Int, n: Int): Int = m + n
-}
-```
+      // An instance method.
+      def add(m: Int, n: Int): Int = m + n
+    }
 
 Note the two different styles of comments.
 
 You can use the constructor to construct an instance:
 
-```scala
-scala> val calc = new Calculator("HP")
-calc: Calculator = Calculator@1e64cc4d
+    scala> val calc = new Calculator("HP")
+    calc: Calculator = Calculator@1e64cc4d
 
-scala> calc.color
-res0: String = black
-```
+    scala> calc.color
+    res0: String = black
 
----
+</section><section class='slide'>
 
-# Expressions
+## Expressions
 
 Our BasicCalculator example gave an example of how Scala is expression-oriented.  The value color was bound based on an if/else expression. Scala is highly expression-oriented: most things are expressions rather than statements.
 
----
+</section><section class='slide'>
 
-# Aside: Functions vs Methods
+## Aside: Functions vs Methods
 
-Functions and methods are largely interchangeable. Because functions and methods are so similar, you might not remember whether that <em>thing</em> you call is a function or a method. When you bump into a difference between methods and functions, it might confuse you.
+Functions and methods are largely interchangeable. Because functions and methods are so similar, you might not remember whether that *thing* you call is a function or a method. When you bump into a difference between methods and functions, it might confuse you.
 
-```scala
-scala> class C {
-     |   var acc = 0
-     |   def minc = { acc += 1 }
-     |   val finc = { () => acc += 1 }
-     | }
-defined class C
+    scala> class C {
+         |   var acc = 0
+         |   def minc = { acc += 1 }
+         |   val finc = { () => acc += 1 }
+         | }
+    defined class C
 
-scala> val c = new C
-c: C = C@1af1bd6
+    scala> val c = new C
+    c: C = C@1af1bd6
 
-scala> c.minc // calls c.minc()
+    scala> c.minc // calls c.minc()
 
-scala> c.finc // returns the function as a value:
-res2: () => Unit = <function0>
-```
+    scala> c.finc // returns the function as a value:
+    res2: () => Unit = <function0>
 
 When you can call one "function" without parentheses but not another, you might think <em>Whoops, I thought I knew how Scala functions worked, but I guess not. Maybe they sometimes need parentheses?</em> You might understand functions, but be using a method.
 
 In practice, you can do great things in Scala while remaining hazy on the difference between methods and functions. If you're new to Scala and read [explanations of the differences](https://www.google.com/search?q=difference+scala+function+method), you might have trouble following them. That doesn't mean you're going to have trouble using Scala. It just means that the difference between functions and methods is subtle enough such that explanations tend to dig into deep parts of the language.
 
----
+</section><section class='slide'>
 
-# Inheritance
+## Inheritance
 
-```scala
-class ScientificCalculator(brand: String) extends Calculator(brand) {
-  def log(m: Double, base: Double) = math.log(m) / math.log(base)
-}
-```
+    class ScientificCalculator(brand: String) extends Calculator(brand) {
+      def log(m: Double, base: Double) = math.log(m) / math.log(base)
+    }
 
-*See Also* Effective Scala points out that a [Type alias](http://twitter.github.com/effectivescala/#Types%20and%20Generics-Type%20aliases) is better than `extends` if the subclass isn't actually different from the superclass. A Tour of Scala describes [Subclassing](http://www.scala-lang.org/node/125).
+*See Also* Effective Scala points out that a [Type alias](http://twitter.github.com/effectivescala/##Types%20and%20Generics-Type%20aliases) is better than `extends` if the subclass isn't actually different from the superclass. A Tour of Scala describes [Subclassing](http://www.scala-lang.org/node/125).
 
----
+</section><section class='slide'>
 
-# Overloading methods
+## Overloading methods
 
-```scala
-class EvenMoreScientificCalculator(brand: String) extends ScientificCalculator(brand) {
-  def log(m: Int): Double = log(m, math.exp(1))
-}
-```
+    class EvenMoreScientificCalculator(brand: String) extends ScientificCalculator(brand) {
+      def log(m: Int): Double = log(m, math.exp(1))
+    }
 
----
+</section><section class='slide'>
 
-# Abstract Classes
+## Abstract Classes
 
-You can define an <em>abstract class</em>, a class that defines some methods but does not implement them. Instead, subclasses that extend the abstract class define these methods. You can't create an instance of an abstract class.
+You can define an `abstract class`, a class that defines some methods but does not implement them. Instead, subclasses that extend the abstract class define these methods. You can't create an instance of an abstract class.
 
-```scala
-scala> abstract class Shape {
-     |   def getArea():Int    // subclass should define this
-     | }
-defined class Shape
+    scala> abstract class Shape {
+         |   def getArea():Int    // subclass should define this
+         | }
+    defined class Shape
 
-scala> class Circle(r: Int) extends Shape {
-     |   def getArea():Int = { r * r * 3 }
-     | }
-defined class Circle
+    scala> class Circle(r: Int) extends Shape {
+         |   def getArea():Int = { r * r * 3 }
+         | }
+    defined class Circle
 
-scala> val s = new Shape
-<console>:8: error: class Shape is abstract; cannot be instantiated
-       val s = new Shape
+    scala> val s = new Shape
+    < console>:8: error: class Shape is abstract; cannot be instantiated
+           val s = new Shape
                ^
 
-scala> val c = new Circle(2)
-c: Circle = Circle@65c0035b
-```
+    scala> val c = new Circle(2)
+    c: Circle = Circle@65c0035b
 
----
+</section><section class='slide'>
 
-# Traits
+## Traits
 
 `trait`s are collections of fields and behaviors that you can extend or mixin to your classes.
 
-```scala
-trait Car {
-  val brand: String
-}
+    trait Car {
+      val brand: String
+    }
 
-trait Shiny {
-  val shineRefraction: Int
-}
-```
+    trait Shiny {
+      val shineRefraction: Int
+    }
 
-```scala
-class BMW extends Car {
-  val brand = "BMW"
-}
-```
+    class BMW extends Car {
+      val brand = "BMW"
+    }
 
 One class can extend several traits using the `with` keyword:
 
-```scala
-class BMW extends Car with Shiny {
-  val brand = "BMW"
-  val shineRefraction = 12
-}
-```
+    class BMW extends Car with Shiny {
+      val brand = "BMW"
+      val shineRefraction = 12
+    }
 
-*See Also* Effective Scala has opinions about [trait](http://twitter.github.com/effectivescala/#Object oriented programming-Traits).
+*See Also* Effective Scala has opinions about [trait](http://twitter.github.com/effectivescala/##Object oriented programming-Traits).
 
----
+</section><section class='slide'>
 
-# Traits vs. Abstract Classes 
+## Traits vs. Abstract Classes 
 
 If you want to define an interface-like type, you might find it difficult to choose between a trait or an abstract class. Either one lets you define a type with some behavior, asking extenders to define some other behavior. Some rules of thumb:
 
-<ul>
-<li>Favor using traits. It's handy that a class can extend several traits; a class can extend only one class.
-<li>If you need a constructor parameter, use an abstract class. Abstract class constructors can take parameters; trait constructors can't. For example, you can't say `trait t(i: Int) {}`; the `i` parameter is illegal.
-</ul>
+* Favor using traits. It's handy that a class can extend several traits; a class can extend only one class.
+* If you need a constructor parameter, use an abstract class. Abstract class constructors can take parameters; trait constructors can't. For example, you can't say `trait t(i: Int) {}`; the `i` parameter is illegal.
 
-You are not the first person to ask this question. See fuller answers at stackoverflow: [Scala traits vs abstract classes](http://stackoverflow.com/questions/1991042/scala-traits-vs-abstract-classes), [Difference between Abstract Class and Trait](http://stackoverflow.com/questions/2005681/difference-between-abstract-class-and-trait), and [Programming in Scala: To trait, or not to trait?](http://www.artima.com/pins1ed/traits.html#12.7)
+You are not the first person to ask this question. See fuller answers at stackoverflow: [Scala traits vs abstract classes](http://stackoverflow.com/questions/1991042/scala-traits-vs-abstract-classes), [Difference between Abstract Class and Trait](http://stackoverflow.com/questions/2005681/difference-between-abstract-class-and-trait), and [Programming in Scala: To trait, or not to trait?](http://www.artima.com/pins1ed/traits.html##12.7)
 
----
+</section><section class='slide'>
 
-# Types
+## Types
 
 Earlier, you saw that we defined a function that took an `Int` which is a type of Number. Functions can also be generic and work on any type. When that occurs, you'll see a type parameter introduced with the square bracket syntax. Here's an example of a Cache of generic Keys and Values.
 
-```scala
-trait Cache[K, V] {
-  def get(key: K): V
-  def put(key: K, value: V)
-  def delete(key: K)
-}
-```
+    trait Cache[K, V] {
+      def get(key: K): V
+      def put(key: K, value: V)
+      def delete(key: K)
+    }
 
 Methods can also have type parameters introduced.
 
-```scala
-def remove[K](key: K)
-```
+    def remove[K](key: K)
 
 
-# Basics continued
+## Basics continued
 
 This lesson covers:
+
 * "apply"
 * "objects"
 * "Functions are Objects"
@@ -556,96 +515,84 @@ This lesson covers:
 * "case classes"
 * "try-catch-finally"
 
----
+</section><section class='slide'>
 
-# apply methods
+## apply methods
 
 apply methods give you a nice syntactic sugar for when a class or object has one main use.
 
-```scala
-scala> class Foo {}
-defined class Foo
-
-scala> object FooMaker {
-     |   def apply() = new Foo
-     | }
-defined module FooMaker
-
-scala> val newFoo = FooMaker()
-newFoo: Foo = Foo@5b83f762
-```
+    scala> class Foo {}
+    defined class Foo
+    
+    scala> object FooMaker {
+         |   def apply() = new Foo
+         | }
+    defined module FooMaker
+    
+    scala> val newFoo = FooMaker()
+    newFoo: Foo = Foo@5b83f762
 
 or
 
-```scala
-scala> class Bar {
-     |   def apply() = 0
-     | }
-defined class Bar
-
-scala> val bar = new Bar
-bar: Bar = Bar@47711479
-
-scala> bar()
-res8: Int = 0
-```
+    scala> class Bar {
+         |   def apply() = 0
+         | }
+    defined class Bar
+    
+    scala> val bar = new Bar
+    bar: Bar = Bar@47711479
+    
+    scala> bar()
+    res8: Int = 0
 
 Here our instance object looks like we're calling a method. More on that later!
 
----
+</section><section class='slide'>
 
-# Objects
+## Objects
 
 Objects are used to hold single instances of a class. Often used for factories.
 
-```scala
-object Timer {
-  var count = 0
-
-  def currentCount(): Long = {
-    count += 1
-    count
-  }
-}
-```
+    object Timer {
+      var count = 0
+    
+      def currentCount(): Long = {
+        count += 1
+        count
+      }
+    }
 
 How to use
 
-```scala
-scala> Timer.currentCount()
-res0: Long = 1
-```
+    scala> Timer.currentCount()
+    res0: Long = 1
 
 Classes and Objects can have the same name.  The object is called a 'Companion Object'.  We commonly use Companion Objects for Factories.
 
 Here is a trivial example that only serves to remove the need to use 'new' to create an instance.
 
-```scala
-class Bar(foo: String)
-
-object Bar {
-  def apply(foo: String) = new Bar(foo)
-}
-```
+    class Bar(foo: String)
+    
+    object Bar {
+      def apply(foo: String) = new Bar(foo)
+    }
 
 
----
+</section><section class='slide'>
 
-# Functions are Objects
+## Functions are Objects
 
 In Scala, we talk about object-functional programming often.  What does that mean? What is a Function, really?
 
 A Function is a set of traits. Specifically, a function that takes one argument is an instance of a Function1 trait. This trait defines the `apply()` syntactic sugar we learned earlier, allowing you to call an object like you would a function.
 
-```scala
-scala> object addOne extends Function1[Int, Int] {
-     |   def apply(m: Int): Int = m + 1
-     | }
-defined module addOne
-
-scala> addOne(1)
-res2: Int = 2
-```
+    scala> object addOne extends Function1[Int, Int] {
+         |   def apply(m: Int): Int = m + 1
+         | }
+    defined module addOne
+    
+    scala> addOne(1)
+    res2: Int = 2
 
 There is Function1 through 22.  Why 22?  It's an arbitrary magic number.  I've never needed a function with more than 22 arguments so it seems to work out.
 
@@ -655,95 +602,79 @@ Does this mean that every time you define a method in your class, you're actuall
 
 Classes can also extend Function and those instances can be called with ().
 
-```scala
-scala> class AddOne extends Function1[Int, Int] {
-     |   def apply(m: Int): Int = m + 1
-     | }
-defined class AddOne
-
-scala> val plusOne = new AddOne()
-plusOne: AddOne = <function1>
-
-scala> plusOne(1)
-res0: Int = 2
-```
+    scala> class AddOne extends Function1[Int, Int] {
+         |   def apply(m: Int): Int = m + 1
+         | }
+    defined class AddOne
+    
+    scala> val plusOne = new AddOne()
+    plusOne: AddOne = <function1>
+    
+    scala> plusOne(1)
+    res0: Int = 2
 
 A nice short-hand for `extends Function1[Int, Int]` is `extends (Int => Int)`
 
-```scala
-class AddOne extends (Int => Int) {
-  def apply(m: Int): Int = m + 1
-}
-```
+    class AddOne extends (Int => Int) {
+      def apply(m: Int): Int = m + 1
+    }
 
----
+</section><section class='slide'>
 
-# Packages
+## Packages
 
 You can organize your code inside of packages.
 
-```scala
-package com.twitter.example
-```
+    package com.twitter.example
 
 at the top of a file will declare everything in the file to be in that package.
 
 Values and functions cannot be outside of a class or object.  Objects are a useful tool for organizing static functions.
 
-```scala
-package com.twitter.example
-
-object colorHolder {
-  val BLUE = "Blue"
-  val RED = "Red"
-}
-```
+    package com.twitter.example
+    
+    object colorHolder {
+      val BLUE = "Blue"
+      val RED = "Red"
+    }
 
 Now you can access the members directly
 
-```scala
-println("the color is: " + com.twitter.example.colorHolder.BLUE)
-```
+    println("the color is: " + com.twitter.example.colorHolder.BLUE)
 
 Notice what the scala repl says when you define this object:
 
-```scala
-scala> object colorHolder {
-     |   val Blue = "Blue"
-     |   val Red = "Red"
-     | }
-defined module colorHolder
-```
+    scala> object colorHolder {
+         |   val Blue = "Blue"
+         |   val Red = "Red"
+         | }
+    defined module colorHolder
 
 This gives you a small hint that the designers of Scala designed objects to be part of Scala's module system.
 
----
+</section><section class='slide'>
 
-# Pattern Matching
+## Pattern Matching
 
 One of the most useful parts of Scala.
 
 Matching on values
 
-```scala
-val times = 1
-
-times match {
-  case 1 => "one"
-  case 2 => "two"
-  case _ => "some other number"
-}
-```
+    val times = 1
+    
+    times match {
+      case 1 => "one"
+      case 2 => "two"
+      case _ => "some other number"
+    }
 
 Matching with guards
 
-```scala
-times match {
-  case i if i == 1 => "one"
-  case i if i == 2 => "two"
-  case _ => "some other number"
-}
-```
+    times match {
+      case i if i == 1 => "one"
+      case i if i == 2 => "two"
+      case _ => "some other number"
+    }
 
 Notice how we captured the value in the variable 'i'.
 
@@ -752,29 +683,27 @@ ensures that we can handle any statement. Otherwise you will suffer a
 runtime error if you pass in a number that doesn't match. We discuss
 this more later.
 
-*See Also* Effective Scala has opinions about [when to use pattern matching](http://twitter.github.com/effectivescala/#Functional%20programming-Pattern%20matching) and [pattern matching formatting](http://twitter.github.com/effectivescala/#Formatting-Pattern%20matching). A Tour of Scala describes [Pattern Matching](http://www.scala-lang.org/node/120)
+*See Also* Effective Scala has opinions about [when to use pattern matching](http://twitter.github.com/effectivescala/##Functional%20programming-Pattern%20matching) and [pattern matching formatting](http://twitter.github.com/effectivescala/#Formatting-Pattern%20matching). A Tour of Scala describes [Pattern Matching](http://www.scala-lang.org/node/120)
 
----
+</section><section class='slide'>
 
-# Matching on type
+## Matching on type
 
 You can use `match` to handle values of different types differently.
 
-```scala
-def bigger(o: Any): Any = {
-  o match {
-    case i: Int if i < 0 => i - 1
-    case i: Int => i + 1
-    case d: Double if d < 0.0 => d - 0.1
-    case d: Double => d + 0.1
-    case text: String => text + "s"
-  }
-}
-```
+    def bigger(o: Any): Any = {
+      o match {
+        case i: Int if i < 0 => i - 1
+        case i: Int => i + 1
+        case d: Double if d < 0.0 => d - 0.1
+        case d: Double => d + 0.1
+        case text: String => text + "s"
+      }
+    }
 
----
+</section><section class='slide'>
 
-# Matching on class members
+## Matching on class members
 
 Remember our calculator from earlier.
 
@@ -782,113 +711,94 @@ Let's classify them according to type.
 
 Here's the painful way first.
 
-```scala
-def calcType(calc: Calculator) = calc match {
-  case _ if calc.brand == "hp" && calc.model == "20B" => "financial"
-  case _ if calc.brand == "hp" && calc.model == "48G" => "scientific"
-  case _ if calc.brand == "hp" && calc.model == "30B" => "business"
-  case _ => "unknown"
-}
-```
+    def calcType(calc: Calculator) = calc match {
+      case _ if calc.brand == "hp" && calc.model == "20B" => "financial"
+      case _ if calc.brand == "hp" && calc.model == "48G" => "scientific"
+      case _ if calc.brand == "hp" && calc.model == "30B" => "business"
+      case _ => "unknown"
+    }
 
 Wow, that's painful.  Thankfully Scala provides some nice tools specifically for this.
 
----
+</section><section class='slide'>
 
-# Case Classes
+## Case Classes
 
 case classes are used to conveniently store and match on the contents of a class. You can construct them without using new.
 
-```scala
-scala> case class Calculator(brand: String, model: String)
-defined class Calculator
-
-scala> val hp20b = Calculator("hp", "20b")
-hp20b: Calculator = Calculator(hp,20b)
-
-```
+    scala> case class Calculator(brand: String, model: String)
+    defined class Calculator
+    
+    scala> val hp20b = Calculator("hp", "20b")
+    hp20b: Calculator = Calculator(hp,20b)
 
 case classes automatically have equality and nice toString methods based on the constructor arguments.
 
-```scala
-scala> val hp20b = Calculator("hp", "20b")
-hp20b: Calculator = Calculator(hp,20b)
-
-scala> val hp20B = Calculator("hp", "20b")
-hp20B: Calculator = Calculator(hp,20b)
-
-scala> hp20b == hp20B
-res6: Boolean = true
-```
+    scala> val hp20b = Calculator("hp", "20b")
+    hp20b: Calculator = Calculator(hp,20b)
+    
+    scala> val hp20B = Calculator("hp", "20b")
+    hp20B: Calculator = Calculator(hp,20b)
+    
+    scala> hp20b == hp20B
+    res6: Boolean = true
 
 case classes can have methods just like normal classes.
 
----
+</section><section class='slide'>
 
-# Case Classes with pattern matching
+## Case Classes with pattern matching
 
 case classes are designed to be used with pattern matching.  Let's simplify our calculator classifier example from earlier.
 
-```scala
-val hp20b = Calculator("hp", "20B")
-val hp30b = Calculator("hp", "30B")
-
-def calcType(calc: Calculator) = calc match {
-  case Calculator("hp", "20B") => "financial"
-  case Calculator("hp", "48G") => "scientific"
-  case Calculator("hp", "30B") => "business"
-  case Calculator(ourBrand, ourModel) => "Calculator: %s %s is of unknown type".format(ourBrand, ourModel)
-}
-```
+    val hp20b = Calculator("hp", "20B")
+    val hp30b = Calculator("hp", "30B")
+    
+    def calcType(calc: Calculator) = calc match {
+      case Calculator("hp", "20B") => "financial"
+      case Calculator("hp", "48G") => "scientific"
+      case Calculator("hp", "30B") => "business"
+      case Calculator(ourBrand, ourModel) => "Calculator: %s %s is of unknown type".format(ourBrand, ourModel)
+    }
 
 Other alternatives for that last match
 
-```scala
-  case Calculator(_, _) => "Calculator of unknown type"
-```
+      case Calculator(_, _) => "Calculator of unknown type"
 
   OR we could simply not specify that it's a Calculator at all.
 
-```scala
-  case _ => "Calculator of unknown type"
-```
+      case _ => "Calculator of unknown type"
 
   OR we could re-bind the matched value with another name
 
-```scala
-  case c@Calculator(_, _) => "Calculator: %s of unknown type".format(c)
-```
+      case c@Calculator(_, _) => "Calculator: %s of unknown type".format(c)
 
----
+</section><section class='slide'>
 
-# Exceptions
+## Exceptions
 
 Exceptions are available in Scala via a try-catch-finally syntax that uses pattern matching.
 
-```scala
-try {
-  remoteCalculatorService.add(1, 2)
-} catch {
-  case e: ServerIsDownException => log.error(e, "the remote calculator service is unavailable.")
-} finally {
-  remoteCalculatorService.close()
-}
-```
+    try {
+      remoteCalculatorService.add(1, 2)
+    } catch {
+      case e: ServerIsDownException => log.error(e, "the remote calculator service is unavailable.")
+    } finally {
+      remoteCalculatorService.close()
+    }
 
 `try`s are also expression-oriented
 
-```scala
-val result: Int = try {
-  remoteCalculatorService.add(1, 2)
-} catch {
-  case e: ServerIsDownException => {
-    log.error(e, "the remote calculator service is unavailable.")
-    0
-  }
-} finally {
-  remoteCalculatorService.close()
-}
-```
+    val result: Int = try {
+      remoteCalculatorService.add(1, 2)
+    } catch {
+      case e: ServerIsDownException => {
+        log.error(e, "the remote calculator service is unavailable.")
+        0
+      }
+    } finally {
+      remoteCalculatorService.close()
+    }
 
 This is not an example of excellent programming style, just an example of try-catch-finally resulting in expressions like most everything else in Scala.
 
@@ -896,9 +806,9 @@ Finally will be called after an exception has been handled and is not part of th
 
 Scala has no concept of checked-exceptions: you are never required to surround a method with a try-catch block.
 
----
+</section><section class='slide'>
 
-# Collections
+## Collections
 
 This lesson covers:
 
@@ -921,113 +831,93 @@ This lesson covers:
     * "Generalized functional combinators"
     * "Map?"
 
----
+</section><section class='slide'>
    
-# Basic Data Structures
+## Basic Data Structures
 
 Scala provides some nice collections.
 
-*See Also* Effective Scala has opinions about how to use [collections](http://twitter.github.com/effectivescala/#Collections).
+*See Also* Effective Scala has opinions about how to use [collections](http://twitter.github.com/effectivescala/##Collections).
 
----
+</section><section class='slide'>
 
-# Lists
+## Lists
 
-```scala
-scala> val numbers = List(1, 2, 3, 4)
-numbers: List[Int] = List(1, 2, 3, 4)
-```
+    scala> val numbers = List(1, 2, 3, 4)
+    numbers: List[Int] = List(1, 2, 3, 4)
 
----
+</section><section class='slide'>
 
-# Sets
+## Sets
 
 Sets have no duplicates
 
-```scala
-scala> Set(1, 1, 2)
-res0: scala.collection.immutable.Set[Int] = Set(1, 2)
-```
+    scala> Set(1, 1, 2)
+    res0: scala.collection.immutable.Set[Int] = Set(1, 2)
 
----
+</section><section class='slide'>
 
-# Tuple
+## Tuple
 
 A tuple groups together simple logical collections of items without using a class.
 
-```scala
-scala> val hostPort = ("localhost", 80)
-hostPort: (String, Int) = (localhost, 80)
-```
+    scala> val hostPort = ("localhost", 80)
+    hostPort: (String, Int) = (localhost, 80)
 
 Unlike case classes, they don't have named accessors, instead they have accessors that are named by their position and is 1-based rather than 0-based.
 
-```scala
-scala> hostPort._1
-res0: String = localhost
-
-scala> hostPort._2
-res1: Int = 80
-```
+    scala> hostPort._1
+    res0: String = localhost
+    
+    scala> hostPort._2
+    res1: Int = 80
 
 Tuples fit with pattern matching nicely.
 
-```scala
-hostPort match {
-  case ("localhost", port) => ...
-  case (host, port) => ...
-}
-```
+    hostPort match {
+      case ("localhost", port) => ...
+      case (host, port) => ...
+    }
 
 Tuple has some special sauce for simply making Tuples of 2 values: `->`
 
-```scala
-scala> 1 -> 2
-res0: (Int, Int) = (1,2)
-```
+    scala> 1 -> 2
+    res0: (Int, Int) = (1,2)
 
-*See Also* Effective Scala has opinions about [destructuring bindings](http://twitter.github.com/effectivescala/#Functional%20programming-Destructuring%20bindings) ("unpacking" a tuple).
+*See Also* Effective Scala has opinions about [destructuring bindings](http://twitter.github.com/effectivescala/##Functional%20programming-Destructuring%20bindings) ("unpacking" a tuple).
 
----
+</section><section class='slide'>
 
-# Maps
+## Maps
 
 It can hold basic datatypes.
 
-```scala
-Map(1 -> 2)
-Map("foo" -> "bar")
-```
+    Map(1 -> 2)
+    Map("foo" -> "bar")
 
 This looks like special syntax but remember back to our discussion of Tuple that `->` can be use to create Tuples.
 
-Map() also uses that variable argument syntax we learned back in Lesson #1: `Map(1 -> "one", 2 -> "two")` which expands into `Map((1, "one"), (2, "two"))` with the first element being the key and the second being the value of the Map.
+Map() also uses that variable argument syntax we learned back in Lesson ##1: `Map(1 -> "one", 2 -> "two")` which expands into `Map((1, "one"), (2, "two"))` with the first element being the key and the second being the value of the Map.
 
 Maps can themselves contain Maps or even functions as values.
 
-```scala
-Map(1 -> Map("foo" -> "bar"))
-```
+    Map(1 -> Map("foo" -> "bar"))
 
-```scala
-Map("timesTwo" -> { timesTwo(_) })
-```
+    Map("timesTwo" -> { timesTwo(_) })
 
----
+</section><section class='slide'>
 
-# Option
+## Option
 
 `Option` is a container that may or may not hold something.
 
 The basic interface for Option looks like:
 
-```scala
-trait Option[T] {
-  def isDefined: Boolean
-  def get: T
-  def getOrElse(t: T): T
-}
-```
+    trait Option[T] {
+      def isDefined: Boolean
+      def get: T
+      def getOrElse(t: T): T
+    }
 
 Option itself is generic and has two subclasses: `Some[T]` or `None`
 
@@ -1035,258 +925,215 @@ Let's look at an example of how Option is used:
 
 `Map.get` uses `Option` for its return type. Option tells you that the method might not return what you're asking for.
 
-```scala
-scala> val numbers = Map(1 -> "one", 2 -> "two")
-numbers: scala.collection.immutable.Map[Int,String] = Map((1,one), (2,two))
-
-scala> numbers.get(2)
-res0: Option[java.lang.String] = Some(two)
-
-scala> numbers.get(3)
-res1: Option[java.lang.String] = None
-```
+    scala> val numbers = Map(1 -> "one", 2 -> "two")
+    numbers: scala.collection.immutable.Map[Int,String] = Map((1,one), (2,two))
+    
+    scala> numbers.get(2)
+    res0: Option[java.lang.String] = Some(two)
+    
+    scala> numbers.get(3)
+    res1: Option[java.lang.String] = None
 
 Now our data appears trapped in this `Option`. How do we work with it?
 
----
+</section><section class='slide'>
 
 A first instinct might be to do something conditionally based on the `isDefined` method.
 
-```scala
-// We want to multiply the number by two, otherwise return 0.
-val result = if (res1.isDefined) {
-  res1.get * 2
-} else {
-  0
-}
-```
+    // We want to multiply the number by two, otherwise return 0.
+    val result = if (res1.isDefined) {
+      res1.get * 2
+    } else {
+      0
+    }
 
 We would suggest that you use either `getOrElse` or pattern matching to work with this result.
 
 `getOrElse` lets you easily define a default value.
 
-```scala
-val result = res1.getOrElse(0) * 2
-```
+    val result = res1.getOrElse(0) * 2
 
 Pattern matching fits naturally with `Option`.
 
-```scala
-val result = res1 match {
-  case Some(n) => n * 2
-  case None => 0
-}
-```
+    val result = res1 match {
+      case Some(n) => n * 2
+      case None => 0
+    }
 
-*See Also* Effective Scala has opinions about [Options](http://twitter.github.com/effectivescala/#Functional%20programming-Options).
+*See Also* Effective Scala has opinions about [Options](http://twitter.github.com/effectivescala/##Functional%20programming-Options).
 
----
+</section><section class='slide'>
 
-# Functional Combinators
+## Functional Combinators
 
 `List(1, 2, 3) map squared` applies the function `squared` to the elements of the the list, returning a new list, perhaps `List(1, 4, 9)`. We call operations like `map` <em>combinators</em>. (If you'd like a better definition, you might like [Explanation of combinators](http://stackoverflow.com/questions/7533837/explanation-of-combinators-for-the-working-man) on Stackoverflow.) Their most common use is on the standard data structures.
 
----
+</section><section class='slide'>
 
-# map
+## map
 
 Evaluates a function over each element in the list, returning a list with the same number of elements.
 
-```scala
-scala> numbers.map((i: Int) => i * 2)
-res0: List[Int] = List(2, 4, 6, 8)
-```
+    scala> numbers.map((i: Int) => i * 2)
+    res0: List[Int] = List(2, 4, 6, 8)
 
 or pass in a partially evaluated function
 
-```scala
+    scala> def timesTwo(i: Int): Int = i * 2
+    timesTwo: (i: Int)Int
+    
+    scala> numbers.map(timesTwo _)
+    res0: List[Int] = List(2, 4, 6, 8)
 
-scala> def timesTwo(i: Int): Int = i * 2
-timesTwo: (i: Int)Int
+</section><section class='slide'>
 
-scala> numbers.map(timesTwo _)
-res0: List[Int] = List(2, 4, 6, 8)
-```
-
----
-
-# foreach
+## foreach
 
 foreach is like map but returns nothing. foreach is intended for side-effects only.
 
-```scala
-scala> numbers.foreach((i: Int) => i * 2)
-```
+    scala> numbers.foreach((i: Int) => i * 2)
 
 returns nothing.
 
 You can try to store the return in a value but it'll be of type Unit (i.e. void)
 
-```scala
-scala> val doubled = numbers.foreach((i: Int) => i * 2)
-doubled: Unit = ()
-```
+    scala> val doubled = numbers.foreach((i: Int) => i * 2)
+    doubled: Unit = ()
 
----
+</section><section class='slide'>
 
-# filter
+## filter
 
 removes any elements where the function you pass in evaluates to false.  Functions that return a Boolean are often called predicate functions.
 
-```scala
-scala> numbers.filter((i: Int) => i % 2 == 0)
-res0: List[Int] = List(2, 4)
-```
+    scala> numbers.filter((i: Int) => i % 2 == 0)
+    res0: List[Int] = List(2, 4)
 
-```scala
-scala> def isEven(i: Int): Boolean = i % 2 == 0
-isEven: (i: Int)Boolean
+    scala> def isEven(i: Int): Boolean = i % 2 == 0
+    isEven: (i: Int)Boolean
+    
+    scala> numbers.filter(isEven _)
+    res2: List[Int] = List(2, 4)
 
-scala> numbers.filter(isEven _)
-res2: List[Int] = List(2, 4)
-```
+</section><section class='slide'>
 
----
-
-# zip
+## zip
 
 zip aggregates the contents of two lists into a single list of pairs.
 
-```scala
-scala> List(1, 2, 3).zip(List("a", "b", "c"))
-res0: List[(Int, String)] = List((1,a), (2,b), (3,c))
-```
+    scala> List(1, 2, 3).zip(List("a", "b", "c"))
+    res0: List[(Int, String)] = List((1,a), (2,b), (3,c))
 
----
+</section><section class='slide'>
 
-# partition
+## partition
 
 `partition` splits a list based on where it falls with respect to a predicate function.
 
-```scala
-scala> val numbers = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
-scala> numbers.partition(_ %2 == 0)
-res0: (List[Int], List[Int]) = (List(2, 4, 6, 8, 10),List(1, 3, 5, 7, 9))
-```
+    scala> val numbers = List(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    scala> numbers.partition(_ %2 == 0)
+    res0: (List[Int], List[Int]) = (List(2, 4, 6, 8, 10),List(1, 3, 5, 7, 9))
 
----
+</section><section class='slide'>
 
-# find
+## find
 
 find returns the first element of a collection that matches a predicate function.
 
-```scala
-scala> numbers.find((i: Int) => i > 5)
-res0: Option[Int] = Some(6)
-```
+    scala> numbers.find((i: Int) => i > 5)
+    res0: Option[Int] = Some(6)
 
----
+</section><section class='slide'>
 
-# drop & dropWhile
+## drop & dropWhile
 
 `drop` drops the first i elements
 
-```scala
-scala> numbers.drop(5)
-res0: List[Int] = List(6, 7, 8, 9, 10)
-```
+    scala> numbers.drop(5)
+    res0: List[Int] = List(6, 7, 8, 9, 10)
 
 `dropWhile` removes the first elements that match a predicate function. For example, if we `dropWhile` odd numbers from our list of numbers, `1` gets dropped (but not `3` which is "shielded" by `2`).
 
-```scala
-scala> numbers.dropWhile(_ % 2 != 0)
-res0: List[Int] = List(2, 3, 4, 5, 6, 7, 8, 9, 10)
-```
+    scala> numbers.dropWhile(_ % 2 != 0)
+    res0: List[Int] = List(2, 3, 4, 5, 6, 7, 8, 9, 10)
 
----
+</section><section class='slide'>
 
-# foldLeft
+## foldLeft
 
-```scala
-scala> numbers.foldLeft(0)((m: Int, n: Int) => m + n)
-res0: Int = 55
-```
+    scala> numbers.foldLeft(0)((m: Int, n: Int) => m + n)
+    res0: Int = 55
 
 0 is the starting value (Remember that numbers is a List[Int]), and m
 acts as an accumulator.
 
 Seen visually:
 
-```scala
-scala> numbers.foldLeft(0) { (m: Int, n: Int) => println("m: " + m + " n: " + n); m + n }
-m: 0 n: 1
-m: 1 n: 2
-m: 3 n: 3
-m: 6 n: 4
-m: 10 n: 5
-m: 15 n: 6
-m: 21 n: 7
-m: 28 n: 8
-m: 36 n: 9
-m: 45 n: 10
-res0: Int = 55
-```
+    scala> numbers.foldLeft(0) { (m: Int, n: Int) => println("m: " + m + " n: " + n); m + n }
+    m: 0 n: 1
+    m: 1 n: 2
+    m: 3 n: 3
+    m: 6 n: 4
+    m: 10 n: 5
+    m: 15 n: 6
+    m: 21 n: 7
+    m: 28 n: 8
+    m: 36 n: 9
+    m: 45 n: 10
+    res0: Int = 55
 
----
+</section><section class='slide'>
 
-# foldRight
+## foldRight
 
 Is the same as foldLeft except it runs in the opposite direction.
 
-```scala
-scala> numbers.foldRight(0) { (m: Int, n: Int) => println("m: " + m + " n: " + n); m + n }
-m: 10 n: 0
-m: 9 n: 10
-m: 8 n: 19
-m: 7 n: 27
-m: 6 n: 34
-m: 5 n: 40
-m: 4 n: 45
-m: 3 n: 49
-m: 2 n: 52
-m: 1 n: 54
-res0: Int = 55
-```
+    scala> numbers.foldRight(0) { (m: Int, n: Int) => println("m: " + m + " n: " + n); m + n }
+    m: 10 n: 0
+    m: 9 n: 10
+    m: 8 n: 19
+    m: 7 n: 27
+    m: 6 n: 34
+    m: 5 n: 40
+    m: 4 n: 45
+    m: 3 n: 49
+    m: 2 n: 52
+    m: 1 n: 54
+    res0: Int = 55
 
----
+</section><section class='slide'>
 
-# flatten
+## flatten
 
 flatten collapses one level of nested structure.
 
-```scala
-scala> List(List(1, 2), List(3, 4)).flatten
-res0: List[Int] = List(1, 2, 3, 4)
-```
+    scala> List(List(1, 2), List(3, 4)).flatten
+    res0: List[Int] = List(1, 2, 3, 4)
 
----
+</section><section class='slide'>
 
-# flatMap
+## flatMap
 
 flatMap is a frequently used combinator that combines mapping and flattening. flatMap takes a function that works on the nested lists and then concatenates the results back together.
 
-```scala
-scala> val nestedNumbers = List(List(1, 2), List(3, 4))
-nestedNumbers: List[List[Int]] = List(List(1, 2), List(3, 4))
-
-scala> nestedNumbers.flatMap(x => x.map(_ * 2))
-res0: List[Int] = List(2, 4, 6, 8)
-```
+    scala> val nestedNumbers = List(List(1, 2), List(3, 4))
+    nestedNumbers: List[List[Int]] = List(List(1, 2), List(3, 4))
+    
+    scala> nestedNumbers.flatMap(x => x.map(_ * 2))
+    res0: List[Int] = List(2, 4, 6, 8)
 
 Think of it as short-hand for mapping and then flattening:
 
-```scala
-scala> nestedNumbers.map((x: List[Int]) => x.map(_ * 2)).flatten
-res1: List[Int] = List(2, 4, 6, 8)
-```
+    scala> nestedNumbers.map((x: List[Int]) => x.map(_ * 2)).flatten
+    res1: List[Int] = List(2, 4, 6, 8)
 
 that example calling map and then flatten is an example of the "combinator"-like nature of these functions.
 
-*See Also* Effective Scala has opinions about [flatMap](http://twitter.github.com/effectivescala/#Functional%20programming-`flatMap`).
+*See Also* Effective Scala has opinions about [flatMap](http://twitter.github.com/effectivescala/##Functional%20programming-`flatMap`).
 
----
+</section><section class='slide'>
 
-# Generalized functional combinators
+## Generalized functional combinators
 
 Now we've learned a grab-bag of functions for working with collections.
 
@@ -1294,54 +1141,46 @@ What we'd like is to be able to write our own functional combinators.
 
 Interestingly, every functional combinator shown above can be written on top of fold.  Let's see some examples.
 
-```scala
-def ourMap(numbers: List[Int], fn: Int => Int): List[Int] = {
-  numbers.foldRight(List[Int]()) { (x: Int, xs: List[Int]) =>
-    fn(x) :: xs
-  }
-}
-
-scala> ourMap(numbers, timesTwo(_))
-res0: List[Int] = List(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
-```
+    def ourMap(numbers: List[Int], fn: Int => Int): List[Int] = {
+      numbers.foldRight(List[Int]()) { (x: Int, xs: List[Int]) =>
+        fn(x) :: xs
+      }
+    }
+    
+    scala> ourMap(numbers, timesTwo(_))
+    res0: List[Int] = List(2, 4, 6, 8, 10, 12, 14, 16, 18, 20)
 
 Why `List[Int]()`? Scala wasn't smart enough to realize that you wanted an empty list of Ints to accumulate into.
 
----
+</section><section class='slide'>
 
-# Map?
+## Map?
 
 All of the functional combinators shown work on Maps, too.  Maps can be thought of as a list of pairs so the functions you write work on a pair of the keys and values in the Map.
 
-```scala
-scala> val extensions = Map("steve" -> 100, "bob" -> 101, "joe" -> 201)
-extensions: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101), (joe,201))
-```
+    scala> val extensions = Map("steve" -> 100, "bob" -> 101, "joe" -> 201)
+    extensions: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101), (joe,201))
 
 Now filter out every entry whose phone extension is lower than 200.
 
-```scala
-scala> extensions.filter((namePhone: (String, Int)) => namePhone._2 < 200)
-res0: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101))
-```
+    scala> extensions.filter((namePhone: (String, Int)) => namePhone._2 < 200)
+    res0: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101))
 
 Because it gives you a tuple, you have to pull out the keys and values with their positional accessors. Yuck!
 
 Lucky us, we can actually use a pattern match to extract the key and value nicely.
 
-```scala
-scala> extensions.filter({case (name, extension) => extension < 200})
-res0: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101))
-```
+    scala> extensions.filter({case (name, extension) => extension < 200})
+    res0: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101))
 
 Why does this work? Why can you pass in a partial pattern match?
 
 Stay tuned for next week!
 
 
----
+</section><section class='slide'>
 
-# Pattern matching & functional composition
+## Pattern matching & functional composition
 
 This lesson covers:
 
@@ -1354,63 +1193,57 @@ This lesson covers:
     * composition with orElse
 * "What is a case statement?"
 
----
+</section><section class='slide'>
 
-# Function Composition
+## Function Composition
 
 Let's make two aptly-named functions:
 
-```scala
-scala> def f(s: String) = "f(" + s + ")"
-f: (String)java.lang.String
+    scala> def f(s: String) = "f(" + s + ")"
+    f: (String)java.lang.String
+    
+    scala> def g(s: String) = "g(" + s + ")"
+    g: (String)java.lang.String
 
-scala> def g(s: String) = "g(" + s + ")"
-g: (String)java.lang.String
-```
+</section><section class='slide'>
 
----
-
-# compose
+## compose
 
 `compose` makes a new function that composes other functions `f(g(x))`
 
-```scala
-scala> val fComposeG = f _ compose g _
-fComposeG: (String) => java.lang.String = <function>
+    scala> val fComposeG = f _ compose g _
+    fComposeG: (String) => java.lang.String = <function>
+    
+    scala> fComposeG("yay")
+    res0: java.lang.String = f(g(yay))
 
-scala> fComposeG("yay")
-res0: java.lang.String = f(g(yay))
-```
+</section><section class='slide'>
 
----
-
-# andThen
+## andThen
 
 `andThen` is like `compose`, but calls the first function and then the second, `g(f(x))`
 
-```scala
-scala> val fAndThenG = f _ andThen g _
-fAndThenG: (String) => java.lang.String = <function>
+    scala> val fAndThenG = f _ andThen g _
+    fAndThenG: (String) => java.lang.String = <function>
+    
+    scala> fAndThenG("yay")
+    res1: java.lang.String = g(f(yay))
 
-scala> fAndThenG("yay")
-res1: java.lang.String = g(f(yay))
-```
+</section><section class='slide'>
 
----
+## case statements
 
-# case statements
-
-### So just what are case statements?
+#### So just what are case statements?
 
 It's a subclass of function called a PartialFunction.
 
-### What is a collection of multiple case statements?
+#### What is a collection of multiple case statements?
 
 They are multiple PartialFunctions composed together.
 
----
+</section><section class='slide'>
 
-# Understanding PartialFunction
+## Understanding PartialFunction
 
 A function works for every argument of the defined type. In other words, a function defined as (Int) => String takes any Int and returns a String.
 
@@ -1420,77 +1253,69 @@ A Partial Function is only defined for certain values of the defined type.  A Pa
 
 __Note__ `PartialFunction` is unrelated to a partially applied function that we talked about earlier.
 
-*See Also* Effective Scala has opinions about [PartialFunction](http://twitter.github.com/effectivescala/#Functional%20programming-Partial%20functions).
+*See Also* Effective Scala has opinions about [PartialFunction](http://twitter.github.com/effectivescala/##Functional%20programming-Partial%20functions).
 
-```scala
-scala> val one: PartialFunction[Int, String] = { case 1 => "one" }
-one: PartialFunction[Int,String] = <function1>
-
-scala> one.isDefinedAt(1)
-res0: Boolean = true
-
-scala> one.isDefinedAt(2)
-res1: Boolean = false
-```
+    scala> val one: PartialFunction[Int, String] = { case 1 => "one" }
+    one: PartialFunction[Int,String] = <function1>
+    
+    scala> one.isDefinedAt(1)
+    res0: Boolean = true
+    
+    scala> one.isDefinedAt(2)
+    res1: Boolean = false
 
 You can apply a partial function.
 
-```scala
-scala> one(1)
-res2: String = one
-```
+    scala> one(1)
+    res2: String = one
 
----
+</section><section class='slide'>
 
-# Partial Functions (ctd.)
+## Partial Functions (ctd.)
 
 PartialFunctions can be composed with something new, called orElse, that reflects whether the PartialFunction is defined over the supplied argument.
 
-```scala
-scala> val two: PartialFunction[Int, String] = { case 2 => "two" }
-two: PartialFunction[Int,String] = <function1>
+    scala> val two: PartialFunction[Int, String] = { case 2 => "two" }
+    two: PartialFunction[Int,String] = <function1>
+    
+    scala> val three: PartialFunction[Int, String] = { case 3 => "three" }
+    three: PartialFunction[Int,String] = <function1>
+    
+    scala> val wildcard: PartialFunction[Int, String] = { case _ => "something else" }
+    wildcard: PartialFunction[Int,String] = <function1>
+    
+    scala> val partial = one orElse two orElse three orElse wildcard
+    partial: PartialFunction[Int,String] = <function1>
+    
+    scala> partial(5)
+    res24: String = something else
+    
+    scala> partial(3)
+    res25: String = three
+    
+    scala> partial(2)
+    res26: String = two
+    
+    scala> partial(1)
+    res27: String = one
+    
+    scala> partial(0)
+    res28: String = something else
 
-scala> val three: PartialFunction[Int, String] = { case 3 => "three" }
-three: PartialFunction[Int,String] = <function1>
+</section><section class='slide'>
 
-scala> val wildcard: PartialFunction[Int, String] = { case _ => "something else" }
-wildcard: PartialFunction[Int,String] = <function1>
-
-scala> val partial = one orElse two orElse three orElse wildcard
-partial: PartialFunction[Int,String] = <function1>
-
-scala> partial(5)
-res24: String = something else
-
-scala> partial(3)
-res25: String = three
-
-scala> partial(2)
-res26: String = two
-
-scala> partial(1)
-res27: String = one
-
-scala> partial(0)
-res28: String = something else
-```
-
----
-
-# The mystery of `case`
+## The mystery of `case`
 
 Last week we saw something curious. We saw a case statement used where a function is normally used.
 
-```scala
-scala> case class PhoneExt(name: String, ext: Int)
-defined class PhoneExt
-
-scala> val extensions = List(PhoneExt("steve", 100), PhoneExt("robey", 200))
-extensions: List[PhoneExt] = List(PhoneExt(steve,100), PhoneExt(robey,200))
-
-scala> extensions.filter { case PhoneExt(name, extension) => extension < 200 }
-res0: List[PhoneExt] = List(PhoneExt(steve,100))
-```
+    scala> case class PhoneExt(name: String, ext: Int)
+    defined class PhoneExt
+    
+    scala> val extensions = List(PhoneExt("steve", 100), PhoneExt("robey", 200))
+    extensions: List[PhoneExt] = List(PhoneExt(steve,100), PhoneExt(robey,200))
+    
+    scala> extensions.filter { case PhoneExt(name, extension) => extension < 200 }
+    res0: List[PhoneExt] = List(PhoneExt(steve,100))
 
 Why does this work?
 
@@ -1498,7 +1323,7 @@ Why does this work?
 
 A PartialFunction is a subtype of Function so filter can also take a PartialFunction!
 
----
+</section><section class='slide'>
 
 This lesson covers:
 
@@ -1510,17 +1335,15 @@ This lesson covers:
 * "Bounds"
 * "Quantification"
 
----
+</section><section class='slide'>
 
-# What are static types?  Why are they useful?
+## What are static types?  Why are they useful?
 
 According to Pierce: "A type system is a syntactic method for automatically checking the absence of certain erroneous behaviors by classifying program phrases according to the kinds of values they compute."
 
 Types allow you to denote function domain & codomains. For example, from mathematics, we are used to seeing:
 
-```scala
-f: R -> N
-```
+    f: R -> N
 
 this tells us that function "f" maps values from the set of real numbers to values of the set of natural numbers.
 
@@ -1534,9 +1357,9 @@ With increasing expressiveness in type systems, we can produce more reliable cod
 
 Note that all type information is removed at compile time. It is no longer needed. This is called erasure.
 
----
+</section><section class='slide'>
 
-# Types in Scala
+## Types in Scala
 
 Scala's powerful type system allows for very rich expression. Some of its chief features are:
 
@@ -1545,76 +1368,64 @@ Scala's powerful type system allows for very rich expression. Some of its chief 
 * *existential quantification* roughly, defining something _for some_ unnamed type
 * *views* we'll learn these next week; roughly, "castability" of values of one type to another
 
----
+</section><section class='slide'>
 
-# Scala Type System
+## Scala Type System
 
 * Everything extends from ```Any``` either through ```AnyRef``` or ```AnyVal```
 * ```Nothing``` extends from everything (and is the only class that may extend from both ```AnyRef``` and ```AnyVal```)
 
-.center[![Scala Type System](http://joelabrahamsson.com/PageFiles/148/1310_1644.jpg)]
+![Scala Type System](http://joelabrahamsson.com/PageFiles/148/1310_1644.jpg)
 
-http://joelabrahamsson.com/learning-scala-part-eight-scalas-type-hierarchy-and-object-equality/
+Credit: http://joelabrahamsson.com/learning-scala-part-eight-scalas-type-hierarchy-and-object-equality/
 
----
+</section><section class='slide'>
 
-# Parametric polymorphism
+## Parametric polymorphism
 
 Polymorphism is used in order to write generic code (for values of different types) without compromising static typing richness.
 
 For example, without parametric polymorphism, a generic list data structure would always look like this (and indeed it did look like this in Java prior to generics):
 
-```scala
-scala> 2 :: 1 :: "bar" :: "foo" :: Nil
-res5: List[Any] = List(2, 1, bar, foo)
-```
+    scala> 2 :: 1 :: "bar" :: "foo" :: Nil
+    res5: List[Any] = List(2, 1, bar, foo)
 
 Now we cannot recover any type information about the individual members.
 
-```scala
-scala> res5.head
-res6: Any = 2
-```
+    scala> res5.head
+    res6: Any = 2
 
 And so our application would devolve into a series of casts ("asInstanceOf[]") and we would lack type safety (because these are all dynamic).
 
 Polymorphism is achieved through specifying _type variables_.
 
-```scala
-scala> def drop1[A](l: List[A]) = l.tail
-drop1: [A](l: List[A])List[A]
+    scala> def drop1[A](l: List[A]) = l.tail
+    drop1: [A](l: List[A])List[A]
+    
+    scala> drop1(List(1,2,3))
+    res1: List[Int] = List(2, 3)
 
-scala> drop1(List(1,2,3))
-res1: List[Int] = List(2, 3)
-```
+</section><section class='slide'>
 
----
-
-# Scala has rank-1 polymorphism
+## Scala has rank-1 polymorphism
 
 Roughly, this means that there are some type concepts you'd like to express in Scala that are "too generic" for the compiler to understand. Suppose you had some function
 
-```scala
-def toList[A](a: A) = List(a)
-```
+    def toList[A](a: A) = List(a)
 
 which you wished to use generically:
 
-```scala
-def foo[A, B](f: A => List[A], b: B) = f(b)
-```
+    def foo[A, B](f: A => List[A], b: B) = f(b)
 
 This does not compile, because all type variables have to be fixed at the invocation site. Even if you "nail down" type `B`,
 
-```scala
-def foo[A](f: A => List[A], i: Int) = f(i)
-```
+    def foo[A](f: A => List[A], i: Int) = f(i)
 
 ...you get a type mismatch.
 
----
+</section><section class='slide'>
 
-# Type inference
+## Type inference
 
 A traditional objection to static typing is that it has much syntactic overhead. Scala alleviates this by providing _type inference_.
 
@@ -1624,33 +1435,29 @@ Scala's type inference system works a little differently, but it's similar in sp
 
 In Scala, for example, you cannot do the following:
 
-```scala
-scala> { x => x }
-<console>:7: error: missing parameter type
-       { x => x }
-```
+    scala> { x => x }
+    < console>:7: error: missing parameter type
+           { x => x }
 
 In scala all type inference is _local_. Scala considers one expression at a time. For example:
 
-```scala
-scala> def id[T](x: T) = x
-id: [T](x: T)T
-
-scala> val x = id(322)
-x: Int = 322
-
-scala> val x = id("hey")
-x: java.lang.String = hey
-
-scala> val x = id(Array(1,2,3,4))
-x: Array[Int] = Array(1, 2, 3, 4)
-```
+    scala> def id[T](x: T) = x
+    id: [T](x: T)T
+    
+    scala> val x = id(322)
+    x: Int = 322
+    
+    scala> val x = id("hey")
+    x: java.lang.String = hey
+    
+    scala> val x = id(Array(1,2,3,4))
+    x: Array[Int] = Array(1, 2, 3, 4)
 
 Types are now preserved, The Scala compiler infers the type parameter for us. Note also how we did not have to specify the return type explicitly.
 
----
+</section><section class='slide'>
 
-# Variance
+## Variance
 
 Scala's type system has to account for class hierarchies together with polymorphism.  Class hierarchies allow the expression of subtype relationships. A central question that comes up when mixing OO with polymorphism is: if <tt>T'</tt> is a subclass of <tt>T</tt>, is <tt>Container[T']</tt> considered a subclass of <tt>Container[T]</tt>? Variance annotations allow you to express the following relationships between class hierarchies & polymorphic types:
 
@@ -1661,228 +1468,188 @@ Scala's type system has to account for class hierarchies together with polymorph
 
 The subtype relationship really means: for a given type T, if T' is a subtype, can you substitute it?
 
-```scala
-scala> class Covariant[+A]
-defined class Covariant
-
-scala> val cv: Covariant[AnyRef] = new Covariant[String]
-cv: Covariant[AnyRef] = Covariant@4035acf6
-
-scala> val cv: Covariant[String] = new Covariant[AnyRef]
-<console>:6: error: type mismatch;
- found   : Covariant[AnyRef]
- required: Covariant[String]
-       val cv: Covariant[String] = new Covariant[AnyRef]
+    scala> class Covariant[+A]
+    defined class Covariant
+    
+    scala> val cv: Covariant[AnyRef] = new Covariant[String]
+    cv: Covariant[AnyRef] = Covariant@4035acf6
+    
+    scala> val cv: Covariant[String] = new Covariant[AnyRef]
+    < console>:6: error: type mismatch;
+     found   : Covariant[AnyRef]
+     required: Covariant[String]
+           val cv: Covariant[String] = new Covariant[AnyRef]
                                    ^
-```
 
-```scala
-scala> class Contravariant[-A]
-defined class Contravariant
-
-scala> val cv: Contravariant[String] = new Contravariant[AnyRef]
-cv: Contravariant[AnyRef] = Contravariant@49fa7ba
-
-scala> val fail: Contravariant[AnyRef] = new Contravariant[String]
-<console>:6: error: type mismatch;
- found   : Contravariant[String]
- required: Contravariant[AnyRef]
-       val fail: Contravariant[AnyRef] = new Contravariant[String]
+    scala> class Contravariant[-A]
+    defined class Contravariant
+    
+    scala> val cv: Contravariant[String] = new Contravariant[AnyRef]
+    cv: Contravariant[AnyRef] = Contravariant@49fa7ba
+    
+    scala> val fail: Contravariant[AnyRef] = new Contravariant[String]
+    < console>:6: error: type mismatch;
+     found   : Contravariant[String]
+     required: Contravariant[AnyRef]
+           val fail: Contravariant[AnyRef] = new Contravariant[String]
                                      ^
-```
 
 Contravariance seems strange. When is it used? Somewhat surprising!
 
-```scala
-trait Function1 [-T1, +R] extends AnyRef
-```
+    trait Function1 [-T1, +R] extends AnyRef
 
 If you think about this from the point of view of substitution, it makes a lot of sense. Let's first define a simple class hierarchy:
 
-```scala
-scala> class Animal { val sound = "rustle" }
-defined class Animal
-
-scala> class Bird extends Animal { override val sound = "call" }
-defined class Bird
-
-scala> class Chicken extends Bird { override val sound = "cluck" }
-defined class Chicken
-```
+    scala> class Animal { val sound = "rustle" }
+    defined class Animal
+    
+    scala> class Bird extends Animal { override val sound = "call" }
+    defined class Bird
+    
+    scala> class Chicken extends Bird { override val sound = "cluck" }
+    defined class Chicken
 
 Suppose you need a function that takes a `Bird` param:
 
-```scala
-scala> val getTweet: (Bird => String) = // TODO
-```
+    scala> val getTweet: (Bird => String) = // TODO
 
 The standard animal library has a function that does what you want, but it takes an `Animal` parameter instead.  In most situations, if you say "I need a ___, I have a subclass of ___", you're OK. But function parameters are contravariant. If you need a function that takes a `Bird` and you have a function that takes an `Chicken`, that function would choke on a `Duck`. But a function that takes an `Animal` is OK:
 
-```scala
-scala> val getTweet: (Bird => String) = ((a: Animal) => a.sound )
-getTweet: Bird => String = <function1>
-```
+    scala> val getTweet: (Bird => String) = ((a: Animal) => a.sound )
+    getTweet: Bird => String = <function1>
 
 A function's return value type is covariant. If you need a function that returns a `Bird` but have a function that returns a `Chicken`, that's great.
 
-```scala
-scala> val hatch: (() => Bird) = (() => new Chicken )
-hatch: () => Bird = <function0>
-```
+    scala> val hatch: (() => Bird) = (() => new Chicken )
+    hatch: () => Bird = <function0>
 
----
+</section><section class='slide'>
 
-# Bounds
+## Bounds
 
 Scala allows you to restrict polymorphic variables using _bounds_. These bounds express subtype relationships.
 
-```scala
-scala> def cacophony[T](things: Seq[T]) = things map (_.sound)
-<console>:7: error: value sound is not a member of type parameter T
-       def cacophony[T](things: Seq[T]) = things map (_.sound)
-                                                        ^
-
-scala> def biophony[T <: Animal](things: Seq[T]) = things map (_.sound)
-biophony: [T <: Animal](things: Seq[T])Seq[java.lang.String]
-
-scala> biophony(Seq(new Chicken, new Bird))
-res5: Seq[java.lang.String] = List(cluck, call)
-```
+    scala> def cacophony[T](things: Seq[T]) = things map (_.sound)
+    < console>:7: error: value sound is not a member of type parameter T
+           def cacophony[T](things: Seq[T]) = things map (_.sound)
+                                                            ^
+    
+    scala> def biophony[T <: Animal](things: Seq[T]) = things map (_.sound)
+    biophony: [T <: Animal](things: Seq[T])Seq[java.lang.String]
+    
+    scala> biophony(Seq(new Chicken, new Bird))
+    res5: Seq[java.lang.String] = List(cluck, call)
 
 Lower type bounds are also supported; they come in handy with contravariance and clever covariance. `List[+T]` is covariant; a list of Birds is a list of Animals. `List` defines an operator `::(elem T)` that returns a new `List` with `elem` prepended. The new `List` has the same type as the original:
 
-```scala
-scala> val flock = List(new Bird, new Bird)
-flock: List[Bird] = List(Bird@7e1ec70e, Bird@169ea8d2)
-
-scala> new Chicken :: flock
-res53: List[Bird] = List(Chicken@56fbda05, Bird@7e1ec70e, Bird@169ea8d2)
-```
+    scala> val flock = List(new Bird, new Bird)
+    flock: List[Bird] = List(Bird@7e1ec70e, Bird@169ea8d2)
+    
+    scala> new Chicken :: flock
+    res53: List[Bird] = List(Chicken@56fbda05, Bird@7e1ec70e, Bird@169ea8d2)
 
 `List` _also_ defines `::[B >: T](x: B)` which returns a `List[B]`. Notice the `B >: T`. That specifies type `B` as a superclass of `T`. That lets us do the right thing when prepending an `Animal` to a `List[Bird]`:
 
-```scala
-scala> new Animal :: flock
-res59: List[Animal] = List(Animal@11f8d3a8, Bird@7e1ec70e, Bird@169ea8d2)
-```
+    scala> new Animal :: flock
+    res59: List[Animal] = List(Animal@11f8d3a8, Bird@7e1ec70e, Bird@169ea8d2)
 
 Note that the return type is `Animal`.
 
----
+</section><section class='slide'>
 
-# Quantification
+## Quantification
 
 Sometimes you do not care to be able to name a type variable, for example:
 
-```scala
-scala> def count[A](l: List[A]) = l.size
-count: [A](List[A])Int
-```
+    scala> def count[A](l: List[A]) = l.size
+    count: [A](List[A])Int
 
 Instead you can use "wildcards":
 
-```scala
-scala> def count(l: List[_]) = l.size
-count: (List[_])Int
-```
+    scala> def count(l: List[_]) = l.size
+    count: (List[_])Int
 
 This is shorthand for:
 
-```scala
-scala> def count(l: List[T forSome { type T }]) = l.size
-count: (List[T forSome { type T }])Int
-```
+    scala> def count(l: List[T forSome { type T }]) = l.size
+    count: (List[T forSome { type T }])Int
 
 Note that quantification can get tricky:
 
-```scala
-scala> def drop1(l: List[_]) = l.tail
-drop1: (List[_])List[Any]
-```
+    scala> def drop1(l: List[_]) = l.tail
+    drop1: (List[_])List[Any]
 
 Suddenly we lost type information! To see what's going on, revert to the heavy-handed syntax:
 
-```scala
-scala> def drop1(l: List[T forSome { type T }]) = l.tail
-drop1: (List[T forSome { type T }])List[T forSome { type T }]
-```
+    scala> def drop1(l: List[T forSome { type T }]) = l.tail
+    drop1: (List[T forSome { type T }])List[T forSome { type T }]
 
 We can't say anything about T because the type does not allow it.
 
 You may also apply bounds to wildcard type variables:
 
-```scala
-scala> def hashcodes(l: Seq[_ <: AnyRef]) = l map (_.hashCode)
-hashcodes: (Seq[_ <: AnyRef])Seq[Int]
-
-scala> hashcodes(Seq(1,2,3))
-<console>:7: error: type mismatch;
- found   : Int(1)
- required: AnyRef
-Note: primitive types are not implicitly converted to AnyRef.
-You can safely force boxing by casting x.asInstanceOf[AnyRef].
-       hashcodes(Seq(1,2,3))
-                     ^
-
-scala> hashcodes(Seq("one", "two", "three"))
-res1: Seq[Int] = List(110182, 115276, 110339486)
-```
+    scala> def hashcodes(l: Seq[_ <: AnyRef]) = l map (_.hashCode)
+    hashcodes: (Seq[_ <: AnyRef])Seq[Int]
+    
+    scala> hashcodes(Seq(1,2,3))
+    < console>:7: error: type mismatch;
+     found   : Int(1)
+     required: AnyRef
+    Note: primitive types are not implicitly converted to AnyRef.
+    You can safely force boxing by casting x.asInstanceOf[AnyRef].
+           hashcodes(Seq(1,2,3))
+                         ^
+    
+    scala> hashcodes(Seq("one", "two", "three"))
+    res1: Seq[Int] = List(110182, 115276, 110339486)
 
 *See Also* [Existential types in Scala by D. R. MacIver](http://www.drmaciver.com/2008/03/existential-types-in-scala/)
 
----
+</section><section class='slide'>
 
-# View bounds ("type classes")
+## View bounds ("type classes")
 
 Sometimes you don't need to specify that one type is equal/sub/super another, just that you could fake it with conversions. A view bound specifies a type that can be "viewed as" another. This makes sense for an operation that needs to "read" an object but doesn't modify the object.
 
 *Implicit* functions allow automatic conversion. More precisely, they allow on-demand function application when this can help satisfy type inference. e.g.:
 
-```scala
-scala> implicit def strToInt(x: String) = x.toInt
-strToInt: (x: String)Int
-
-scala> "123"
-res0: java.lang.String = 123
-
-scala> val y: Int = "123"
-y: Int = 123
-
-scala> math.max("123", 111)
-res1: Int = 123
-```
+    scala> implicit def strToInt(x: String) = x.toInt
+    strToInt: (x: String)Int
+    
+    scala> "123"
+    res0: java.lang.String = 123
+    
+    scala> val y: Int = "123"
+    y: Int = 123
+    
+    scala> math.max("123", 111)
+    res1: Int = 123
 
 view bounds, like type bounds demand such a function exists for the given type.  You specify a type bound with `<%` e.g.,
 
-```scala
-scala> class Container[A <% Int] { def addIt(x: A) = 123 + x }
-defined class Container
-```
+    scala> class Container[A <% Int] { def addIt(x: A) = 123 + x }
+    defined class Container
 
 This says that *A* has to be "viewable" as *Int*.  Let's try it.
 
-```scala
-scala> (new Container[String]).addIt("123")
-res11: Int = 246
+    scala> (new Container[String]).addIt("123")
+    res11: Int = 246
+    
+    scala> (new Container[Int]).addIt(123) 
+    res12: Int = 246
+    
+    scala> (new Container[Float]).addIt(123.2F)
+    <console>:8: error: could not find implicit value for evidence parameter of type (Float) => Int
+           (new Container[Float]).addIt(123.2)
+            ^
 
-scala> (new Container[Int]).addIt(123) 
-res12: Int = 246
+</section><section class='slide'>
 
-scala> (new Container[Float]).addIt(123.2F)
-<console>:8: error: could not find implicit value for evidence parameter of type (Float) => Int
-       (new Container[Float]).addIt(123.2)
-        ^
-```
-
----
-
-# Other type bounds
+## Other type bounds
 
 Methods can enforce more complex type bounds via implicit parameters. For example, `List` supports `sum` on numeric contents but not on others. Alas, Scala's numeric types don't all share a superclass, so we can't just say `T <: Number`. Instead, to make this work, Scala's math library [defines an implicit `Numeric[T]` for the appropriate types T](http://www.azavea.com/blogs/labs/2011/06/scalas-numeric-type-class-pt-1/).  Then in `List`'s definition uses it:
 
-```scala
-sum[B >: A](implicit num: Numeric[B]): B
-```
+    sum[B >: A](implicit num: Numeric[B]): B
 
 If you invoke `List(1,2).sum()`, you don't need to pass a _num_ parameter; it's set implicitly. But if you invoke `List("whoop").sum()`, it complains that it couldn't set `num`.
 
@@ -1892,91 +1659,77 @@ Methods may ask for some kinds of specific "evidence" for a type without setting
 |A <:< B|A must be a subtype of B|
 |A <%< B|A must be viewable as B|
 
-```scala
-scala> class Container[A](value: A) { def addIt(implicit evidence: A =:= Int) = 123 + value }
-defined class Container
-
-scala> (new Container(123)).addIt
-res11: Int = 246
-
-scala> (new Container("123")).addIt
-<console>:10: error: could not find implicit value for parameter evidence: =:=[java.lang.String,Int]
-```
+    scala> class Container[A](value: A) { def addIt(implicit evidence: A =:= Int) = 123 + value }
+    defined class Container
+    
+    scala> (new Container(123)).addIt
+    res11: Int = 246
+    
+    scala> (new Container("123")).addIt
+    < console>:10: error: could not find implicit value for parameter evidence: =:=[java.lang.String,Int]
 
 Similarly, given our previous implicit, we can relax the constraint to viewability:
 
-```scala
-scala> class Container[A](value: A) { def addIt(implicit evidence: A <%< Int) = 123 + value }
-defined class Container
+    scala> class Container[A](value: A) { def addIt(implicit evidence: A <%< Int) = 123 + value }
+    defined class Container
+    
+    scala> (new Container("123")).addIt
+    res15: Int = 246
 
-scala> (new Container("123")).addIt
-res15: Int = 246
-```
+</section><section class='slide'>
 
----
-
-# Generic programming with views
+## Generic programming with views
 
 In the Scala standard library, views are primarily used to implement generic functions over collections.  For example, the "min" function (on *Seq[]*), uses this technique:
 
-```scala
-def min[B >: A](implicit cmp: Ordering[B]): A = {
-  if (isEmpty)
-    throw new UnsupportedOperationException("empty.min")
-
-  reduceLeft((x, y) => if (cmp.lteq(x, y)) x else y)
-}
-```
+    def min[B >: A](implicit cmp: Ordering[B]): A = {
+      if (isEmpty)
+        throw new UnsupportedOperationException("empty.min")
+    
+      reduceLeft((x, y) => if (cmp.lteq(x, y)) x else y)
+    }
 
 The main advantages of this are:
 
 * Items in the collections aren't required to implement *Ordered*, but *Ordered* uses are still statically type checked.
 * You can define your own orderings without any additional library support:
 
-```scala
-scala> List(1,2,3,4).min
-res0: Int = 1
-
-scala> List(1,2,3,4).min(new Ordering[Int] { def compare(a: Int, b: Int) = b compare a })
-res3: Int = 4
-```
+    scala> List(1,2,3,4).min
+    res0: Int = 1
+    
+    scala> List(1,2,3,4).min(new Ordering[Int] { def compare(a: Int, b: Int) = b compare a })
+    res3: Int = 4
 
 As a sidenote, there are views in the standard library that translates *Ordered* into *Ordering* (and vice versa).
 
-```scala
-trait LowPriorityOrderingImplicits {
-  implicit def ordered[A <: Ordered[A]]: Ordering[A] = new Ordering[A] {
-    def compare(x: A, y: A) = x.compare(y)
-  }
-}
-```
+    trait LowPriorityOrderingImplicits {
+      implicit def ordered[A <: Ordered[A]]: Ordering[A] = new Ordering[A] {
+        def compare(x: A, y: A) = x.compare(y)
+      }
+    }
 
----
+</section><section class='slide'>
 
-### Context bounds & implicitly[]
+#### Context bounds & implicitly[]
 
 Scala 2.8 introduced a shorthand for threading through & accessing implicit arguments.
 
-```scala
-scala> def foo[A](implicit x: Ordered[A]) {}
-foo: [A](implicit x: Ordered[A])Unit
-
-scala> def foo[A : Ordered] {}                        
-foo: [A](implicit evidence$1: Ordered[A])Unit
-```
+    scala> def foo[A](implicit x: Ordered[A]) {}
+    foo: [A](implicit x: Ordered[A])Unit
+    
+    scala> def foo[A : Ordered] {}                        
+    foo: [A](implicit evidence$1: Ordered[A])Unit
 
 Implicit values may be accessed via *implicitly*
 
-```scala
-scala> implicitly[Ordering[Int]]
-res37: Ordering[Int] = scala.math.Ordering$Int$@3a9291cf
-```
+    scala> implicitly[Ordering[Int]]
+    res37: Ordering[Int] = scala.math.Ordering$Int$@3a9291cf
 
 Combined, these often result in less code, especially when threading through views.
 
----
+</section><section class='slide'>
 
-# Higher-kinded types & ad-hoc polymorphism
+## Higher-kinded types & ad-hoc polymorphism
 
 Scala can abstract over "higher kinded" types. For example, suppose that you needed to use several types of containers for several types of data. You might define a `Container` interface that might be implemented by means of several container types: an `Option`, a `List`, etc. You want to define an interface for using values in these containers without nailing down the values' type.
 
@@ -2019,9 +1772,9 @@ scala> tupleize(List(1), List(2))
 res34: List[(Int, Int)] = List((1,2))
 ```
 
----
+</section><section class='slide'>
 
-# F-bounded polymorphism
+## F-bounded polymorphism
 
 Often it's necessary to access a concrete subclass in a (generic) trait. For example, imagine you had some trait that is generic, but can be compared to a particular subclass of that trait.
 
@@ -2092,9 +1845,9 @@ Note how the resulting type is now lower-bound by *YourContainer with MyContaine
 
 No *Ordered[]* exists for the unified type. Too bad.
 
----
+</section><section class='slide'>
 
-# Structural types
+## Structural types
 
 Scala has support for *structural types* -- type requirements are expressed by interface _structure_ instead of a concrete type.
 
@@ -2108,9 +1861,9 @@ res0: Int = 133
 
 This can be quite nice in many situations, but the implementation uses reflection, so be performance-aware!
 
----
+</section><section class='slide'>
 
-# Abstract type members
+## Abstract type members
 
 In a trait, you can leave type members abstract.
 
@@ -2133,14 +1886,14 @@ You can refer to an abstract type variable using the hash-operator:
 scala> trait Foo[M[_]] { type t[A] = M[A] }
 defined trait Foo
 
-scala> val x: Foo[List]#t[Int] = List(1)
+scala> val x: Foo[List]##t[Int] = List(1)
 x: List[Int] = List(1)
 ```
 
 
----
+</section><section class='slide'>
 
-# Type erasures & manifests
+## Type erasures & manifests
 
 As we know, type information is lost at compile time due to _erasure_. Scala features *Manifests*, allowing us to selectively recover type information. Manifests are provided as an implicit value, generated by the compiler as needed.
 
@@ -2153,9 +1906,9 @@ scala> (new MakeFoo[String]).make
 res10: String = ""
 ```
 
----
+</section><section class='slide'>
 
-# Case study: Finagle
+## Case study: Finagle
 
 See: https://github.com/twitter/finagle
 
@@ -2222,12 +1975,29 @@ val upFilter =
 ```
 
 Type safely!
+</section>
 
-    </textarea>
-    <script src="http://gnab.github.com/remark/downloads/remark-0.5.1.min.js" type="text/javascript">
-    </script>
-    <script type="text/javascript">
-      var slideshow = remark.create();
-    </script>
+<!-- Required JS files. -->
+<script src="jquery-1.7.2.min.js"></script>
+<script src="core/deck.core.js"></script>
+
+<!-- Extension JS files. Add or remove as needed. -->
+<script src="core/deck.core.js"></script>
+<script src="extensions/hash/deck.hash.js"></script>
+<script src="extensions/menu/deck.menu.js"></script>
+<script src="extensions/goto/deck.goto.js"></script>
+<script src="extensions/status/deck.status.js"></script>
+<script src="extensions/navigation/deck.navigation.js"></script>
+<script src="extensions/scale/deck.scale.js"></script>
+<script src="extensions/markdown/Markdown.Converter.js"></script>
+<script src="extensions/markdown/deck.markdown.js"></script>
+
+<!-- Initialize the deck. You can put this in an external file if desired. -->
+<script>
+	$(function() {
+		$.deck('.slide');
+	});
+</script>
+
   </body>
 </html>
