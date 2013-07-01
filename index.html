@@ -85,7 +85,7 @@
 <section class="slide">
 ## Disclaimer
 
-The content of these slides is a modified/adapted version of Twitter's Scala School project: http://twitter.github.io/scala_school/
+The content of these slides is a modified/adapted version of Twitter's Scala School project: <s>http://twitter.github.io/scala_school/</s> https://github.com/twitter/scala_school2
 
 Twitter is commited to training their new hires in Scala and we think that's cool. We also think that Scala is cool and we want you to think that as well.
 
@@ -223,46 +223,62 @@ Start the included `sbt console`.
 
     scala>
 
-
+</section><section class="slide">
+# Variables and Expressions
 </section><section class="slide">
 
-## Expressions
+## Mutable Variables
 
-    scala> 1 + 1
-    res0: Int = 2
+You can declare a variable `n` of type `Int` with initial value of `1 + 1` like so:
 
-```res0``` is an automatically created value name given by the interpreter to the result of your expression.  It has the type Int and contains the Integer 2.
+    var n: Int = 1 + 1
 
-(Almost) everything in Scala is an expression.
+You can reassign `var`
+
+    n = n + 1
+
+But Scala has static typing, so you can't change a `var`'s type
+
+    var s: String = "Hi!"	
+	n = s // doesn't compile
+	s = n // doesn't compile
 
 </section><section class="slide">
+## Statements and Expressions
 
-## Values
+We're all used to sequential execution of statements like this:
 
-You can give the result of an expression a name.
+    import util.Random.nextBoolean
 
-    scala> val two = 1 + 1
-    two: Int = 2
+    var n: Int = 0
+    if (nextBoolean()) {
+      println("randomly true")
+      n = n + 1
+    } else {
+      println("randomly false")
+      n = n - 1
+    }
+	
+But in Scala, it is more conventional to use control-flow structures as expressions:
 
-You cannot change the binding to a val.
+    n = if(nextBoolean()) n + 1 else n - 1
 
-    scala> two = 2
-    &lt;console>:8: error: reassignment to val
-           two = 2
+and they compose
+
+    var s: String =
+      if (n % 2 == 0)
+        "n is even: %d, half is: %d".format(n, n / 2)
+      else
+        "n is odd: %d, randomly fixing it: %d".format(n, if (nextBoolean()) n + 1 else n - 1)
 </section><section class="slide">
+## Immutable Values
 
-## Variables
+Given that expressions compose, mutable variables become less useful. It’s typically easiest to compute values by composing expressions rather than sequencing effects:
 
-If you need to change the binding, you can use a `var` instead.
+    val n: Int = 1 + 1
+	n = n + 1 // doesn't compile
 
-    scala> var name = "steve"
-    name: java.lang.String = steve
-
-    scala> name = "marius"
-    name: java.lang.String = marius
-
-`var` is rarely used in idiomatic Scala.
-
+In Scala, we use `val` most of the time.
 </section><section class="slide">
 
 ## Equality
@@ -281,7 +297,11 @@ Scala  has both reference and value equality.
     scala> foo.eq(bar)
     res10: Boolean = false
 
-</section><section class="slide">
+</section>
+<section class="slide">
+# Functions
+</section>
+<section class="slide">
 
 ## Functions
 
@@ -290,7 +310,7 @@ You can create functions with def.
     scala> def addOne(m: Int): Int = m + 1
     addOne: (m: Int)Int
 
-In Scala, you need to specify the type signature for function parameters.  The interpreter happily repeats the type signature back to you.
+In Scala, you need to specify the type signature for function parameters.
 
     scala> val three = addOne(2)
     three: Int = 3
@@ -310,6 +330,50 @@ You can leave off parens on functions with no arguments.
     scala> three
     res3: Int = 3
 
+</section><section class="slide">
+
+## Named and Default Arguments
+
+When calling a method, you can pass arguments in an arbitrary order by naming them:
+
+    def formatUser(userId: Long, userName: String, realName: String): String =
+      "%s <%d>: %s".format(userName, userId, realName)
+
+    formatUser(
+      realName = "Dan Rosen",
+      userName = "drosen",
+      userId = 31337
+    )
+
+When defining a method, you can assign default values to some or all of its arguments.
+
+	def formatUser(
+	    userId: Long = 0,
+	    userName: String = "unknown",
+	    realName: String = "Unknown"
+	  ): String =
+	  "%s <%d>: %s".format(userName, userId, realName)
+
+	formatUser(userName = "drosen")
+
+</section><section class="slide">
+## Side-effecting functions and `Unit`
+
+Some functions are only used for their side-effects:
+
+    scala> println("Hi!")
+	Hi!
+	
+In C-influenced languages, the result type would be `void`, representing the absence of a value. But the notion that some functions can produce a value and some can't introduces inconsistenty in the language.
+
+In order not to have this inconsistency, some languages, like Scala, introduce a type called `Unit` which has a single value `()`. So side-effecting functions can now return a value just like all the other ones:
+
+    def noop() : Unit = ()
+
+Side-effecting functions can be written like so:
+
+	def noop() {
+	}
 </section><section class="slide">
 
 ## Anonymous Functions
@@ -400,7 +464,107 @@ There is a special syntax for methods that can take parameters of a repeated typ
     scala&gt; countArgs("One", "Two", "Three") 
     res0: Int = 3
 
-</section><section class="slide">
+</section>
+
+<section class="slide">
+# For-Expressions
+</section>
+<section class="slide">
+
+## `while`- and `for`-loops
+
+We've all written this code in _some_ language at least once:
+
+    var i = 0
+    while (i < 10) {
+      println("I'M AWESOME")
+      i = i + 1
+    }
+
+or more succinctly:
+
+    for (i <- 0 until 10)
+      println("I'M AWESOME")
+
+  </section>
+  <section class="slide">
+## Scaling up and out
+
+Fantastic. Now let's say you're trying to do something marginally more useful:
+
+    import collection.mutable.Buffer
+
+    val quietWords = List("let's", "transform", "some", "collections")
+    val noisyWords = Buffer.empty[String]
+    for (i <- 0 until quietWords.size)
+      noisyWords += quietWords(i).toUpperCase
+
+There are a few truly awful things about this code:
+
+* Explicitly indexing into the list is prone to bugs; you're likely to have an off-by-one error or accidentally use the wrong index variable in the wrong collection.
+* The time complexity of this algorithm is O(n<sup>2</sup>), because indexing into a `List` is a linear-time operation, not constant-time (note: if we used a more appropriate collection type, such as `Vector`, this wouldn't be an issue).
+* It's not nearly DRY enough: `noisyWords` appears two times and `quietWords` appears three times.
+
+So we can do better:
+
+    val noisyWords = Buffer.empty[String]
+    for (word <- quietWords)
+      noisyWords += word.toUpperCase
+
+No more explicit indexing, and we're now linear time, but...
+</section>
+<section class="slide">
+
+## `for`-expressions
+
+The mutable `Buffer`-based approach is still dissatisfying. We've been doing very well treating control flow structures as value-producing expressions so far, so why not here?
+
+    val noisyWords = for (word <- quietWords) yield
+      word.toUpperCase
+
+Aha, immutable and DRY. The `for-yield` expression indicates _transformation_: it directly produces a new collection, where each element is transformed from a corresponding element in the original collection. The behavior varies depending on the type of the original collection, but in this case where you start with a `List[String]`, the `for-yield` expression produces a `List[String]` in the order you'd expect. In many other programming languages, this is referred to as "list comprehensions."
+</section>
+<section class="slide">
+
+One nice thing about `for`-loops and `for`-expressions is that they can contain multiple _generators_, producing a similar effect to nested loops:
+
+    val salutations = for (hello <- List("hello", "greetings"); world <- List("world", "interwebs")) yield
+      "%s %s!".format(hello, world)
+
+This syntax starts to get a bit clunky, the more generators you have, so Scala provides an alternative syntax:
+
+    val salutations = for {
+      hello <- List("hello", "greetings")
+      world <- List("world", "interwebs")
+    } yield "%s %s!".format(hello, world)
+
+This is a bit confusing-looking at first, since the braces look like they're delineating a block of statements. It's not difficult to get used to, though, and it's the recommended style when you have multiple generators.
+</section>
+<section class="slide">
+## Assignments and filters
+
+You can also directly assign bindings (equivalent to `val`s) inside the `for { ... }`, not directly generated from elements in a collection:
+
+    val salutations = for {
+      hello <- List("hello", "greetings")
+      world <- List("world", "interwebs")
+      salutation = "%s %s!".format(hello, world) // assignment here!
+    } yield salutation
+
+... which isn't necessarily useful by itself, but becomes very handy when you need to _filter_ some of the results:
+
+    val salutations = for {
+      hello <- List("hello", "greetings")
+      world <- List("world", "interwebs")
+      salutation = "%s %s!".format(hello, world)
+      if salutation.length < 20 // tl;dr
+    } yield salutation
+</section>
+<section class="slide">
+# Object-oriented constructs
+</section>
+
+<section class="slide">
 
 ## Classes
 
@@ -626,7 +790,11 @@ You can create an object for your package. These can be used to delcare anything
 
 	}
     
-</section><section class="slide">
+</section>
+<section class="slide">
+# Pattern Matching
+</section>
+<section class="slide">
 
 ## Pattern Matching
 
