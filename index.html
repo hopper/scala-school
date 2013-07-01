@@ -34,13 +34,21 @@
 	<style>
 	  div.header {
 		  position:absolute;
-		  top: 10px;
+		  top: 20px;
 		  right:10px;
 		  height:50px;
 		  width:150px;
 		  z-index:10;
 	      background-image:url('hopper-logo-desktop-bar.png');
 		  background-repeat:no-repeat;
+	}
+	body {
+		padding-right:20px;
+		padding-left:20px;
+		background-color:#CCCCCC;
+	}
+	.deck-container {
+		border-radius:25px;
 	}
 	</style>
 </head>
@@ -1567,6 +1575,17 @@ As we know, type information is lost at compile time due to _erasure_. Scala fea
 	res10: String = ""
 
 </section>
+<form action="." method="get" class="goto-form">
+	<label for="goto-slide">Go to slide:</label>
+	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
+	<datalist id="goto-datalist"></datalist>
+	<input type="submit" value="Go">
+</form>
+<p class="deck-status">
+	<span class="deck-status-current"></span>
+	/
+	<span class="deck-status-total"></span>
+</p>
 </div>
 <!-- Required JS files. -->
 <script src="jquery-1.7.2.min.js"></script>
