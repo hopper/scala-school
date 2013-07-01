@@ -1260,58 +1260,28 @@ Think of it as short-hand for mapping and then flattening:
 
 ## What about `Map`?
 
-All of the functional combinators shown work on Maps, too. Maps can be thought of as a list of pairs so the functions you write work on a pair of the keys and values in the Map.
+Maps can be thought of as a collection of pairs, so all the collection methods work.
 
     scala> val extensions = Map("steve" -> 100, "bob" -> 101, "joe" -> 201)
     extensions: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101), (joe,201))
 
-Now filter out every entry whose phone extension is lower than 200.
-
-    scala> extensions.filter((namePhone: (String, Int)) => namePhone._2 < 200)
+    scala> extensions.filter {case (_, extension) => extension < 200 }
     res0: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101))
-
-Because it gives you a tuple, you have to pull out the keys and values with their positional accessors. Yuck!
-
-Lucky us, we can actually use a pattern match to extract the key and value nicely.
-
-    scala> extensions.filter({case (name, extension) => extension < 200})
-    res0: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101))
-
-</section><section class="slide">
-
-## Function Composition
-
-Let's make two aptly-named functions:
-
-    scala> def f(s: String) = "f(" + s + ")"
-    f: (String)java.lang.String
-    
-    scala> def g(s: String) = "g(" + s + ")"
-    g: (String)java.lang.String
-
-</section><section class="slide">
-
-## `compose`
-
-`compose` makes a new function that composes other functions `f(g(x))`
-
-    scala> val fComposeG = f _ compose g _
-    fComposeG: (String) => java.lang.String = &lt;function&gt;
-    
-    scala> fComposeG("yay")
-    res0: java.lang.String = f(g(yay))
 
 </section><section class="slide">
 
 ## `andThen`
 
-`andThen` is like `compose`, but calls the first function and then the second, `g(f(x))`
+`andThen` is used to chain the output of one function as the input to another.
 
-    scala> val fAndThenG = f _ andThen g _
-    fAndThenG: (String) => java.lang.String = &lt;function&gt;
-    
-    scala> fAndThenG("yay")
-    res1: java.lang.String = g(f(yay))
+    val trim = { str: String => str.trim }
+    val toUpper = { str: String => str.toUpperCase }
+    val cleanup = trim andThen toUpper
+
+    scala> cleanup("  input string ")
+    res0: String = INPUT STRING
+
+`
 
 </section><section class="slide">
 
