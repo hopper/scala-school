@@ -155,6 +155,7 @@ Scala is a `sca`lable `la`nguage. It can scale as you need it to. This is Scala:
 
 <section class="slide no-md">
 <h2>And this is Scala</h2>
+<p>Write unit tests almost literally with Specs2</p>
 <pre><code>class HelloWorldSpec extends Specification {
 
     "The 'Hello world' string" should {
@@ -167,7 +168,9 @@ Scala is a `sca`lable `la`nguage. It can scale as you need it to. This is Scala:
 </section>
 
 <section class="slide">
-<h2>And this is Scala</h2>
+## And this is Scala
+
+Write BASIC in Scala!
 <pre><code>object SquareRoot extends Baysick {
   def main(args: Array[String]) = {
     10 PRINT "Enter a number"
@@ -181,8 +184,26 @@ Scala is a `sca`lable `la`nguage. It can scale as you need it to. This is Scala:
 </code></pre>
 </section>
 
+<section class="slide">
+## And this is scala
+
+A word count Map/Reduce job using Scoobi
+
+	val lines = fromTextFile("hdfs://in/...")
+    
+	val counts = lines.flatMap(_.split(" "))
+	                .map(word => (word, 1))
+	                .groupByKey
+	                .combine(_+_)
+    
+	persist(counts.toTextFile("hdfs://out/...", overwrite=true))
+</section>
+
 <section class="slide no-md">
 <h2>And this is Scala</h2>
+
+<p>Query MongoDB using Rogue (Foursquare)</p>
+
 <pre><code> def update() = {
   VenueRole where (_.venueid eqs this.id) 
     and (_.userid eqs userid)
@@ -273,29 +294,23 @@ and they compose
 </section><section class="slide">
 ## Immutable Values
 
-Given that expressions compose, mutable variables become less useful. It’s typically easiest to compute values by composing expressions rather than sequencing effects:
+Given that expressions compose, mutable variables become less useful. It’s typically easiest to compute values by composing expressions rather than sequencing effects. So in Scala, we use `val`:
 
     val n: Int = 1 + 1
 	n = n + 1 // doesn't compile
 
-In Scala, we use `val` most of the time.
+Sometimes `var` is necessary. Most of the time, it isn't.
 </section><section class="slide">
 
 ## Equality
 
 Scala  has both reference and value equality.
 
-    scala> val foo = new String("foobar")
-    foo: java.lang.String = foobar
-
-    scala> val bar = new String("foobar")
-    bar: java.lang.String = foobar
-
-    scala> foo == bar
-    res9: Boolean = true
-
-    scala> foo.eq(bar)
-    res10: Boolean = false
+    val foo = "foobar"
+	val bar = new String("foobar")
+	
+	foo == bar // true
+	foo.eq(bar) // false
 
 </section>
 <section class="slide">
@@ -452,6 +467,15 @@ You can call it directly with both arguments, or fill in the first and then the 
     res1: Int = 6
 
 </section><section class="slide">
+## Aside: the underscore `_`
+
+Scala allows the use of the underscore as a wildcard in several places. It can be confusing when reading Scala at first. 
+
+As a rule of thumb, it either means _whatever_ or _everything_.
+
+For example, using `_` within a single-argument function would mean _whatever the argument is_. Using it in an import statement would mean _everything from that package_.
+	
+</section><section class="slide">
 
 ## Variable length arguments
 
@@ -486,24 +510,23 @@ or more succinctly:
     for (i <- 0 until 10)
       println("I'M AWESOME")
 
-  </section>
-  <section class="slide">
-## Scaling up and out
+</section>
+<section class="slide">
+## `for`-loops
 
-Fantastic. Now let's say you're trying to do something marginally more useful:
+Maybe this is a bit more common:
 
     import collection.mutable.Buffer
 
-    val quietWords = List("let's", "transform", "some", "collections")
+    val quietWords = List("let's", "transform", "words")
     val noisyWords = Buffer.empty[String]
     for (i <- 0 until quietWords.size)
       noisyWords += quietWords(i).toUpperCase
+	  
+Although we're doing something very common, this code is extremely verbose (it's also terribly innefficient).
 
-There are a few truly awful things about this code:
-
-* Explicitly indexing into the list is prone to bugs; you're likely to have an off-by-one error or accidentally use the wrong index variable in the wrong collection.
-* The time complexity of this algorithm is O(n<sup>2</sup>), because indexing into a `List` is a linear-time operation, not constant-time (note: if we used a more appropriate collection type, such as `Vector`, this wouldn't be an issue).
-* It's not nearly DRY enough: `noisyWords` appears two times and `quietWords` appears three times.
+* `quietWords` appears 3 times
+* `noisyWords` appears twice
 
 So we can do better:
 
@@ -514,15 +537,17 @@ So we can do better:
 No more explicit indexing, and we're now linear time, but...
 </section>
 <section class="slide">
-
 ## `for`-expressions
 
 The mutable `Buffer`-based approach is still dissatisfying. We've been doing very well treating control flow structures as value-producing expressions so far, so why not here?
 
-    val noisyWords = for (word <- quietWords) yield
-      word.toUpperCase
+    val noisyWords = 
+	  for (word <- quietWords) yield
+        word.toUpperCase
 
-Aha, immutable and DRY. The `for-yield` expression indicates _transformation_: it directly produces a new collection, where each element is transformed from a corresponding element in the original collection. The behavior varies depending on the type of the original collection, but in this case where you start with a `List[String]`, the `for-yield` expression produces a `List[String]` in the order you'd expect. In many other programming languages, this is referred to as "list comprehensions."
+Good! we're now refferring to `quierWords` and `noisyWords` only once. We've also gotten rid of the mutable `Buffer` (+1 for immutability).
+
+The `for-yield` expression indicates _transformation_: it directly produces a new collection, where each element is transformed from a corresponding element in the original collection. In many other programming languages, this is referred to as "list comprehensions."
 </section>
 <section class="slide">
 
