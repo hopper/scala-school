@@ -1080,10 +1080,6 @@ Think of it as short-hand for mapping and then flattening:
     scala> nestedNumbers.map((x: List[Int]) => x.map(_ * 2)).flatten
     res1: List[Int] = List(2, 4, 6, 8)
 
-that example calling map and then flatten is an example of the "combinator"-like nature of these functions.
-
-*See Also* Effective Scala has opinions about [flatMap](http://twitter.github.com/effectivescala/##Functional%20programming-`flatMap`).
-
 </section><section class="slide">
 
 ## What about `Map`?
@@ -1183,30 +1179,15 @@ You can apply a partial function.
 
 </section><section class="slide">
 
-## `Partial Functions` (contd)
+## `orElse`
 
-`PartialFunction` can be composed with something new, called orElse, that reflects whether the PartialFunction is defined over the supplied argument.
+You can define a 'fallback' `PartialFunction` using the `orElse` method.
 
-    scala> val two: PartialFunction[Int, String] = { case 2 => "two" }
-    two: PartialFunction[Int,String] = &lt;function1&gt;
-    
-    scala> val three: PartialFunction[Int, String] = { case 3 => "three" }
-    three: PartialFunction[Int,String] = &lt;function1&gt;
-    
     scala> val wildcard: PartialFunction[Int, String] = { case _ => "something else" }
     wildcard: PartialFunction[Int,String] = &lt;function1&gt;
     
-    scala> val partial = one orElse two orElse three orElse wildcard
+    scala> val partial = one orElse wildcard
     partial: PartialFunction[Int,String] = &lt;function1&gt;
-    
-    scala> partial(5)
-    res24: String = something else
-    
-    scala> partial(3)
-    res25: String = three
-    
-    scala> partial(2)
-    res26: String = two
     
     scala> partial(1)
     res27: String = one
@@ -1267,47 +1248,25 @@ Note that all type information is removed at compile time. It is no longer neede
 
 Scala's powerful type system allows for very rich expression. Some of its chief features are:
 
-* *parametric polymorphism* roughly, generic programming
-* *(local) type inference* roughly, why you needn't say `val i: Int = 12: Int`
-* *existential quantification* roughly, defining something _for some_ unnamed type
-* *views* we'll learn these next week; roughly, "castability" of values of one type to another
+* *parametric polymorphism*: roughly, generic programming
+* *(local) type inference*: roughly, why you needn't say `val i: Int = 12: Int`
+* *existential quantification*: roughly, defining something _for some_ unnamed type
+* *views*: we'll learn these next week; roughly, "castability" of values of one type to another
 
 </section><section class="slide">
 
 ## Scala's Type Hierarchy
 
-* Everything extends from ```Any``` either through ```AnyRef``` or ```AnyVal```
-* ```Nothing``` extends from everything (and is the only class that may extend from both ```AnyRef``` and ```AnyVal```)
+* Everything extends from `Any` 
+* All 'primitives' extend from `AnyVal` (`Int`, `Float`, etc.) 
+* Everything else extends from `AnyRef` (String, etc.) 
+* `Nothing` extends from everything (and is the only class that may extend from both `AnyRef` and `AnyVal`)
 
+</section><section class="slide">
+<br/>
 ![Scala Type System](http://joelabrahamsson.com/PageFiles/148/1310_1644.jpg)
 
 Credit: http://joelabrahamsson.com/learning-scala-part-eight-scalas-type-hierarchy-and-object-equality/
-
-</section><section class="slide">
-
-## Parametric polymorphism
-
-Polymorphism is used in order to write generic code (for values of different types) without compromising static typing richness.
-
-For example, without parametric polymorphism, a generic list data structure would always look like this (and indeed it did look like this in Java prior to generics):
-
-    scala> 2 :: 1 :: "bar" :: "foo" :: Nil
-    res5: List[Any] = List(2, 1, bar, foo)
-
-Now we cannot recover any type information about the individual members.
-
-    scala> res5.head
-    res6: Any = 2
-
-And so our application would devolve into a series of casts ("asInstanceOf[]") and we would lack type safety (because these are all dynamic).
-
-Polymorphism is achieved through specifying _type variables_.
-
-    scala> def drop1[A](l: List[A]) = l.tail
-    drop1: [A](l: List[A])List[A]
-    
-    scala> drop1(List(1,2,3))
-    res1: List[Int] = List(2, 3)
 
 </section><section class="slide">
 
