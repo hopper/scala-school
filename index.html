@@ -43,19 +43,32 @@
 		  background-repeat: no-repeat;
 	}
 	body {
-		padding-right: 20px;
-		padding-left: 20px;
-		padding-top: 20px;
-		background-color: #CCCCCC;
 	}
 	.deck-container {
-		border-radius: 10px;
-		min-height: 95%;
-		box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+		background-color: #fdf6e3;
+		background-image: none;
+    color: #073642;
 	}
+  .deck-container .slide h2 {
+    border-bottom: none;
+  }
 	.slide pre {
-		padding: 0.5em;
+		border: none;
+    padding: 0em;
 	}
+  .deck-container .slide code {
+    color: #d33682;
+    font-size: 120%;
+  }
+  .deck-container .slide pre code {
+    color: #839496;
+    font-size: 100%;
+    padding: 1em;
+    border-radius: 1em;
+  }
+  .deck-container .slide a {
+    color: #268bd2;
+  }
 	.slide table {
 		border-collapse: inherit;
 		border-spacing: 1em;
