@@ -1288,7 +1288,15 @@ The compiler will teach you which types it can infer and which ones it can't.
 
 Sometimes you want the compiler to infer some type in particular (eg. for API compatibility). You can use a type 'ascription' for this:
 
-    val x: Seq[String] = List[String]
+    scala> "hello!": AnyRef
+    res0: AnyRef = hello!
+
+This will fail if the types don't match up:
+
+    scala> "hello!": Int
+    &lt;console>:8: error: type mismatch;
+     found   : java.lang.String("hello!")
+     required: Int
 
 </section><section class="slide">
 
