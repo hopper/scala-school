@@ -155,8 +155,7 @@ Scala is a `sca`lable `la`nguage. It can scale as you need it to. This is Scala:
 
 <section class="slide no-md">
 <h2>And this is Scala</h2>
-<pre><code>
-class HelloWorldSpec extends Specification {
+<pre><code>class HelloWorldSpec extends Specification {
 
     "The 'Hello world' string" should {
       "contain 11 characters" in {
@@ -167,10 +166,9 @@ class HelloWorldSpec extends Specification {
 </code></pre>
 </section>
 
-<section class="slide no-md">
+<section class="slide">
 <h2>And this is Scala</h2>
-<pre><code>
-object SquareRoot extends Baysick {
+<pre><code>object SquareRoot extends Baysick {
   def main(args: Array[String]) = {
     10 PRINT "Enter a number"
     20 INPUT 'n
@@ -185,8 +183,7 @@ object SquareRoot extends Baysick {
 
 <section class="slide no-md">
 <h2>And this is Scala</h2>
-<pre><code>
-def update() = {
+<pre><code> def update() = {
   VenueRole where (_.venueid eqs this.id) 
     and (_.userid eqs userid)
     modify (_.role_type setTo RoleType.manager) 
@@ -335,7 +332,7 @@ You can pass anonymous functions around or save them into vals.
 
 </section><section class="slide">
 
-## Multi-expression Functions
+## Big Functions
 
 If your function is made up of many expressions, you can use {} to give yourself some breathing room.
 
@@ -346,13 +343,10 @@ If your function is made up of many expressions, you can use {} to give yourself
 
 This is also true of an anonymous function.
 
-    scala> { i: Int =>
+    val timesTwo = { i: Int =>
       println("hello world")
       i * 2
     }
-    res0: (Int) => Int = &lt;function1&gt;
-
-You will see this syntax often used when passing an anonymous function as an argument.
 
 </section><section class="slide">
 
@@ -397,16 +391,14 @@ You can call it directly with both arguments, or fill in the first and then the 
 
 ## Variable length arguments
 
-There is a special syntax for methods that can take parameters of a repeated type. To apply String's `capitalize` function to several strings, you might write:
+There is a special syntax for methods that can take parameters of a repeated type.
 
-    def capitalizeAll(args: String*) = {
-      args.map { arg =>
-        arg.capitalize
-      }
+    def countArgs(args: String*) = {
+      args.size()
     }
 
-    scala> capitalizeAll("rarity", "applejack")
-    res2: Seq[String] = ArrayBuffer(Rarity, Applejack)
+    scala&gt; countArgs("One", "Two", "Three") 
+    res0: Int = 3
 
 </section><section class="slide">
 
@@ -433,19 +425,12 @@ Contained are examples are defining methods with def and fields with val.  Metho
 
 ## Constructor
 
-Constructors aren't special methods, they are the code outside of method definitions in your class.  Let's extend our Calculator example to take a constructor argument and use it to initialize internal state.
+Constructors aren't special methods, they are the code outside of method definitions in your class. Use the `new` keyword to construct an instance.
 
     class Calculator(brand: String) {
-
-    val color: String = 
-      if (brand == "TI") "blue"
-      else if (brand == "HP") "black"
-      else "white"
-
+      val color: String = if (brand == "HP") "black" else "white"
       def add(m: Int, n: Int): Int = m + n
     }
-
-Use the `new` keyword to construct an instance:
 
     scala> val calc = new Calculator("HP")
     calc: Calculator = Calculator@1e64cc4d
@@ -460,7 +445,7 @@ Use the `new` keyword to construct an instance:
 Our BasicCalculator example gave an example of how Scala is expression-oriented.  The value color was bound based on an if/else expression. Scala is highly expression-oriented: most things are expressions rather than statements.
 
     scala> val notation = if(calc.color == "black") "reverse polish" else "infix"
-	notation : java.lang.String = "reverse polish"
+	  notation : java.lang.String = "reverse polish"
 
 </section><section class="slide">
 
@@ -517,9 +502,9 @@ You can define an `abstract class`, a class that defines some methods but does n
     trait Shiny {
       val shineRefraction: Int
 
-	  def computeShinyness(light: Double) = {
-	    shineRefraction * light
-	  }
+      def computeShinyness(light: Double) = {
+        shineRefraction * light
+      }
     }
 
     class BMW extends Car {
@@ -536,7 +521,7 @@ One class can extend several traits using the `with` keyword:
 
 ## Type Parameters
 
-Earlier, you saw that we defined a function that took an `Int` which is a type of Number. Functions can also be generic and work on any type. When that occurs, you'll see a type parameter introduced with the square bracket syntax. Here's an example of a Cache of generic Keys and Values.
+Functions can be generic and work on any type. Here's an example of a generic Cache.
 
     trait Cache[K, V] {
       def get(key: K): V
@@ -565,11 +550,9 @@ apply methods give you a nice syntactic sugar for when a class has one main use.
     scala> bar()
     res8: Int = 0
 
-Here our instance object looks like we're calling a function. More on that later!
-
 </section><section class="slide">
 
-## Functions are Objects
+## Function Traits
 
 In Scala, functions are represented by a set of traits: `Function0` through `Function22`.
 
@@ -581,11 +564,6 @@ is equivalent to
 
     val double = { x: Int => x * 2} 
 	
-For the ones that noticed, the interpreter already told you that:
-
-    scala> val double = { x : Int => x * 2}
-    double: Int => Int = &lt;function1&gt;
-
 </section><section class="slide">
 
 ## Objects
@@ -596,7 +574,7 @@ Objects are like classes, but with a single instance. Often used for 'static' va
       val Pi = 3.14 // Close enough
     }
 
-Classes and Objects can have the same name.  The object is called a 'Companion Object'.  We commonly use Companion Objects for Factories. Here is a trivial example that only serves to remove the need to use 'new' to create an instance.
+Classes and Objects can have the same name.  The object is called a 'Companion Object'. Here is a trivial example that removes the need to use `new` to create an instance.
 
     class Bar(foo: String)
     
@@ -615,7 +593,13 @@ You can organize your code inside of packages.
 
     class ExampleClass
 
-at the top of a file will declare everything in the file to be in that package. In another package, you'd need to `import` this class:
+at the top of a file will declare everything in the file to be in that package. 
+  
+</section><section class="slide">
+
+## Imports
+    
+In another package, you'd need to `import` that class.
 
     import com.twitter.example.ExampleClass
 
@@ -669,7 +653,7 @@ runtime error if you pass in a number that doesn't match.
       case _ => "some other number"
     }
 
-Notice how we captured the value in the variable 'i'.
+Notice how we captured the value in the variable `i`.
 
 </section><section class="slide">
 
@@ -697,8 +681,6 @@ Remember our calculator from earlier? Let's classify them according to type. Her
       case _ if calc.brand == "hp" && calc.model == "30B" => "business"
       case _ => "unknown"
     }
-
-Wow, that's painful.  Thankfully Scala provides some nice tools specifically for this.
 
 </section><section class="slide">
 
@@ -767,7 +749,7 @@ Exceptions are available in Scala via a try-catch-finally syntax that uses patte
     }
 
 </section><section class="slide">
-## Exceptions (contd)
+## Try-Catch Expressions
 `try`s are also expression-oriented
 
     val result: Int = try {
@@ -781,11 +763,7 @@ Exceptions are available in Scala via a try-catch-finally syntax that uses patte
       remoteCalculatorService.close()
     }
 
-This is not an example of excellent programming style, just an example of try-catch-finally resulting in expressions like most everything else in Scala.
-
 Finally will be called after an exception has been handled and is not part of the expression.
-
-Scala has no concept of checked-exceptions: you are never required to surround a method with a try-catch block.
 
 </section><section class="slide">
 
@@ -793,16 +771,25 @@ Scala has no concept of checked-exceptions: you are never required to surround a
 
 </section><section class="slide">
 
-## `List`
+## Ordered Collections
+
+`List` and `Vector` are `Seq`uential (ordered) collections.
+
+`List` is a singly-linked list with efficient head access.
 
     scala> val numbers = List(1, 2, 3, 4)
     numbers: List[Int] = List(1, 2, 3, 4)
+
+`Vector` is an ordered sequence with efficient random access.
+
+    scala> val numbers = Vector(1, 2, 3, 4)
+    numbers: Vector[Int] = Vector(1, 2, 3, 4)
 
 </section><section class="slide">
 
 ## `Set`
 
-Sets have no duplicates
+Sets have no duplicates.
 
     scala> Set(1, 1, 2)
     res0: scala.collection.immutable.Set[Int] = Set(1, 2)
@@ -824,6 +811,9 @@ They have accessors that are named by their position (which is 1-based rather th
     scala> hostPort._2
     res1: Int = 80
 
+</section><section class="slide">
+<br/>
+
 Tuples fit with pattern matching nicely.
 
     hostPort match {
@@ -831,7 +821,7 @@ Tuples fit with pattern matching nicely.
       case (host, port) => ...
     }
 
-Tuple has some special sauce for simply making Tuples of 2 values: `->`
+Tuple has some special sauce for making pairs: `->`
 
     scala> 1 -> 2
     res0: (Int, Int) = (1,2)
@@ -840,20 +830,11 @@ Tuple has some special sauce for simply making Tuples of 2 values: `->`
 
 ## `Map`
 
-It can hold basic datatypes.
+A standard key-value map.
 
     Map(1 -> 2)
-    Map("foo" -> "bar")
 
-This looks like special syntax but remember back to our discussion of Tuple that `->` can be use to create Tuples.
-
-`Map()` also uses that variable argument syntax we learned back in Lesson #1: `Map(1 -> "one", 2 -> "two")` which expands into `Map((1, "one"), (2, "two"))` with the first element being the key and the second being the value of the Map.
-
-Maps can themselves contain Maps or even functions as values.
-
-    Map(1 -> Map("foo" -> "bar"))
-
-    Map("timesTwo" -> { timesTwo(_) })
+Remember that `->` creates a pair; that method is just taking a bunch of pairs.
 
 </section><section class="slide">
 
@@ -1300,116 +1281,6 @@ This will fail if the types don't match up:
 
 </section><section class="slide">
 
-## Variance
-
-Scala's type system has to account for class hierarchies together with polymorphism.  Class hierarchies allow the expression of subtype relationships. A central question that comes up when mixing OO with polymorphism is: if <tt>T'</tt> is a subclass of <tt>T</tt>, is <tt>Container[T']</tt> considered a subclass of <tt>Container[T]</tt>? Variance annotations allow you to express the following relationships between class hierarchies & polymorphic types:
-
-<table>
-<tr><td>              </td><td>Meaning                     </td><td> Scala notation</td></tr>
-<tr><td>covariant     </td><td>C[T'] is a subclass of C[T]   </td><td> [+T]</td></tr>
-<tr><td>contravariant </td><td>C[T] is a subclass of C[T']   </td><td> [-T]</td></tr>
-<tr><td>invariant     </td><td>C[T] and C[T'] are not related</td><td> [T]</td></tr>
-</table>
-
-The subtype relationship really means: for a given type T, if T' is a subtype, can you substitute it?
-
-</section><section class="slide">
-
-## Covariance
-
-    scala> class Covariant[+A]
-    defined class Covariant
-    
-    scala> val cv: Covariant[AnyRef] = new Covariant[String]
-    cv: Covariant[AnyRef] = Covariant@4035acf6
-    
-    scala> val cv: Covariant[String] = new Covariant[AnyRef]
-    &lt;console&gt;:6: error: type mismatch;
-     found   : Covariant[AnyRef]
-     required: Covariant[String]
-           val cv: Covariant[String] = new Covariant[AnyRef]
-                                   ^
-
-</section><section class="slide">
-
-## Contravariance
-
-    scala> class Contravariant[-A]
-    defined class Contravariant
-    
-    scala> val cv: Contravariant[String] = new Contravariant[AnyRef]
-    cv: Contravariant[AnyRef] = Contravariant@49fa7ba
-    
-    scala> val fail: Contravariant[AnyRef] = new Contravariant[String]
-    &lt;cntraonsole&gt;:6: error: type mismatch;
-     found   : Contravariant[String]
-     required: Contravariant[AnyRef]
-           val fail: Contravariant[AnyRef] = new Contravariant[String]
-                                     ^
-
-Contravariance seems strange. When is it used? Somewhat surprising!
-
-    trait Function1 [-T1, +R] extends AnyRef
-
-If you think about this from the point of view of substitution, it makes a lot of sense. Let's first define a simple class hierarchy:
-
-    scala> class Animal { val sound = "rustle" }
-    defined class Animal
-    
-    scala> class Bird extends Animal { override val sound = "call" }
-    defined class Bird
-    
-    scala> class Chicken extends Bird { override val sound = "cluck" }
-    defined class Chicken
-
-Suppose you need a function that takes a `Bird` param:
-
-    scala> val getTweet: (Bird => String) = // TODO
-
-The standard animal library has a function that does what you want, but it takes an `Animal` parameter instead.  In most situations, if you say "I need a ___, I have a subclass of ___", you're OK. But function parameters are contravariant. If you need a function that takes a `Bird` and you have a function that takes an `Chicken`, that function would choke on a `Duck`. But a function that takes an `Animal` is OK:
-
-    scala> val getTweet: (Bird => String) = ((a: Animal) => a.sound )
-    getTweet: Bird => String = &lt;function1&gt;
-
-A function's return value type is covariant. If you need a function that returns a `Bird` but have a function that returns a `Chicken`, that's great.
-
-    scala> val hatch: (() => Bird) = (() => new Chicken )
-    hatch: () => Bird = &lt;function0&gt;
-
-</section><section class="slide">
-
-## Bounds
-
-Scala allows you to restrict polymorphic variables using _bounds_. These bounds express subtype relationships.
-
-    scala> def cacophony[T](things: Seq[T]) = things map (_.sound)
-    &lt;console&gt;:7: error: value sound is not a member of type parameter T
-           def cacophony[T](things: Seq[T]) = things map (_.sound)
-                                                            ^
-    
-    scala> def biophony[T <: Animal](things: Seq[T]) = things map (_.sound)
-    biophony: [T <: Animal](things: Seq[T])Seq[java.lang.String]
-    
-    scala> biophony(Seq(new Chicken, new Bird))
-    res5: Seq[java.lang.String] = List(cluck, call)
-
-Lower type bounds are also supported; they come in handy with contravariance and clever covariance. `List[+T]` is covariant; a list of Birds is a list of Animals. `List` defines an operator `::(elem T)` that returns a new `List` with `elem` prepended. The new `List` has the same type as the original:
-
-    scala> val flock = List(new Bird, new Bird)
-    flock: List[Bird] = List(Bird@7e1ec70e, Bird@169ea8d2)
-    
-    scala> new Chicken :: flock
-    res53: List[Bird] = List(Chicken@56fbda05, Bird@7e1ec70e, Bird@169ea8d2)
-
-`List` _also_ defines `::[B >: T](x: B)` which returns a `List[B]`. Notice the `B >: T`. That specifies type `B` as a superclass of `T`. That lets us do the right thing when prepending an `Animal` to a `List[Bird]`:
-
-    scala> new Animal :: flock
-    res59: List[Animal] = List(Animal@11f8d3a8, Bird@7e1ec70e, Bird@169ea8d2)
-
-Note that the return type is `Animal`.
-
-</section><section class="slide">
-
 ## Quantification
 
 Sometimes you do not care to be able to name a type variable, for example:
@@ -1424,44 +1295,6 @@ Instead you can use "wildcards":
 
 </section><section class="slide">
 
-## View bounds ("type classes")
-
-Sometimes you don't need to specify that one type is equal/sub/super another, just that you could fake it with conversions. A view bound specifies a type that can be "viewed as" another. This makes sense for an operation that needs to "read" an object but doesn't modify the object.
-
-*Implicit* functions allow automatic conversion. More precisely, they allow on-demand function application when this can help satisfy type inference. e.g.:
-
-    scala> implicit def strToInt(x: String) = x.toInt
-    strToInt: (x: String)Int
-    
-    scala> "123"
-    res0: java.lang.String = 123
-    
-    scala> val y: Int = "123"
-    y: Int = 123
-    
-    scala> math.max("123", 111)
-    res1: Int = 123
-
-view bounds, like type bounds demand such a function exists for the given type.  You specify a type bound with `<%` e.g.,
-
-    scala> class Container[A <% Int] { def addIt(x: A) = 123 + x }
-    defined class Container
-
-This says that *A* has to be "viewable" as *Int*.  Let's try it.
-
-    scala> (new Container[String]).addIt("123")
-    res11: Int = 246
-    
-    scala> (new Container[Int]).addIt(123) 
-    res12: Int = 246
-    
-    scala> (new Container[Float]).addIt(123.2F)
-    &lt;console&gt;:8: error: could not find implicit value for evidence parameter of type (Float) => Int
-           (new Container[Float]).addIt(123.2)
-            ^
-
-</section><section class="slide">
-
 ## Other type bounds
 
 Methods can enforce more complex type bounds via implicit parameters. For example, `List` supports `sum` on numeric contents but not on others. Alas, Scala's numeric types don't all share a superclass, so we can't just say `T <: Number`. Instead, to make this work, Scala's math library [defines an implicit `Numeric[T]` for the appropriate types T](http://www.azavea.com/blogs/labs/2011/06/scalas-numeric-type-class-pt-1/).  Then in `List`'s definition uses it:
@@ -1469,29 +1302,6 @@ Methods can enforce more complex type bounds via implicit parameters. For exampl
     sum[B >: A](implicit num: Numeric[B]): B
 
 If you invoke `List(1,2).sum()`, you don't need to pass a _num_ parameter; it's set implicitly. But if you invoke `List("whoop").sum()`, it complains that it couldn't set `num`.
-
-</section><section class="slide">
-
-## Generic programming with views
-
-In the Scala standard library, views are primarily used to implement generic functions over collections.  For example, the "min" function (on *Seq[]*), uses this technique:
-
-    def min[B >: A](implicit cmp: Ordering[B]): A = {
-      if (isEmpty)
-        throw new UnsupportedOperationException("empty.min")
-    
-      reduceLeft((x, y) => if (cmp.lteq(x, y)) x else y)
-    }
-
-Items in the collections aren't required to implement `Ordered`, but `Ordered` uses are still statically type checked.
-
-You can define your own orderings without any additional library support:
-
-    scala> List(1,2,3,4).min
-    res0: Int = 1
-    
-    scala> List(1,2,3,4).min(new Ordering[Int] { def compare(a: Int, b: Int) = b compare a })
-    res3: Int = 4
 
 </section><section class="slide">
 
