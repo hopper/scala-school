@@ -1000,9 +1000,11 @@ Tuple has some special sauce for making pairs: `->`
 
 A standard key-value map.
 
-    Map(1 -> 2)
+    Map("one" -> 1, "two" -> 2)
 
-Remember that `->` creates a pair; that method is just taking a bunch of pairs.
+That looks like special syntax, but it's just a series of pairs.
+
+    Map(("one", 1), ("two", 2))
 
 </section><section class="slide">
 
@@ -1371,28 +1373,6 @@ A `PartialFunction` is a subtype of Function so filter can also take a PartialFu
 
 </section><section class="slide">
 
-## What are static types?  Why are they useful?
-
-According to Pierce: "A type system is a syntactic method for automatically checking the absence of certain erroneous behaviors by classifying program phrases according to the kinds of values they compute."
-
-Types allow you to denote function domain & codomains. For example, from mathematics, we are used to seeing:
-
-    f: R -> N
-
-this tells us that function "f" maps values from the set of real numbers to values of the set of natural numbers.
-
-In the abstract, this is exactly what _concrete_ types are.  Type systems give us some more powerful ways to express these sets.
-
-Given these annotations, the compiler can now _statically_ (at compile time) verify that the program is _sound_. That is, compilation will fail if values (at runtime) will not comply to the constraints imposed by the program.
-
-Generally speaking, the typechecker can only guarantee that _unsound_ programs do not compile. It cannot guarantee that every sound program _will_ compile.
-
-With increasing expressiveness in type systems, we can produce more reliable code because it allows us to prove invariants about our program before it even runs (modulo bugs in the types themselves, of course!). Academia is pushing the limits of expressiveness very hard, including value-dependent types!
-
-Note that all type information is removed at compile time. It is no longer needed. This is called erasure.
-
-</section><section class="slide">
-
 ## Types in Scala
 
 Scala's powerful type system allows for very rich expression. Some of its chief features are:
@@ -1463,84 +1443,20 @@ Instead you can use "wildcards":
 
 </section><section class="slide">
 
-## Other type bounds
+## Implicits
 
-Methods can enforce more complex type bounds via implicit parameters. For example, `List` supports `sum` on numeric contents but not on others. Alas, Scala's numeric types don't all share a superclass, so we can't just say `T <: Number`. Instead, to make this work, Scala's math library [defines an implicit `Numeric[T]` for the appropriate types T](http://www.azavea.com/blogs/labs/2011/06/scalas-numeric-type-class-pt-1/).  Then in `List`'s definition uses it:
+If you mark a function or value as `implicit`, the compiler can use it to automatically
+satisfy some constraints. This is a powerful but tricky type-system feature.
 
-    sum[B >: A](implicit num: Numeric[B]): B
+Implicit conversions will let you treat one type as if it were another type.
 
-If you invoke `List(1,2).sum()`, you don't need to pass a _num_ parameter; it's set implicitly. But if you invoke `List("whoop").sum()`, it complains that it couldn't set `num`.
+    scala> "Hello World".drop(2)
+    res0: String = llo World
 
-</section><section class="slide">
+Implicit parameters let the compiler 'fill in' some of the arguments automatically.
 
-#### Context bounds & implicitly[]
-
-Scala 2.8 introduced a shorthand for threading through & accessing implicit arguments.
-
-    scala> def foo[A](implicit x: Ordered[A]) {}
-    foo: [A](implicit x: Ordered[A])Unit
-    
-    scala> def foo[A : Ordered] {}                        
-    foo: [A](implicit evidence$1: Ordered[A])Unit
-
-Implicit values may be accessed via `implicitly`
-
-    scala> implicitly[Ordering[Int]]
-    res37: Ordering[Int] = scala.math.Ordering$Int$@3a9291cf
-
-Combined, these often result in less code, especially when threading through views.
-
-</section><section class="slide">
-
-## Structural types
-
-Scala has support for *structural types* -- type requirements are expressed by interface _structure_ instead of a concrete type.
-
-	scala> def foo(x: { def get: Int }) = 123 + x.get
-	foo: (x: AnyRef{def get: Int})Int
-
-	scala> foo(new { def get = 10 })                 
-	res0: Int = 133
-
-This can be quite nice in many situations, but the implementation uses reflection, so be performance-aware!
-
-</section><section class="slide">
-
-## Abstract type members
-
-In a trait, you can leave type members abstract.
-
-	scala> trait Foo { type A; val x: A; def getX: A = x }
-	defined trait Foo
-
-	scala> (new Foo { type A = Int; val x = 123 }).getX   
-	res3: Int = 123
-
-	scala> (new Foo { type A = String; val x = "hey" }).getX
-	res4: java.lang.String = hey
-
-This is often a useful trick when doing dependency injection, etc.
-
-You can refer to an abstract type variable using the hash-operator:
-
-	scala> trait Foo[M[_]] { type t[A] = M[A] }
-	defined trait Foo
-
-	scala> val x: Foo[List]##t[Int] = List(1)
-	x: List[Int] = List(1)
-
-</section><section class="slide">
-
-## Type erasures & manifests
-
-As we know, type information is lost at compile time due to _erasure_. Scala features *Manifests*, allowing us to selectively recover type information. Manifests are provided as an implicit value, generated by the compiler as needed.
-
-	scala> class MakeFoo[A](implicit manifest: Manifest[A]) {
-	     |   def make: A = manifest.erasure.newInstance.asInstanceOf[A]
-	     | }
-
-	scala> (new MakeFoo[String]).make
-	res10: String = ""
+    scala> List(1,2,3,4).sum
+    res0: Int = 10
 
 </section>
 <form action="." method="get" class="goto-form">
