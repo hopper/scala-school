@@ -1282,6 +1282,10 @@ Maps can be thought of as a collection of pairs, so all the collection methods w
 
 </section><section class="slide">
 
+# More about Functions
+
+</section><section class="slide">
+
 ## `andThen`
 
 `andThen` is used to chain the output of one function as the input to another.
@@ -1293,47 +1297,25 @@ Maps can be thought of as a collection of pairs, so all the collection methods w
     scala> cleanup("  input string ")
     res0: String = INPUT STRING
 
-`
-
 </section><section class="slide">
 
-## `case` statements
+## `PartialFunction`
 
-#### So just what are case statements?
-
-It's a subclass of function called a PartialFunction.
-
-#### What is a collection of multiple case statements?
-
-They are multiple PartialFunctions composed together.
-
-</section><section class="slide">
-
-## Understanding `PartialFunction`
-
-A function works for every argument of the defined type. In other words, a function defined as (Int) => String takes any Int and returns a String.
-
-A Partial Function is only defined for certain values of the defined type.  A Partial Function (Int) => String might not accept every Int.
+A Partial Function is a function that's only defined for certain values of the defined type.
 
 `isDefinedAt` is a method on PartialFunction that can be used to determine if the PartialFunction will accept a given argument.
 
-__Note__ `PartialFunction` is unrelated to a partially applied function that we talked about earlier.
-
-*See Also* Effective Scala has opinions about [PartialFunction](http://twitter.github.com/effectivescala/##Functional%20programming-Partial%20functions).
-
-    scala> val one: PartialFunction[Int, String] = { case 1 => "one" }
-    one: PartialFunction[Int,String] = &lt;function1&gt;
+    scala> val stars = new PartialFunction[Int, String] {
+      def apply(n: Int) = "*" * n
+      def isDefinedAt(n: Int) = n >= 0
+    }
+    stars: PartialFunction[Int,String] = &lt;function1&gt;
     
-    scala> one.isDefinedAt(1)
+    scala> stars.isDefinedAt(1)
     res0: Boolean = true
     
-    scala> one.isDefinedAt(2)
+    scala> stars.isDefinedAt(-1)
     res1: Boolean = false
-
-You can apply a partial function.
-
-    scala> one(1)
-    res2: String = one
 
 </section><section class="slide">
 
@@ -1344,20 +1326,21 @@ You can define a 'fallback' `PartialFunction` using the `orElse` method.
     scala> val wildcard: PartialFunction[Int, String] = { case _ => "something else" }
     wildcard: PartialFunction[Int,String] = &lt;function1&gt;
     
-    scala> val partial = one orElse wildcard
+    scala> val partial = stars orElse wildcard
     partial: PartialFunction[Int,String] = &lt;function1&gt;
     
-    scala> partial(1)
-    res27: String = one
+    scala> partial(5)
+    res27: String = *****
     
-    scala> partial(0)
+    scala> partial(-1)
     res28: String = something else
 
 </section><section class="slide">
 
 ## The mystery of `case`
 
-Last week we saw something curious. We saw a case statement used where a function is normally used.
+A `case` statement is a partial function. It's defined if any of the match statements match.
+Since it's just a function, it can be used anywhere a function is used.
 
     scala> case class PhoneExt(name: String, ext: Int)
     defined class PhoneExt
@@ -1367,12 +1350,6 @@ Last week we saw something curious. We saw a case statement used where a functio
     
     scala> extensions.filter { case PhoneExt(name, extension) => extension < 200 }
     res0: List[PhoneExt] = List(PhoneExt(steve,100))
-
-Why does this work?
-
-`filter` takes a function. In this case a predicate function of `(PhoneExt) => Boolean.`
-
-A `PartialFunction` is a subtype of Function so filter can also take a PartialFunction!
 
 </section><section class="slide">
 
@@ -1387,7 +1364,6 @@ Scala's powerful type system allows for very rich expression. Some of its chief 
 * *parametric polymorphism*: roughly, generic programming
 * *(local) type inference*: roughly, why you needn't say `val i: Int = 12: Int`
 * *existential quantification*: roughly, defining something _for some_ unnamed type
-* *views*: we'll learn these next week; roughly, "castability" of values of one type to another
 
 </section><section class="slide">
 
