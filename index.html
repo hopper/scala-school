@@ -33,50 +33,53 @@
 
 	<style>
 	  div.header {
-		  position: absolute;
-		  top: 25px;
-		  right: 10px;
-		  height: 50px;
-		  width: 150px;
-		  z-index: 10;
-	      background-image: url('hopper-logo-desktop-bar.png');
-		  background-repeat: no-repeat;
-	}
-	body {
-	}
-	.deck-container {
+		position: absolute;
+		top: 20px;
+		right: 20px;
+		z-index: 10;
+      }
+
+	  .deck-container {
 		background-color: #fdf6e3;
 		background-image: none;
-    color: #073642;
-	}
-  .deck-container .slide h2 {
-    border-bottom: none;
-  }
-	.slide pre {
+        color: #073642;
+	  }
+    
+	  .deck-container .slide h2 {
+        border-bottom: none;
+      }
+	  
+	  .slide pre {
 		border: none;
-    padding: 0em;
-	}
-  .deck-container .slide code {
-    color: #d33682;
-    font-size: 120%;
-  }
-  .deck-container .slide pre code {
-    color: #839496;
-    font-size: 100%;
-    padding: 1em;
-    border-radius: 1em;
-  }
-  .deck-container .slide a {
-    color: #268bd2;
-  }
-	.slide table {
+        padding: 0em;
+	  }
+  
+      .deck-container .slide code {
+        color: #d33682;
+        font-size: 120%;
+      }
+  
+      .deck-container .slide pre code {
+        color: #839496;
+        font-size: 100%;
+        padding: 1em;
+        border-radius: 1em;
+      }
+  
+      .deck-container .slide a {
+        color: #268bd2;
+      }
+	
+	  .slide table {
 		border-collapse: inherit;
 		border-spacing: 1em;
-	}
+	  }
 	</style>
 </head>
 <body>
-	<div class="header"></div>
+	<div class="header">
+		<img height="75" width="75" src="logo-bunnytop-color-on-white.png"></img>
+	</div>
 	<div class="deck-container">
 <section class="slide">
 # Scala School
@@ -168,23 +171,6 @@ Scala is a `sca`lable `la`nguage. It can scale as you need it to. This is Scala:
 </section>
 
 <section class="slide">
-## And this is Scala
-
-Write BASIC in Scala!
-<pre><code>object SquareRoot extends Baysick {
-  def main(args: Array[String]) = {
-    10 PRINT "Enter a number"
-    20 INPUT 'n
-    30 PRINT "Square root of " % "'n is " % SQRT('n)
-    40 END
-
-    RUN
-  }
-}
-</code></pre>
-</section>
-
-<section class="slide">
 ## And this is scala
 
 A word count Map/Reduce job using Scoobi
@@ -202,7 +188,7 @@ A word count Map/Reduce job using Scoobi
 <section class="slide no-md">
 <h2>And this is Scala</h2>
 
-<p>Query MongoDB using Rogue (Foursquare)</p>
+<p>Query MongoDB using Rogue (from Foursquare)</p>
 
 <pre><code> def update() = {
   VenueRole where (_.venueid eqs this.id) 
@@ -212,7 +198,26 @@ A word count Map/Reduce job using Scoobi
 }
 </code>
 </pre>
-</section><section class="slide">
+</section>
+
+<section class="slide">
+## And this is Scala
+
+Write BASIC in Scala!
+<pre><code>object SquareRoot extends Baysick {
+  def main(args: Array[String]) = {
+    10 PRINT "Enter a number"
+    20 INPUT 'n
+    30 PRINT "Square root of " % "'n is " % SQRT('n)
+    40 END
+
+    RUN
+  }
+}
+</code></pre>
+</section>
+
+<section class="slide">
 
 ## How Scala?
 
@@ -231,8 +236,15 @@ Although Scala is simply a jar file on your classpath, it is not just a library 
 
 ## Start the Interpreter
 
-Start the included `sbt console`.
+Let's start the Scala REPL. Easiest way is to use `sbt`.
 
+    apt-get install sbt
+	or
+    brew install sbt
+	or
+	git clone https://github.com/twitter/finagle.git && cd finagle
+
+Then start the `sbt console`.
 
     $ sbt console
 
