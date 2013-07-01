@@ -999,6 +999,9 @@ Sets have no duplicates.
     scala> Set(1, 1, 2)
     res0: scala.collection.immutable.Set[Int] = Set(1, 2)
 
+    scala> res0 contains 5
+    res1: Boolean = false
+
 </section><section class="slide">
 
 ## Tuple
@@ -1100,11 +1103,9 @@ Pattern matching fits naturally with `Option`.
       case None => 0
     }
 
-*See Also* Effective Scala has opinions about [Options](http://twitter.github.com/effectivescala/##Functional%20programming-Options).
-
 </section><section class="slide">
 
-## Functional Combinators
+## Functional 'Combinators'
 
 `List(1, 2, 3) map squared` applies the function `squared` to the elements of the the list, returning a new list, perhaps `List(1, 4, 9)`. We call operations like `map` <em>combinators</em>. (If you'd like a better definition, you might like [Explanation of combinators](http://stackoverflow.com/questions/7533837/explanation-of-combinators-for-the-working-man) on Stackoverflow.) Their most common use is on the standard data structures.
 
@@ -1131,9 +1132,7 @@ or pass in a partially evaluated function
 
 `foreach` is like map but returns nothing. It is intended for side-effects only.
 
-    scala> numbers.foreach((i: Int) => i * 2)
-
-returns nothing.
+    scala> numbers.foreach((i: Int) => println(i))
 
 You can try to store the return in a value but it'll be of type Unit (i.e. void)
 
@@ -1144,7 +1143,7 @@ You can try to store the return in a value but it'll be of type Unit (i.e. void)
 
 ## `filter`
 
-removes any elements where the function you pass in evaluates to false.  Functions that return a Boolean are often called predicate functions.
+`filter` removes any elements where the function you pass in evaluates to false.  Functions that return a Boolean are often called predicate functions.
 
     scala> numbers.filter((i: Int) => i % 2 == 0)
     res0: List[Int] = List(2, 4)
@@ -1152,7 +1151,7 @@ removes any elements where the function you pass in evaluates to false.  Functio
     scala> def isEven(i: Int): Boolean = i % 2 == 0
     isEven: (i: Int)Boolean
     
-    scala> numbers.filter(isEven _)
+    scala> numbers.filter(isEven)
     res2: List[Int] = List(2, 4)
 
 </section><section class="slide">
@@ -1163,6 +1162,11 @@ removes any elements where the function you pass in evaluates to false.  Functio
 
     scala> List(1, 2, 3).zip(List("a", "b", "c"))
     res0: List[(Int, String)] = List((1,a), (2,b), (3,c))
+
+`unzip` does the opposite.
+
+    scala> res0.unzip
+    res1: (List[Int], List[String]) = (List(1, 2, 3),List(a, b, c))
 
 </section><section class="slide">
 
@@ -1277,7 +1281,7 @@ Maps can be thought of as a collection of pairs, so all the collection methods w
     scala> val extensions = Map("steve" -> 100, "bob" -> 101, "joe" -> 201)
     extensions: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101), (joe,201))
 
-    scala> extensions.filter {case (_, extension) => extension < 200 }
+    scala> extensions.filter { _._2 < 200 }
     res0: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101))
 
 </section><section class="slide">
@@ -1440,6 +1444,14 @@ Implicit parameters let the compiler 'fill in' some of the arguments automatical
 
     scala> List(1,2,3,4).sum
     res0: Int = 10
+
+</section><section class="slide">
+
+## Resources
+
+* Scala School: http://twitter.github.io/scala_school/
+* Effective Scala: http://twitter.github.io/effectivescala/
+* Coursera: https://www.coursera.org/course/progfun
 
 </section>
 <form action="." method="get" class="goto-form">
