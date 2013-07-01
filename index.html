@@ -20,7 +20,7 @@
 
 	<!-- Style theme. More available in /themes/style/ or create your own. -->
 	<!--<link rel="stylesheet" href="themes/style/web-2.0.css">-->
-	<link rel="stylesheet" href="themes/deckjs-theme-mozilla/sandstone.nightly.css">
+	<link rel="stylesheet" href="themes/deckjs-theme-mozilla/sandstone.dark.css">
 
 	<!-- Transition theme. More available in /themes/transition/ or create your own. -->
 	<link rel="stylesheet" href="themes/transition/horizontal-slide.css">
@@ -52,13 +52,47 @@
 </section>
 
 <section class="slide">
+## Disclaimer
+
+The content of these slides is a modified/adapted version of Twitter's Scala School project: http://twitter.github.io/scala_school/
+
+Twitter is commited to training their new hires in Scala and we think that's cool. We also think that Scala is cool and we want you to think that as well.
+
+Anyways, so credits goes to the guys at Twitter for building this material.
+</section>
+
+<section class="slide">
+## Scala at Hopper
+At hopper, we're building the largest structured database of travel information. We tackle complex problems at large scales so we like to have the right tools so we can focus on those problems.
+
+* Started being used in 2011, only marginally/informally
+* Became 50/50 (with Java) in 2012
+* Hopper is officially a "Scala shop" in 2013
+  * 100% of our new backend code is Scala
+  * Java code being replaced as we replace components
+
+We've replaced several complex core components. Everytime, the process cut down the amount of code by at least half.
+</section>
+
+<section class="slide">
+## Scala at Hopper
+
+Today, we use Scala everywhere
+
+* Hadoop M/R
+* Storm
+* RPC services
+* Web frontend tools (not the actual Web Application though)
+* Data Analytics
+* anywhere we can!
+</section>
+
+<section class="slide">
 ## About this class
 
-The first few weeks will cover basic syntax and concepts, then we'll start to open it up with more exercises.
+The first session will cover basics: syntax and concepts. The second session will be more hands-on.
 
-Some examples will be given as if written in the interpreter and others as if written in a source file.
-
-Having an interpreter available makes it easy to explore a problem space.
+Today, we encourage you to follow along with your own interpreter so you can explore things on your own.
 
 </section><section class="slide">
 
@@ -394,12 +428,17 @@ Use the `new` keyword to construct an instance:
 
 Our BasicCalculator example gave an example of how Scala is expression-oriented.  The value color was bound based on an if/else expression. Scala is highly expression-oriented: most things are expressions rather than statements.
 
+    scala> val notation = if(calc.color == "black") "reverse polish" else "infix"
+	notation : java.lang.String = "reverse polish"
+
 </section><section class="slide">
 
 ## Inheritance
 
     class ScientificCalculator(brand: String) extends Calculator(brand) {
-      def log(m: Double, base: Double) = math.log(m) / math.log(base)
+      def log(m: Double, base: Double) = {
+        math.log(m) / math.log(base)
+      }
     }
 
 </section><section class="slide">
@@ -446,6 +485,10 @@ You can define an `abstract class`, a class that defines some methods but does n
 
     trait Shiny {
       val shineRefraction: Int
+
+	  def computeShinyness(light: Double) = {
+	    shineRefraction * light
+	  }
     }
 
     class BMW extends Car {
@@ -458,7 +501,6 @@ One class can extend several traits using the `with` keyword:
       val brand = "BMW"
       val shineRefraction = 12
     }
-
 </section><section class="slide">
 
 ## Type Parameters
@@ -504,9 +546,14 @@ In Scala, functions are represented by a set of traits: `Function0` through `Fun
       def apply(x: Int): Int = x * 2
     }
 
-is eqivalent to
+is equivalent to
 
     val double = { x: Int => x * 2} 
+	
+For the ones that noticed, the interpreter already told you that:
+
+    scala> val double = { x : Int => x * 2}
+    double: Int => Int = &lt;function1&gt;
 
 </section><section class="slide">
 
@@ -541,6 +588,28 @@ at the top of a file will declare everything in the file to be in that package. 
 
     import com.twitter.example.ExampleClass
 
+You can import everything from a package by using the wildcard:
+
+    import com.twitter.example._
+
+You can rename symbols when importing into your local scope:
+
+    import java.util.{List => UtilList}
+
+</section><section class="slide">
+
+## Package Objects
+
+You can create an object for your package. These can be used to delcare anything (traits, classes, functions, etc.) It is often used to declare functions, constants and type definitions, because these cannot be declared out of "thin air": they need to be attached to an object.
+
+    package com.twitter
+
+    package object example {
+	  val SomeConstant = 42
+
+	  def theMeaningOfLifeTheUniverseAndEverything() = SomeConstant
+
+	}
     
 </section><section class="slide">
 
@@ -654,7 +723,6 @@ Other alternatives for that last match
       case c@Calculator(_, _) => "Calculator: %s of unknown type".format(c)
 
 </section><section class="slide">
-
 ## Exceptions
 
 Exceptions are available in Scala via a try-catch-finally syntax that uses pattern matching.
@@ -667,6 +735,8 @@ Exceptions are available in Scala via a try-catch-finally syntax that uses patte
       remoteCalculatorService.close()
     }
 
+</section><section class="slide">
+## Exceptions (contd)
 `try`s are also expression-oriented
 
     val result: Int = try {
@@ -692,14 +762,14 @@ Scala has no concept of checked-exceptions: you are never required to surround a
 
 </section><section class="slide">
 
-## Lists
+## `List`
 
     scala> val numbers = List(1, 2, 3, 4)
     numbers: List[Int] = List(1, 2, 3, 4)
 
 </section><section class="slide">
 
-## Sets
+## `Set`
 
 Sets have no duplicates
 
@@ -737,7 +807,7 @@ Tuple has some special sauce for simply making Tuples of 2 values: `->`
 
 </section><section class="slide">
 
-## Maps
+## `Map`
 
 It can hold basic datatypes.
 
@@ -746,7 +816,7 @@ It can hold basic datatypes.
 
 This looks like special syntax but remember back to our discussion of Tuple that `->` can be use to create Tuples.
 
-Map() also uses that variable argument syntax we learned back in Lesson #1: `Map(1 -> "one", 2 -> "two")` which expands into `Map((1, "one"), (2, "two"))` with the first element being the key and the second being the value of the Map.
+`Map()` also uses that variable argument syntax we learned back in Lesson #1: `Map(1 -> "one", 2 -> "two")` which expands into `Map((1, "one"), (2, "two"))` with the first element being the key and the second being the value of the Map.
 
 Maps can themselves contain Maps or even functions as values.
 
@@ -756,7 +826,7 @@ Maps can themselves contain Maps or even functions as values.
 
 </section><section class="slide">
 
-## Option
+## `Option`
 
 `Option` is a container that may or may not hold something.
 
@@ -768,7 +838,7 @@ The basic interface for Option looks like:
       def getOrElse(t: T): T
     }
 
-Option itself is generic and has two subclasses: `Some[T]` or `None`
+`Option` itself is generic and has two subclasses: `Some[T]` or `None`
 
 Let's look at an example of how Option is used:
 
@@ -786,6 +856,8 @@ Let's look at an example of how Option is used:
 Now our data appears trapped in this `Option`. How do we work with it?
 
 </section><section class="slide">
+
+## `Option` (contd)
 
 A first instinct might be to do something conditionally based on the `isDefined` method.
 
@@ -819,7 +891,7 @@ Pattern matching fits naturally with `Option`.
 
 </section><section class="slide">
 
-## map
+## `map`
 
 Evaluates a function over each element in the list, returning a list with the same number of elements.
 
@@ -836,9 +908,9 @@ or pass in a partially evaluated function
 
 </section><section class="slide">
 
-## foreach
+## `foreach`
 
-foreach is like map but returns nothing. foreach is intended for side-effects only.
+`foreach` is like map but returns nothing. It is intended for side-effects only.
 
     scala> numbers.foreach((i: Int) => i * 2)
 
@@ -851,7 +923,7 @@ You can try to store the return in a value but it'll be of type Unit (i.e. void)
 
 </section><section class="slide">
 
-## filter
+## `filter`
 
 removes any elements where the function you pass in evaluates to false.  Functions that return a Boolean are often called predicate functions.
 
@@ -866,16 +938,16 @@ removes any elements where the function you pass in evaluates to false.  Functio
 
 </section><section class="slide">
 
-## zip
+## `zip`
 
-zip aggregates the contents of two lists into a single list of pairs.
+`zip` aggregates the contents of two lists into a single list of pairs.
 
     scala> List(1, 2, 3).zip(List("a", "b", "c"))
     res0: List[(Int, String)] = List((1,a), (2,b), (3,c))
 
 </section><section class="slide">
 
-## partition
+## `partition`
 
 `partition` splits a list based on where it falls with respect to a predicate function.
 
@@ -886,16 +958,16 @@ zip aggregates the contents of two lists into a single list of pairs.
 
 </section><section class="slide">
 
-## find
+## `find`
 
-find returns the first element of a collection that matches a predicate function.
+`find` returns the first element of a collection that matches a predicate function (as an `Option`).
 
     scala> numbers.find((i: Int) => i > 5)
     res0: Option[Int] = Some(6)
 
 </section><section class="slide">
 
-## drop & dropWhile
+## `drop` & `dropWhile`
 
 `drop` drops the first i elements
 
@@ -909,12 +981,12 @@ find returns the first element of a collection that matches a predicate function
 
 </section><section class="slide">
 
-## foldLeft
+## `foldLeft`
 
     scala> numbers.foldLeft(0)((m: Int, n: Int) => m + n)
     res0: Int = 55
 
-0 is the starting value (Remember that numbers is a List[Int]), and m
+0 is the starting value (Remember that numbers is a `List[Int]`), and m
 acts as an accumulator.
 
 Seen visually:
@@ -934,9 +1006,9 @@ Seen visually:
 
 </section><section class="slide">
 
-## foldRight
+## `foldRight`
 
-Is the same as foldLeft except it runs in the opposite direction.
+Is the same as `foldLeft` except it runs in the opposite direction.
 
     scala> numbers.foldRight(0) { (m: Int, n: Int) => println("m: " + m + " n: " + n); m + n }
     m: 10 n: 0
@@ -953,18 +1025,18 @@ Is the same as foldLeft except it runs in the opposite direction.
 
 </section><section class="slide">
 
-## flatten
+## `flatten`
 
-flatten collapses one level of nested structure.
+`flatten` collapses one level of nested structure.
 
     scala> List(List(1, 2), List(3, 4)).flatten
     res0: List[Int] = List(1, 2, 3, 4)
 
 </section><section class="slide">
 
-## flatMap
+## `flatMap`
 
-flatMap is a frequently used combinator that combines mapping and flattening. flatMap takes a function that works on the nested lists and then concatenates the results back together.
+`flatMap` is a frequently used combinator that combines mapping and flattening. `flatMap` takes a function that works on the nested lists and then concatenates the results back together.
 
     scala> val nestedNumbers = List(List(1, 2), List(3, 4))
     nestedNumbers: List[List[Int]] = List(List(1, 2), List(3, 4))
@@ -983,9 +1055,9 @@ that example calling map and then flatten is an example of the "combinator"-like
 
 </section><section class="slide">
 
-## Map?
+## What about `Map`?
 
-All of the functional combinators shown work on Maps, too.  Maps can be thought of as a list of pairs so the functions you write work on a pair of the keys and values in the Map.
+All of the functional combinators shown work on Maps, too. Maps can be thought of as a list of pairs so the functions you write work on a pair of the keys and values in the Map.
 
     scala> val extensions = Map("steve" -> 100, "bob" -> 101, "joe" -> 201)
     extensions: scala.collection.immutable.Map[String,Int] = Map((steve,100), (bob,101), (joe,201))
@@ -1016,7 +1088,7 @@ Let's make two aptly-named functions:
 
 </section><section class="slide">
 
-## compose
+## `compose`
 
 `compose` makes a new function that composes other functions `f(g(x))`
 
@@ -1028,7 +1100,7 @@ Let's make two aptly-named functions:
 
 </section><section class="slide">
 
-## andThen
+## `andThen`
 
 `andThen` is like `compose`, but calls the first function and then the second, `g(f(x))`
 
@@ -1040,7 +1112,7 @@ Let's make two aptly-named functions:
 
 </section><section class="slide">
 
-## case statements
+## `case` statements
 
 #### So just what are case statements?
 
@@ -1052,7 +1124,7 @@ They are multiple PartialFunctions composed together.
 
 </section><section class="slide">
 
-## Understanding PartialFunction
+## Understanding `PartialFunction`
 
 A function works for every argument of the defined type. In other words, a function defined as (Int) => String takes any Int and returns a String.
 
@@ -1080,9 +1152,9 @@ You can apply a partial function.
 
 </section><section class="slide">
 
-## Partial Functions (ctd.)
+## `Partial Functions` (contd)
 
-PartialFunctions can be composed with something new, called orElse, that reflects whether the PartialFunction is defined over the supplied argument.
+`PartialFunction` can be composed with something new, called orElse, that reflects whether the PartialFunction is defined over the supplied argument.
 
     scala> val two: PartialFunction[Int, String] = { case 2 => "two" }
     two: PartialFunction[Int,String] = &lt;function1&gt;
@@ -1130,7 +1202,7 @@ Why does this work?
 
 `filter` takes a function. In this case a predicate function of `(PhoneExt) => Boolean.`
 
-A PartialFunction is a subtype of Function so filter can also take a PartialFunction!
+A `PartialFunction` is a subtype of Function so filter can also take a PartialFunction!
 
 </section><section class="slide">
 
