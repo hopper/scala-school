@@ -117,6 +117,8 @@ A Future has methods to register callbacks to invoke when the value becomes avai
 
 Futures have combinators similar to those in the collections APIs (e.g., `map`, `flatMap`). These combinators that turn inputs and functions into Futures they help you define your asynchronous API in terms of other asynchronous APIs.
 
+These methods are there to keep you out of 'callback hell'. Instead of deeply nested callbacks, we can define a chain of processing that resembles sequential code.
+
 </section><section class="slide">
 
 ## `flatMap`
