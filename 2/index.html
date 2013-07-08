@@ -183,6 +183,32 @@ Filters compose together with `andThen`. Providing a `Service` as an argument to
 
 </section><section class="slide">
 
+# Toy App: City Search
+
+</section><section class="slide">
+
+## Requirements
+
+Let's implement an HTTP service that, given an address, will return the city where this address is located.
+
+* Take a free-form string
+* Returns a JSON response
+* Use Google's geocoder
+* Cache responses (ideally with a ttl)
+
+</section><section class="slide no-md">
+	<h2>First Implementation</h2>
+	<table class="toy-app">
+		<thead>
+			<tr><th></th><th>HTTP Server</th><th>City Service</th><th>Geocoder</th><th>Google</th></tr>
+		</thead>
+		<tbody>
+			<tr><td>Request</td><td>HTTPRequest</td><td>String</td><td>String</td><td>HTTPRequest</td></tr>
+			<tr><td>Response</td><td>HTTPResponse</td><td>City</td><td>GeocoderResponse</td><td>HTTPResponse</td></tr>
+		</tbody>
+	</table>
+	
+</section><section class="slide">
 ## Hacking
 
 - Install SBT ('simple' build tool)
@@ -192,11 +218,12 @@ Filters compose together with `andThen`. Providing a `Service` as an argument to
   - Intellij IDEA: install Scala Plugin, then `gen-idea` in sbt
   - Others: Google!
 - Clone the example repo
-  - TODO
+  - `git clone https://github.com/hopper/scala-school-2.git`
 - Launch the app (in sbt)
-  - `school-geocode/run-main com.hopper.scala.school.geocode.GeocodeServer`
-
+  - `school-geocode/run-main school.geocode.GeocodeServer`
 </section>
+
+
 <form action="." method="get" class="goto-form">
 	<label for="goto-slide">Go to slide:</label>
 	<input type="text" name="slidenum" id="goto-slide" list="goto-datalist">
