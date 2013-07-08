@@ -179,6 +179,21 @@ Filters compose together with `andThen`. Providing a `Service` as an argument to
 
     val service = rateLimit andThen authenticate andThen handleRequest
 
+</section><section class="slide">
+
+## Hacking
+
+- Install SBT ('simple' build tool)
+  - http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html#installing-sbt
+- Set up an envrionment (optional) 
+  - Eclipse: http://scala-ide.org/, then `eclipse with-source=true` in sbt  
+  - Intellij IDEA: install Scala Plugin, then `gen-idea` in sbt
+  - Others: Google!
+- Clone the example repo
+  - TODO
+- Launch the app (in sbt)
+  - `school-geocode/run-main com.hopper.scala.school.geocode.GeocodeServer`
+
 </section>
 <form action="." method="get" class="goto-form">
 	<label for="goto-slide">Go to slide:</label>
